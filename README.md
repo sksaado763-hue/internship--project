@@ -2,9 +2,9 @@
 
 An original, privacy-minded foundation for a growing library of focused online tools. This repository uses a React and Vite client, an Express REST API, and MongoDB through Mongoose.
 
-## Day 1 · Step 1: Project foundation
+## Current build: design system and home page
 
-This first step establishes a runnable frontend and backend, workspace scripts, environment configuration, and baseline server security. Tool pages, the finished design system, and database-backed catalog endpoints are planned for subsequent steps.
+The app now has a responsive landing page, persistent light and dark themes, keyboard-accessible navigation and dialogs, shared interface components, and the Express/MongoDB foundation. Tool pages and the searchable tool registry are the next build steps.
 
 ## Requirements
 
@@ -17,7 +17,7 @@ This first step establishes a runnable frontend and backend, workspace scripts, 
 From the repository root:
 
 ```bash
-npm install
+npm ci
 ```
 
 Copy `server/.env.example` to `server/.env`, then set `MONGODB_URI` to your local or hosted MongoDB connection string. `.env` files are ignored by Git.
@@ -39,9 +39,9 @@ npm run dev:server
 
 The Vite client runs at <http://localhost:5173>. The Express API runs at <http://localhost:5000>.
 
-## Verify the starter
+## Verify the app
 
-- Open <http://localhost:5173> to view the Meridian Tools foundation page.
+- Open the Vite URL printed in the terminal (usually <http://localhost:5173>) to view the landing page.
 - Open <http://localhost:5000/api/health>. A running API returns `{"success":true,"message":"API is running"}`.
 - MongoDB is optional for this starter health route; without a configured URI, the API logs a warning and starts without database access.
 
@@ -63,18 +63,23 @@ The Vite client runs at <http://localhost:5173>. The Express API runs at <http:/
 | express-rate-limit | Baseline API request throttling |
 | concurrently | Run client and server scripts together |
 
-## Initial structure
+## Structure
 
 ```text
-client/                 React + Vite application
-  src/App.jsx            Starter landing screen
-  src/main.jsx           Browser entry point and router provider
-  src/styles.css         Starter responsive styles and Tailwind layers
-server/                 Express + Mongoose application
-  src/app.js             Middleware and health endpoint
-  src/server.js          Environment loading, DB connection, HTTP listener
-  .env.example           Local environment variable template
-package.json             npm workspaces and root scripts
+client/                         React + Vite application
+  src/App.jsx                    Lazy routes, theme provider, and search state
+  src/components/common/         Buttons, badges, search field, accessible dialog
+  src/components/layout/         Responsive navigation, page layout, footer
+  src/context/ThemeContext.jsx   Persistent light/dark theme
+  src/data/siteContent.js        Shared navigation, category, and stat content
+  src/pages/                     Home and not-found pages
+  src/styles.css                 Central design tokens and responsive styles
+  src/main.jsx                   Browser entry point and router provider
+server/                         Express + Mongoose application
+  src/app.js                     Middleware and health endpoint
+  src/server.js                  Environment loading, DB connection, HTTP listener
+  .env.example                   Local environment variable template
+package.json                     npm workspaces and root scripts
 ```
 
 ## API
@@ -85,7 +90,6 @@ Returns `200 OK` with `{ "success": true, "message": "API is running" }`.
 
 ## Next steps
 
-1. Establish the shared design system, responsive navigation, footer, and home page.
-2. Add the tool registry and reusable tool page components.
-3. Implement the word counter, character counter, and case converter with browser-side logic.
-4. Add MongoDB models and service/controller-based catalog endpoints.
+1. Add the tool registry and reusable tool page components.
+2. Implement the word counter, character counter, and case converter with browser-side logic.
+3. Add MongoDB models and service/controller-based catalog endpoints.
