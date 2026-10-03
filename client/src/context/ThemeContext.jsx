@@ -11,7 +11,7 @@ function getInitialTheme() {
     // The app still works when browser storage is unavailable.
   }
 
-  return 'dark';
+  return 'light';
 }
 
 export function ThemeProvider({ children }) {

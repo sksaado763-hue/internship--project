@@ -68,7 +68,7 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
     <header className="site-header">
       <div className="nav-shell page-container">
         <a className="brand" href="/#home" aria-label="Meridian Tools home">
-          <span className="brand-mark"><Boxes size={19} strokeWidth={2.2} aria-hidden="true" /></span>
+          <span className="brand-mark"><Boxes size={31} strokeWidth={2.2} aria-hidden="true" /></span>
           <span>meridian<span className="brand-light">.tools</span></span>
         </a>
 

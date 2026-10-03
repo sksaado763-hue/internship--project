@@ -49,26 +49,28 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
         </div>
 
         <div className="hero-visual" aria-hidden="true">
-          <div className="visual-orbit visual-orbit--outer" />
-          <div className="visual-orbit visual-orbit--inner" />
-          <div className="visual-glow" />
-          <div className="visual-panel visual-panel--back">
-            <span className="visual-line visual-line--short" />
-            <span className="visual-line" />
-            <span className="visual-line visual-line--medium" />
-            <div className="visual-spark"><Sparkles size={15} /></div>
+          <div className="dashboard-window">
+            <div className="dashboard-window-header">
+              <span className="dashboard-window-controls"><i /><i /><i /></span>
+              <span className="dashboard-brand-label">Meridian workspace</span>
+              <span className="dashboard-status"><span /> READY</span>
+            </div>
+            <div className="dashboard-stat-grid">
+              <div className="dashboard-stat dashboard-stat--violet"><span>Speed</span><strong>Instant</strong><small>Runs in your browser</small></div>
+              <div className="dashboard-stat dashboard-stat--blue"><span>Useful tools</span><strong>06</strong><small>Ready for your workflow</small></div>
+              <div className="dashboard-stat dashboard-stat--green"><span>Privacy</span><strong>Local</strong><small>Your text stays yours</small></div>
+            </div>
+            <div className="dashboard-activity">
+              <div className="dashboard-activity-heading"><span><Sparkles size={14} aria-hidden="true" /> Your workspace</span><span className="dashboard-live">PRIVATE BY DESIGN</span></div>
+              <div className="dashboard-chart" aria-hidden="true">
+                {[34, 55, 42, 71, 49, 84, 61, 45, 74, 52, 91, 63, 47, 77, 57, 68].map((height, index) => <span className="dashboard-chart-bar" style={{ '--bar-height': `${height}%` }} key={`${height}-${index}`} />)}
+              </div>
+              <div className="dashboard-chart-labels"><span>Write</span><span>Format</span><span>Convert</span><span>Keep moving</span></div>
+            </div>
           </div>
-          <div className="visual-panel visual-panel--front">
-            <div className="visual-topline"><span /><span /><span /></div>
-            <div className="visual-panel-heading">Made for the moment</div>
-            <span className="visual-line visual-line--long" />
-            <span className="visual-line visual-line--medium" />
-            <div className="visual-progress"><span /></div>
-            <div className="visual-caption"><Zap size={12} /> QUICK · PRIVATE · FREE</div>
-          </div>
-          <div className="visual-float visual-float--one"><span className="float-icon float-icon--blue"><FileText size={16} /></span><span>Simple by design</span></div>
-          <div className="visual-float visual-float--two"><span className="float-icon float-icon--green"><LockKeyhole size={15} /></span><span>Private by default</span></div>
-          <div className="visual-stamp"><span>TOOLS<br />FOR GOOD<br />WORK</span><ArrowUpRight size={15} /></div>
+          <div className="hero-float hero-float--developer"><span className="hero-float-icon hero-float-icon--violet"><Code2 size={17} /></span><span><small>DEVELOPER TOOLS</small><strong>Clear, useful helpers</strong></span></div>
+          <div className="hero-float hero-float--private"><span className="hero-float-icon hero-float-icon--green"><LockKeyhole size={16} /></span><span><small>YOUR CONTENT</small><strong>Stays on your device</strong></span></div>
+          <div className="hero-float hero-float--seo"><span className="hero-float-icon hero-float-icon--blue"><TrendingUp size={16} /></span><span><small>TEXT WORKFLOW</small><strong>Less busywork</strong></span></div>
         </div>
       </section>
 
