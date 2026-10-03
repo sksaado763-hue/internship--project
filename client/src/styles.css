@@ -457,6 +457,7 @@ img, svg { display: block; }
 .tool-action-row { display: flex; min-height: 47px; align-items: center; justify-content: space-between; gap: 12px; margin-top: 9px; }
 .tool-inline-status { margin: 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
 .tool-inline-status.status-warning { color: #ff9a83; font-weight: 650; }
+.tool-inline-status.status-success { color: var(--green); font-weight: 650; }
 .tool-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
 .tool-actions .button { min-height: 35px; gap: 6px; padding-inline: 10px; font-size: 10px; }
 .tool-actions .button:disabled { opacity: .48; cursor: not-allowed; transform: none; }
@@ -483,6 +484,8 @@ img, svg { display: block; }
 .case-action-heading h2 { margin: 0; color: var(--ink); font-size: 11px; }
 .case-action-heading span { color: var(--muted); font-size: 9px; }
 .case-action-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.case-action-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.case-action-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .case-action { display: inline-flex; min-height: 39px; align-items: center; justify-content: center; gap: 5px; border: 1px solid var(--line); border-radius: 9px; padding: 7px 8px; color: var(--ink-soft); background: var(--surface-soft); font: inherit; font-size: 9px; font-weight: 650; cursor: pointer; transition: color .15s, border-color .15s, background .15s; }
 .case-action:hover:not(:disabled), .case-action.is-active { border-color: color-mix(in srgb, var(--brand) 54%, var(--line)); color: var(--brand-strong); background: var(--brand-soft); }
 .case-action:disabled { opacity: .48; cursor: not-allowed; }

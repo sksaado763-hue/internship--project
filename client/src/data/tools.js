@@ -1,8 +1,8 @@
-import { CaseSensitive, FileText, Type } from 'lucide-react';
+import { Binary, Braces, CaseSensitive, FileText, Link2, Type } from 'lucide-react';
 import { categoryRegistry } from '../../../shared/toolCategories.js';
 import { toolRegistry } from '../../../shared/toolRegistry.js';
 
-const icons = { CaseSensitive, FileText, Type };
+const icons = { Binary, Braces, CaseSensitive, FileText, Link2, Type };
 const categoriesBySlug = Object.fromEntries(categoryRegistry.map((category) => [category.slug, category]));
 
 export const tools = toolRegistry.map((tool) => ({

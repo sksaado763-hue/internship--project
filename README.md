@@ -4,7 +4,7 @@ An original, privacy-minded foundation for a growing library of focused online t
 
 ## Current build: searchable tools and text utilities
 
-The app includes a responsive landing page, persistent light and dark themes, a searchable tool directory, persistent favorites, and three browser-based text utilities. The word counter and character counter update as you type; the case converter supports six text styles. Tool processing stays on the user's device. The Express API and optional MongoDB connection remain available as the server foundation.
+The app includes a responsive landing page, persistent light and dark themes, a searchable tool directory, persistent favorites, and six browser-based utilities. Text tools count words and characters or convert letter case. Developer tools format and validate JSON, encode and decode URL values, and convert UTF-8 text to and from Base64. Tool processing stays on the user's device. The Express API and MongoDB catalog are available for the server-side foundation.
 
 ## Requirements
 
@@ -51,7 +51,7 @@ The Vite client runs at <http://localhost:5173>. The Express API runs at <http:/
 
 - Open the Vite URL printed in the terminal (usually <http://localhost:5173>) to view the landing page and tool directory.
 - Browse or search at <http://localhost:5173/tools>.
-- Direct tool routes are `/tools/word-counter`, `/tools/character-counter`, and `/tools/case-converter`.
+- Direct tool routes include `/tools/word-counter`, `/tools/character-counter`, `/tools/case-converter`, `/tools/json-formatter`, `/tools/url-encoder-decoder`, and `/tools/base64-encoder-decoder`.
 - Favorite tools are saved in local browser storage. Text entered into the tools is processed in the browser.
 - Open <http://localhost:5000/api/health>. A running API returns `{"success":true,"message":"API is running"}`.
 - MongoDB is optional for the health route; catalog endpoints and the seed command require a configured, running database.
