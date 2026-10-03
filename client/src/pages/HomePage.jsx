@@ -3,6 +3,8 @@ import Badge from '../components/common/Badge.jsx';
 import Button from '../components/common/Button.jsx';
 import SearchField from '../components/common/SearchField.jsx';
 import { platformStats, toolCategories } from '../data/siteContent.js';
+import ToolCard from '../components/common/ToolCard.jsx';
+import { tools } from '../data/tools.js';
 
 const categoryIcons = {
   Text: FileText,
@@ -13,7 +15,7 @@ const categoryIcons = {
   Calculators: Calculator,
 };
 
-export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmit, searchMessage }) {
+export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmit }) {
   return (
     <>
       <section className="home-hero page-container" id="home" aria-labelledby="hero-title">
@@ -23,8 +25,8 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
           <p className="hero-description">Fast, reliable online tools for developers, creators, students, marketers, and everyday tasks.</p>
 
           <div className="hero-actions">
-            <Button as="a" href="#tools" variant="primary">Explore tools <ArrowRight size={16} aria-hidden="true" /></Button>
-            <Button as="a" href="#popular" variant="secondary">Popular tools <ArrowDown size={15} aria-hidden="true" /></Button>
+            <Button as="a" href="/tools" variant="primary">Explore tools <ArrowRight size={16} aria-hidden="true" /></Button>
+            <Button as="a" href="/tools?popular=true" variant="secondary">Popular tools <ArrowDown size={15} aria-hidden="true" /></Button>
           </div>
 
           <div className="hero-search-block">
@@ -35,7 +37,7 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
               onSubmit={onSearchSubmit}
               placeholder="What would you like to do?"
             />
-            <p className="search-assist" aria-live="polite">{searchMessage || 'Search across simple tools for your everyday work.'}</p>
+            <p className="search-assist" aria-live="polite">Search across simple tools for your everyday work.</p>
           </div>
 
           <div className="hero-proof">
@@ -95,7 +97,7 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
           {toolCategories.map((category, index) => {
             const Icon = categoryIcons[category.name];
             return (
-              <a className={`category-card category-card--${category.color}`} href="#tools" key={category.name}>
+              <a className={`category-card category-card--${category.color}`} href={`/tools?category=${encodeURIComponent(category.name)}`} key={category.name}>
                 <span className="category-icon"><Icon size={19} strokeWidth={1.8} aria-hidden="true" /></span>
                 <span className="category-copy"><strong>{category.name}</strong><small>{category.detail}</small></span>
                 <span className="category-number">0{index + 1}</span>
@@ -107,24 +109,16 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
       </section>
 
       <section className="tool-preview-section" id="tools" aria-labelledby="tools-title">
-        <span id="popular" className="anchor-marker" />
-        <span id="new-tools" className="anchor-marker" />
         <div className="page-container">
-          <div className="tool-preview-card">
-            <div className="preview-art" aria-hidden="true">
-              <div className="preview-art-tile preview-art-tile--one"><FileText size={22} /></div>
-              <div className="preview-art-tile preview-art-tile--two"><Code2 size={22} /></div>
-              <div className="preview-art-tile preview-art-tile--three"><Sparkles size={19} /></div>
-              <span className="preview-art-orbit" />
+          <div className="section-heading">
+            <div>
+              <Badge tone="brand">READY WHEN YOU ARE</Badge>
+              <h2 id="tools-title">Useful tools, ready to use.</h2>
+              <p>Pick a tool and get a fast result without sending your text anywhere.</p>
             </div>
-            <div className="tool-preview-copy">
-              <Badge tone="brand">THE LIBRARY IS GROWING</Badge>
-              <h2 id="tools-title">Your next useful tool is close.</h2>
-              <p>We’re preparing a growing set of focused tools. Start with the essentials, then come back as the library expands.</p>
-              <a className="text-link" href="#categories">Browse categories <ArrowRight size={15} aria-hidden="true" /></a>
-            </div>
-            <div className="preview-counter" aria-hidden="true"><span>01</span><small>FOUNDATION</small></div>
+            <a className="text-link" href="/tools">Browse all tools <ArrowRight size={15} aria-hidden="true" /></a>
           </div>
+          <div className="tool-grid">{tools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}</div>
         </div>
       </section>
 

@@ -2,9 +2,9 @@
 
 An original, privacy-minded foundation for a growing library of focused online tools. This repository uses a React and Vite client, an Express REST API, and MongoDB through Mongoose.
 
-## Current build: design system and home page
+## Current build: searchable tools and text utilities
 
-The app now has a responsive landing page, persistent light and dark themes, keyboard-accessible navigation and dialogs, shared interface components, and the Express/MongoDB foundation. Tool pages and the searchable tool registry are the next build steps.
+The app includes a responsive landing page, persistent light and dark themes, a searchable tool directory, persistent favorites, and three browser-based text utilities. The word counter and character counter update as you type; the case converter supports six text styles. Tool processing stays on the user's device. The Express API and optional MongoDB connection remain available as the server foundation.
 
 ## Requirements
 
@@ -21,6 +21,14 @@ npm ci
 ```
 
 Copy `server/.env.example` to `server/.env`, then set `MONGODB_URI` to your local or hosted MongoDB connection string. `.env` files are ignored by Git.
+
+To load the starter categories and tools into MongoDB after configuring the URI, run:
+
+```bash
+npm run seed:catalog
+```
+
+The seed command upserts the starter catalog and can be run more than once.
 
 ## Run
 
@@ -39,11 +47,14 @@ npm run dev:server
 
 The Vite client runs at <http://localhost:5173>. The Express API runs at <http://localhost:5000>.
 
-## Verify the app
+## Use the tools
 
-- Open the Vite URL printed in the terminal (usually <http://localhost:5173>) to view the landing page.
+- Open the Vite URL printed in the terminal (usually <http://localhost:5173>) to view the landing page and tool directory.
+- Browse or search at <http://localhost:5173/tools>.
+- Direct tool routes are `/tools/word-counter`, `/tools/character-counter`, and `/tools/case-converter`.
+- Favorite tools are saved in local browser storage. Text entered into the tools is processed in the browser.
 - Open <http://localhost:5000/api/health>. A running API returns `{"success":true,"message":"API is running"}`.
-- MongoDB is optional for this starter health route; without a configured URI, the API logs a warning and starts without database access.
+- MongoDB is optional for the health route; catalog endpoints and the seed command require a configured, running database.
 
 ## Dependencies
 
@@ -51,7 +62,7 @@ The Vite client runs at <http://localhost:5173>. The Express API runs at <http:/
 | --- | --- |
 | React, React DOM | UI components and browser rendering |
 | Vite, React plugin | Local development server and production builds |
-| React Router | Client-side navigation for future tool pages |
+| React Router | Client-side navigation for the directory and tool pages |
 | Tailwind CSS, PostCSS, Autoprefixer | Utility CSS and CSS processing |
 | Lucide React | Consistent, accessible icon components |
 | Express | REST API server |
@@ -67,16 +78,26 @@ The Vite client runs at <http://localhost:5173>. The Express API runs at <http:/
 
 ```text
 client/                         React + Vite application
-  src/App.jsx                    Lazy routes, theme provider, and search state
-  src/components/common/         Buttons, badges, search field, accessible dialog
+  src/App.jsx                    Lazy routes, theme and favorites providers, search state
+  src/components/common/         Shared controls and reusable tool cards
   src/components/layout/         Responsive navigation, page layout, footer
+  src/components/tools/          Reusable tool page and three text-tool interfaces
   src/context/ThemeContext.jsx   Persistent light/dark theme
-  src/data/siteContent.js        Shared navigation, category, and stat content
-  src/pages/                     Home and not-found pages
+  src/context/FavoritesContext.jsx Persistent favorites
+  src/data/                      Tool registry and shared page content
+  src/pages/                     Home, directory, tool, and not-found pages
+  src/utils/tools/               Isolated text analysis and case conversion logic
   src/styles.css                 Central design tokens and responsive styles
   src/main.jsx                   Browser entry point and router provider
+shared/                          Catalog metadata shared by the client and server
 server/                         Express + Mongoose application
-  src/app.js                     Middleware and health endpoint
+  src/app.js                     Middleware and API routes
+  src/controllers/               HTTP handlers
+  src/middleware/                Catalog query validation and DB checks
+  src/models/                    User, tool, and category schemas
+  src/routes/                    API route definitions
+  src/services/                  Catalog queries
+  src/scripts/                   Idempotent starter catalog seed
   src/server.js                  Environment loading, DB connection, HTTP listener
   .env.example                   Local environment variable template
 package.json                     npm workspaces and root scripts
@@ -88,8 +109,16 @@ package.json                     npm workspaces and root scripts
 
 Returns `200 OK` with `{ "success": true, "message": "API is running" }`.
 
+### `GET /api/tools`
+
+Returns active tools in `{ "success": true, "data": { "tools": [] } }`. Optional query parameters: `search`, `category` (slug), `popular`, `featured`, and `new`.
+
+### `GET /api/categories`
+
+Returns active categories and their active tool counts in `{ "success": true, "data": { "categories": [] } }`.
+
 ## Next steps
 
-1. Add the tool registry and reusable tool page components.
-2. Implement the word counter, character counter, and case converter with browser-side logic.
-3. Add MongoDB models and service/controller-based catalog endpoints.
+1. Add more tools across the existing categories.
+2. Connect the live directory to catalog data when database-backed editing is introduced.
+3. Add optional accounts and cloud-synced preferences when authentication is introduced.

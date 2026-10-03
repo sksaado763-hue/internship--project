@@ -3,6 +3,8 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import categoryRoutes from './routes/categoryRoutes.js';
+import toolRoutes from './routes/toolRoutes.js';
 
 const app = express();
 
@@ -16,6 +18,9 @@ app.use('/api', rateLimit({ windowMs: 15 * 60 * 1000, limit: 120, standardHeader
 app.get('/api/health', (_request, response) => {
   response.json({ success: true, message: 'API is running' });
 });
+
+app.use('/api/tools', toolRoutes);
+app.use('/api/categories', categoryRoutes);
 
 app.use((_request, response) => {
   response.status(404).json({ success: false, message: 'Route not found' });

@@ -44,7 +44,9 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
     return (
       <nav className={className} aria-label={className.includes('mobile') ? 'Mobile navigation' : 'Main navigation'}>
         {mainNavigation.map((item) => {
-          const isActive = activeHash === item.href || (activeHash === '' && item.href === '/#home');
+          const isActive = item.href === '/tools'
+            ? location.pathname.startsWith('/tools')
+            : activeHash === item.href || (activeHash === '' && item.href === '/#home');
           return (
             <a
               key={item.label}
@@ -93,7 +95,7 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
             {theme === 'light' ? <Moon size={18} aria-hidden="true" /> : <Sun size={18} aria-hidden="true" />}
           </button>
           <button className="login-link" type="button" onClick={onLogin}>Log in</button>
-          <Button as="a" href="/#tools" variant="primary" size="small" className="nav-cta">Get started</Button>
+          <Button as="a" href="/tools" variant="primary" size="small" className="nav-cta">Get started</Button>
           <button
             className="icon-button menu-toggle"
             type="button"
@@ -122,7 +124,7 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
           {renderNavigation('mobile-nav', () => setMenuOpen(false))}
           <div className="mobile-menu-actions">
             <button className="login-link" type="button" onClick={() => { setMenuOpen(false); onLogin(); }}>Log in</button>
-            <Button as="a" href="/#tools" variant="primary" onClick={() => setMenuOpen(false)}>Get started</Button>
+            <Button as="a" href="/tools" variant="primary" onClick={() => setMenuOpen(false)}>Get started</Button>
           </div>
         </div>
       </div>
