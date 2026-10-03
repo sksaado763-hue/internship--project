@@ -6,7 +6,13 @@ export default function Button({
   children,
   ...props
 }) {
-  const classes = ['button', `button--${variant}`, `button--${size}`, className]
+  const classes = [
+    'button',
+    `button--${variant}`,
+    `button--${size}`,
+    'focus-visible:ring-2 focus-visible:ring-brand-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
+    className,
+  ]
     .filter(Boolean)
     .join(' ');
 

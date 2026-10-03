@@ -11,7 +11,7 @@ function getInitialTheme() {
     // The app still works when browser storage is unavailable.
   }
 
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return 'dark';
 }
 
 export function ThemeProvider({ children }) {
