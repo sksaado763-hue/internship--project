@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from 'react';
-import { Search, SlidersHorizontal, Sparkles } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
-import Badge from '../components/common/Badge.jsx';
 import ToolCard from '../components/common/ToolCard.jsx';
 import { useFavorites } from '../context/FavoritesContext.jsx';
 import { tools } from '../data/tools.js';
@@ -49,19 +48,17 @@ export default function ToolsPage({ onSearchTermChange }) {
   return (
     <section className="directory-page page-container" id="tool-directory" aria-labelledby="directory-title">
       <header className="directory-header">
-        <Badge tone="brand"><Sparkles size={13} aria-hidden="true" /> YOUR TOOLBOX, IN ONE PLACE</Badge>
-        <h1 id="directory-title">Find the right tool.<br /><span>Get back to your work.</span></h1>
-        <p>Quick, private tools for everyday writing and text tasks. Everything runs directly in your browser.</p>
+        <h1 id="directory-title">Explore All <span>{tools.length} Tools</span></h1>
+        <p>Filter tools by category or search by keyword below.</p>
       </header>
       <div className="directory-controls">
-        <label className="directory-search" htmlFor="directory-search-input"><Search size={18} aria-hidden="true" /><span className="visually-hidden">Search tools</span><input id="directory-search-input" type="search" value={query} onChange={(event) => updateSearch(event.target.value)} placeholder="Search by tool, task, or keyword" autoComplete="off" /></label>
-        <span className="directory-result-count" aria-live="polite">{visibleTools.length} {visibleTools.length === 1 ? 'tool' : 'tools'}</span>
+        <label className="directory-search" htmlFor="directory-search-input"><Search size={21} aria-hidden="true" /><span className="visually-hidden">Search tools</span><input id="directory-search-input" type="search" value={query} onChange={(event) => updateSearch(event.target.value)} placeholder={`Search ${tools.length} tools by name or keyword`} autoComplete="off" /></label>
+        <span className="directory-result-count" aria-live="polite">Showing {visibleTools.length} of {tools.length} tools</span>
       </div>
-      <div className="directory-filters" aria-label="Filter tools by category">
-        <span className="filter-icon"><SlidersHorizontal size={15} aria-hidden="true" /> Filter</span>
+      <div className="directory-filters" role="group" aria-label="Filter tools by category">
         {availableCategories.map((item) => <button type="button" key={item} className={`filter-chip ${category === item ? 'is-active' : ''}`} aria-pressed={category === item} onClick={() => selectCategory(item)}>{item}</button>)}
       </div>
-      {visibleTools.length ? <div className="tool-grid">{visibleTools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}</div> : (
+      {visibleTools.length ? <div className="tool-grid">{visibleTools.map((tool) => <ToolCard key={tool.id} tool={tool} variant="directory" />)}</div> : (
         <div className="directory-empty" role="status"><Search size={22} aria-hidden="true" /><h2>No tools found</h2><p>Try another search, or switch the category filter.</p><button className="text-link" type="button" onClick={() => { setSearchParams({}, { replace: true }); }}>Clear filters</button></div>
       )}
     </section>
