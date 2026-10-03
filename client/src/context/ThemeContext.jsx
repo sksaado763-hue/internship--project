@@ -2,11 +2,13 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 
 const ThemeContext = createContext(null);
 const THEME_STORAGE_KEY = 'meridian-theme';
+const THEME_SELECTION_KEY = 'meridian-theme-selected';
 
 function getInitialTheme() {
   try {
     const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-    if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
+    const selectedTheme = window.localStorage.getItem(THEME_SELECTION_KEY) === 'true';
+    if (savedTheme === 'light' || (savedTheme === 'dark' && selectedTheme)) return savedTheme;
   } catch {
     // The app still works when browser storage is unavailable.
   }
@@ -29,6 +31,11 @@ export function ThemeProvider({ children }) {
 
   const toggleTheme = useCallback(() => {
     setTheme((currentTheme) => currentTheme === 'light' ? 'dark' : 'light');
+    try {
+      window.localStorage.setItem(THEME_SELECTION_KEY, 'true');
+    } catch {
+      // The theme still changes when browser storage is unavailable.
+    }
   }, []);
 
   const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
