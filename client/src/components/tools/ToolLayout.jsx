@@ -1,17 +1,27 @@
 import { ArrowLeft, ArrowRight, LockKeyhole } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Badge from '../common/Badge.jsx';
+import Button from '../common/Button.jsx';
 import ToolCard from '../common/ToolCard.jsx';
 import { tools } from '../../data/tools.js';
 
 export default function ToolLayout({ tool, children }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const relatedTools = tools.filter((item) => item.slug !== tool.slug).slice(0, 2);
+
+  function goBack() {
+    navigate(location.key === 'default' ? '/tools' : -1);
+  }
 
   return (
     <div className="tool-page page-container">
-      <nav className="tool-breadcrumb" aria-label="Breadcrumb">
-        <Link to="/">Home</Link><span aria-hidden="true">/</span><Link to="/tools">All tools</Link><span aria-hidden="true">/</span><span aria-current="page">{tool.name}</span>
-      </nav>
+      <div className="tool-page-topbar">
+        <Button variant="secondary" size="small" type="button" onClick={goBack}><ArrowLeft size={15} aria-hidden="true" /> Go back</Button>
+        <nav className="tool-breadcrumb" aria-label="Breadcrumb">
+          <Link to="/">Home</Link><span aria-hidden="true">/</span><Link to="/tools">All tools</Link><span aria-hidden="true">/</span><span aria-current="page">{tool.name}</span>
+        </nav>
+      </div>
       <header className="tool-page-header">
         <Badge tone="brand">{tool.category.toUpperCase()} TOOL</Badge>
         <h1>{tool.name}</h1>
