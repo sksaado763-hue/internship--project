@@ -13,6 +13,14 @@ import SlugGeneratorTool from '../components/tools/SlugGeneratorTool.jsx';
 import TimestampConverterTool from '../components/tools/TimestampConverterTool.jsx';
 import ColorConverterTool from '../components/tools/ColorConverterTool.jsx';
 import GradientGeneratorTool from '../components/tools/GradientGeneratorTool.jsx';
+import HtmlEntityEncoderTool from '../components/tools/HtmlEntityEncoderTool.jsx';
+import RegexTesterTool from '../components/tools/RegexTesterTool.jsx';
+import NumberBaseConverterTool from '../components/tools/NumberBaseConverterTool.jsx';
+import LoremIpsumGeneratorTool from '../components/tools/LoremIpsumGeneratorTool.jsx';
+import TextDiffCheckerTool from '../components/tools/TextDiffCheckerTool.jsx';
+import CsvToJsonTool from '../components/tools/CsvToJsonTool.jsx';
+import MarkdownTableGeneratorTool from '../components/tools/MarkdownTableGeneratorTool.jsx';
+import PercentageCalculatorTool from '../components/tools/PercentageCalculatorTool.jsx';
 import { toolBySlug } from '../data/tools.js';
 
 const toolInterfaces = {
@@ -28,6 +36,14 @@ const toolInterfaces = {
   'timestamp-converter': TimestampConverterTool,
   'color-converter': ColorConverterTool,
   'gradient-generator': GradientGeneratorTool,
+  'html-entity-encoder': HtmlEntityEncoderTool,
+  'regex-tester': RegexTesterTool,
+  'number-base-converter': NumberBaseConverterTool,
+  'lorem-ipsum-generator': LoremIpsumGeneratorTool,
+  'text-diff-checker': TextDiffCheckerTool,
+  'csv-to-json': CsvToJsonTool,
+  'markdown-table-generator': MarkdownTableGeneratorTool,
+  'percentage-calculator': PercentageCalculatorTool,
 };
 
 export default function ToolPage() {

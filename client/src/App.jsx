@@ -4,6 +4,7 @@ import SiteLayout from './components/layout/SiteLayout.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
 import { FavoritesProvider } from './context/FavoritesContext.jsx';
 
+
 const HomePage = lazy(() => import('./pages/HomePage.jsx'));
 const ToolsPage = lazy(() => import('./pages/ToolsPage.jsx'));
 const ToolPage = lazy(() => import('./pages/ToolPage.jsx'));

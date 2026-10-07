@@ -8,7 +8,7 @@ export const mainNavigation = [
 ];
 
 export const platformStats = [
-  { value: '6', label: 'Working browser tools' },
+  { value: '17', label: 'Working browser tools' },
   { value: 'Fast', label: 'Browser processing' },
   { value: 'Free', label: 'Core tools' },
   { value: 'Privacy', label: 'Focused by design' },

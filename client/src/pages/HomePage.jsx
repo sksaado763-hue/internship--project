@@ -57,7 +57,7 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
             </div>
             <div className="dashboard-stat-grid">
               <div className="dashboard-stat dashboard-stat--violet"><span>Speed</span><strong>Instant</strong><small>Runs in your browser</small></div>
-              <div className="dashboard-stat dashboard-stat--blue"><span>Useful tools</span><strong>06</strong><small>Ready for your workflow</small></div>
+              <div className="dashboard-stat dashboard-stat--blue"><span>Useful tools</span><strong>17</strong><small>Ready for your workflow</small></div>
               <div className="dashboard-stat dashboard-stat--green"><span>Privacy</span><strong>Local</strong><small>Your text stays yours</small></div>
             </div>
             <div className="dashboard-activity">
