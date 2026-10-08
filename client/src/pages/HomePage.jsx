@@ -2,6 +2,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Calculator, Code2, FileText, Image
 import Badge from '../components/common/Badge.jsx';
 import Button from '../components/common/Button.jsx';
 import SearchField from '../components/common/SearchField.jsx';
+import FeatureMarquee from '../components/common/FeatureMarquee.jsx';
 import { platformStats, toolCategories } from '../data/siteContent.js';
 import ToolCard from '../components/common/ToolCard.jsx';
 import { tools } from '../data/tools.js';
@@ -84,6 +85,8 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
           ))}
         </div>
       </section>
+
+      <FeatureMarquee />
 
       <section className="category-section page-container" id="categories" aria-labelledby="category-title">
         <div className="section-heading">

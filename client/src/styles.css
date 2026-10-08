@@ -195,6 +195,20 @@ img, svg { display: block; }
 .stat-value { color: var(--ink); font-size: 17px; font-weight: 760; letter-spacing: -.5px; }
 .stat-label { color: var(--muted); font-size: 10px; }
 
+/* Animated homepage feature strip */
+.feature-marquee { position: relative; overflow: hidden; width: 100%; padding-block: 27px; color: #fff; background: linear-gradient(108deg, #4f1c83 0%, #762fe1 52%, #6231d2 100%); }
+.feature-marquee::before { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, #bd72ff38, transparent 60%); content: ""; pointer-events: none; }
+.feature-marquee-rows { position: relative; display: grid; gap: 13px; }
+.feature-marquee-row { overflow: hidden; width: 100%; }
+.feature-marquee-track { display: flex; width: max-content; animation: feature-marquee-left 42s linear infinite; will-change: transform; }
+.feature-marquee-row--right .feature-marquee-track { animation-name: feature-marquee-right; animation-duration: 48s; }
+.feature-marquee-group { display: flex; flex: 0 0 auto; align-items: center; gap: 14px; padding-inline: 10px; }
+.feature-marquee-pill { display: inline-flex; min-height: 48px; align-items: center; gap: 10px; border: 1px solid #ffffff30; border-radius: 999px; padding: 0 19px; color: #fff; background: #35105e9c; box-shadow: inset 0 1px #ffffff12; font-size: 12px; font-weight: 720; letter-spacing: -.1px; white-space: nowrap; }
+.feature-marquee-pill svg { flex: 0 0 auto; color: var(--feature-accent); }
+.feature-marquee-row:hover .feature-marquee-track { animation-play-state: paused; }
+@keyframes feature-marquee-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes feature-marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
 /* Category cards and page sections */
 .category-section { padding-top: 104px; padding-bottom: 100px; }
 .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
@@ -438,6 +452,7 @@ img, svg { display: block; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .feature-marquee-track { animation: none !important; transform: none !important; }
 }
 
 /* Tool directory and browser-based text tools */
