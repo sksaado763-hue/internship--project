@@ -1,10 +1,10 @@
-import { Binary, Blend, Braces, CaseSensitive, Clock3, Code2, FileText, Fingerprint, KeyRound, Link2, Palette, Type } from 'lucide-react';
+import { Binary, Blend, Braces, CaseSensitive, Clock3, Code2, FileText, FileUser, Fingerprint, ImagePlus, KeyRound, Link2, MessagesSquare, Palette, Presentation, Type, Youtube } from 'lucide-react';
 import { categoryRegistry } from '../../../shared/toolCategories.js';
 import { toolRegistry } from '../../../shared/toolRegistry.js';
 
 
 
-const icons = { Binary, Blend, Braces, CaseSensitive, Clock3, Code2, FileText, Fingerprint, KeyRound, Link2, Palette, Type };
+const icons = { Binary, Blend, Braces, CaseSensitive, Clock3, Code2, FileText, FileUser, Fingerprint, ImagePlus, KeyRound, Link2, MessagesSquare, Palette, Presentation, Type, Youtube };
 const categoriesBySlug = Object.fromEntries(categoryRegistry.map((category) => [category.slug, category]));
 
 export const tools = toolRegistry.map((tool) => ({

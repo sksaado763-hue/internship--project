@@ -19,8 +19,14 @@ import NumberBaseConverterTool from '../components/tools/NumberBaseConverterTool
 import LoremIpsumGeneratorTool from '../components/tools/LoremIpsumGeneratorTool.jsx';
 import TextDiffCheckerTool from '../components/tools/TextDiffCheckerTool.jsx';
 import CsvToJsonTool from '../components/tools/CsvToJsonTool.jsx';
+import JsonToCsvTool from '../components/tools/JsonToCsvTool.jsx';
 import MarkdownTableGeneratorTool from '../components/tools/MarkdownTableGeneratorTool.jsx';
 import PercentageCalculatorTool from '../components/tools/PercentageCalculatorTool.jsx';
+import ImageUpscalerTool from '../components/tools/ImageUpscalerTool.jsx';
+import FakeChatGeneratorTool from '../components/tools/FakeChatGeneratorTool.jsx';
+import YoutubeThumbnailTool from '../components/tools/YoutubeThumbnailTool.jsx';
+import ResumeBuilderTool from '../components/tools/ResumeBuilderTool.jsx';
+import PowerPointGeneratorTool from '../components/tools/PowerPointGeneratorTool.jsx';
 import { toolBySlug } from '../data/tools.js';
 
 const toolInterfaces = {
@@ -42,8 +48,14 @@ const toolInterfaces = {
   'lorem-ipsum-generator': LoremIpsumGeneratorTool,
   'text-diff-checker': TextDiffCheckerTool,
   'csv-to-json': CsvToJsonTool,
+  'json-to-csv': JsonToCsvTool,
   'markdown-table-generator': MarkdownTableGeneratorTool,
   'percentage-calculator': PercentageCalculatorTool,
+  'image-upscaler': ImageUpscalerTool,
+  'fake-chat-generator': FakeChatGeneratorTool,
+  'youtube-thumbnail-downloader': YoutubeThumbnailTool,
+  'resume-builder': ResumeBuilderTool,
+  'ai-powerpoint-generator': PowerPointGeneratorTool,
 };
 
 export default function ToolPage() {

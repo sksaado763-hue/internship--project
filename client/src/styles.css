@@ -676,3 +676,51 @@ kbd { border: 1px solid var(--line); border-radius: 5px; padding: 2px 5px; color
   .diff-controls { align-items: flex-start; flex-direction: column; }
   .calculator-input-grid { grid-template-columns: 1fr; }
 }
+
+.tool-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 14px; }
+.tool-form-grid > .case-action { grid-column: 1 / -1; }
+.media-upload { display: flex; min-height: 72px; align-items: center; gap: 12px; border: 1px dashed var(--line); border-radius: 12px; padding: 13px; color: var(--ink-soft); background: var(--surface-soft); cursor: pointer; }
+.media-upload > span:first-of-type { flex: 1; overflow: hidden; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.media-upload-button { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; color: var(--ink); background: var(--surface); font-size: 11px; font-weight: 700; }
+.image-tool-preview, .youtube-thumbnail-preview { display: block; width: min(100%, 620px); max-height: 370px; object-fit: contain; margin: 8px auto; border: 1px solid var(--line); border-radius: 12px; background: #080d17; }
+.input-with-action, .mock-chat-compose { display: flex; align-items: center; gap: 9px; }
+.input-with-action .tool-value-input, .mock-chat-compose .tool-value-input { min-width: 0; flex: 1; }
+.mockup-notice { border: 1px solid color-mix(in srgb, var(--brand) 28%, var(--line)); border-radius: 9px; padding: 10px 12px; color: var(--brand-strong); background: var(--brand-soft); font-size: 11px; font-weight: 750; text-align: center; }
+.mock-chat { position: relative; display: flex; width: min(100%, 390px); min-height: 390px; flex-direction: column; overflow: hidden; margin: 4px auto; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); box-shadow: var(--shadow-md); }
+.mock-chat > header { display: flex; min-height: 68px; align-items: center; gap: 10px; border-bottom: 1px solid var(--line); padding: 10px 16px; background: var(--surface-soft); }
+.mock-avatar { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; color: white; background: var(--brand); font-weight: 800; }
+.mock-chat-messages { display: flex; flex: 1; flex-direction: column; gap: 9px; padding: 17px 13px 38px; }
+.mock-message { max-width: 83%; border-radius: 15px; padding: 9px 12px; color: var(--ink); background: var(--surface-soft); font-size: 12px; line-height: 1.45; overflow-wrap: anywhere; }
+.mock-message--me { align-self: flex-end; color: white; background: #3978e8; }
+.mock-chat--whatsapp .mock-chat-messages { background-color: color-mix(in srgb, #157d54 8%, var(--page)); }
+.mock-chat--whatsapp .mock-message--me { background: #16865c; }
+.mock-chat--instagram .mock-message--me { background: linear-gradient(120deg, #713fe0, #d83389); }
+.mock-watermark { position: absolute; right: 10px; bottom: 9px; color: var(--muted); font-size: 8px; font-weight: 800; letter-spacing: .12em; }
+.resume-builder { align-items: start; }
+.resume-form, .resume-preview { width: 100%; }
+.resume-preview { min-height: 360px; border: 1px solid var(--line); border-radius: 14px; padding: 28px clamp(18px, 5vw, 46px); color: #24334b; background: #fff; box-shadow: var(--shadow-sm); }
+.resume-preview > header { border-bottom: 2px solid #3865aa; padding-bottom: 13px; text-align: center; }
+.resume-preview h2 { margin: 0; color: #1d2b42; font-size: 25px; }
+.resume-preview header p { margin: 6px 0 0; color: #52627a; font-size: 11px; }
+.resume-preview .resume-role { color: #3865aa; font-size: 13px; font-weight: 700; }
+.resume-preview section { margin-top: 19px; }
+.resume-preview h3 { margin: 0 0 7px; border-bottom: 1px solid #dce3ed; padding-bottom: 5px; color: #3865aa; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.resume-preview section p { margin: 5px 0; color: #34445c; font-size: 11px; line-height: 1.6; white-space: pre-wrap; }
+.slide-outline { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.slide-card { display: grid; gap: 8px; border: 1px solid var(--line); border-radius: 13px; padding: 13px; background: var(--surface-soft); }
+.slide-card .tool-editor-label { margin: 0; }
+.slide-card .icon-button { width: 28px; height: 28px; }
+.slide-card .tool-value-input { min-height: 39px; padding: 8px 10px; font-size: 11px; }
+.slide-bullet-edit { display: flex; align-items: center; gap: 7px; color: var(--brand); }
+.slide-bullet-edit .tool-value-input { flex: 1; }
+@media print {
+  body * { visibility: hidden !important; }
+  .resume-preview, .resume-preview * { visibility: visible !important; }
+  .resume-preview { position: absolute; inset: 0; width: 100%; min-height: 0; border: 0; border-radius: 0; padding: 0; box-shadow: none; }
+  @page { margin: 0.65in; }
+}
+@media (max-width: 600px) {
+  .tool-form-grid, .slide-outline { grid-template-columns: 1fr; }
+  .tool-form-grid > .case-action { grid-column: auto; }
+  .input-with-action, .mock-chat-compose { align-items: stretch; flex-direction: column; }
+}
