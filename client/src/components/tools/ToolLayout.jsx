@@ -66,7 +66,7 @@ export default function ToolLayout({ tool, children }) {
   async function shareTool() {
     const url = window.location.href;
     try {
-      if (navigator.share) await navigator.share({ title: tool.name, text: `Try ${tool.name} on Meridian Tools`, url });
+      if (navigator.share) await navigator.share({ title: tool.name, text: `Try ${tool.name} on HavitGrowth`, url });
       else {
         await navigator.clipboard.writeText(url);
         setShareMessage('Link copied');

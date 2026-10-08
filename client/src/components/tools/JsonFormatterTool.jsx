@@ -44,7 +44,7 @@ export default function JsonFormatterTool() {
     input={input}
     onInputChange={changeInput}
     inputLabel="JSON input"
-    inputPlaceholder={'Paste JSON here…\n{ "name": "Meridian", "tools": [] }'}
+    inputPlaceholder={'Paste JSON here…\n{ "name": "HavitGrowth", "tools": [] }'}
     outputLabel="Formatted output"
     outputPlaceholder="Formatted JSON will appear here…"
     result={result}

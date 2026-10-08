@@ -1,4 +1,4 @@
-# Meridian Tools
+# HavitGrowth
 
 An original, privacy-minded foundation for a growing library of focused online tools. This repository uses a React and Vite client, an Express REST API, and MongoDB through Mongoose.
 

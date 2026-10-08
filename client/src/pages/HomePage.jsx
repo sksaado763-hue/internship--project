@@ -52,7 +52,7 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
           <div className="dashboard-window">
             <div className="dashboard-window-header">
               <span className="dashboard-window-controls"><i /><i /><i /></span>
-              <span className="dashboard-brand-label">Meridian workspace</span>
+              <span className="dashboard-brand-label">HavitGrowth workspace</span>
               <span className="dashboard-status"><span /> READY</span>
             </div>
             <div className="dashboard-stat-grid">
@@ -128,7 +128,7 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
         <div className="principles-copy">
           <Badge tone="neutral">A MORE THOUGHTFUL TOOLBOX</Badge>
           <h2 id="principles-title">Useful should feel simple.</h2>
-          <p>Small jobs deserve tools that are quick to understand and easy to trust. Meridian keeps the experience focused from the first click.</p>
+          <p>Small jobs deserve tools that are quick to understand and easy to trust. HavitGrowth keeps the experience focused from the first click.</p>
         </div>
         <div className="principle-list">
           <article className="principle-item"><span className="principle-index">01</span><div><h3>Made for the task</h3><p>Clear interfaces that get out of your way.</p></div><Zap size={17} aria-hidden="true" /></article>

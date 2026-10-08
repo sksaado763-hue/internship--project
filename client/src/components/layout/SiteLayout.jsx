@@ -20,7 +20,7 @@ export default function SiteLayout({ children, searchTerm, onSearchTermChange, o
       <Footer onComingSoon={(label) => setDialogTitle(`${label} is coming soon`)} />
       {dialogTitle && (
         <Dialog title={dialogTitle} onClose={closeDialog}>
-          <p className="dialog-copy">Meridian is taking shape. This part of the platform will be ready in a future build.</p>
+          <p className="dialog-copy">HavitGrowth is taking shape. This part of the platform will be ready in a future build.</p>
           <button className="button button--primary button--medium" type="button" onClick={closeDialog}>Sounds good</button>
         </Dialog>
       )}

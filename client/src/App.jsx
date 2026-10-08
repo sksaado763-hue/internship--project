@@ -11,7 +11,7 @@ const ToolPage = lazy(() => import('./pages/ToolPage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
 
 function RouteFallback() {
-  return <div className="route-fallback" role="status">Loading Meridian Tools…</div>;
+  return <div className="route-fallback" role="status">Loading HavitGrowth…</div>;
 }
 
 export default function App() {

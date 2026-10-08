@@ -16,7 +16,7 @@ export default function SearchField({
 
   return (
     <form className={`search-field ${compact ? 'search-field--compact' : ''} ${className}`.trim()} onSubmit={handleSubmit} role="search">
-      <label className="visually-hidden" htmlFor={id}>Search Meridian Tools</label>
+      <label className="visually-hidden" htmlFor={id}>Search HavitGrowth</label>
       <Search size={19} aria-hidden="true" />
       <input
         id={id}

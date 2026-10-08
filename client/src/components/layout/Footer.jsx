@@ -13,9 +13,9 @@ export default function Footer({ onComingSoon }) {
       <div className="page-container">
         <div className="footer-main">
           <div className="footer-brand-column" id="about">
-            <a className="brand" href="/#home" aria-label="Meridian Tools home">
-              <span className="brand-mark"><span aria-hidden="true">m</span></span>
-              <span>meridian<span className="brand-light">.tools</span></span>
+            <a className="brand" href="/#home" aria-label="HavitGrowth home">
+              <span className="brand-mark"><span aria-hidden="true">H</span></span>
+              <span>Havit<span className="brand-light">Growth</span></span>
             </a>
             <p>Thoughtful online tools that make everyday work feel a little lighter.</p>
             <div className="social-links" aria-label="Social links">
@@ -49,7 +49,7 @@ export default function Footer({ onComingSoon }) {
         </div>
 
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Meridian Tools. Made for useful work.</span>
+          <span>© {new Date().getFullYear()} HavitGrowth. Made for useful work.</span>
           <a className="back-to-top" href="/#home">Back to top <MoveUpRight size={13} aria-hidden="true" /></a>
         </div>
       </div>

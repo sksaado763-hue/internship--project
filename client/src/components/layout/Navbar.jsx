@@ -67,9 +67,9 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
   return (
     <header className="site-header">
       <div className="nav-shell page-container">
-        <Link className="brand" to="/#home" aria-label="Meridian Tools home">
+        <Link className="brand" to="/#home" aria-label="HavitGrowth home">
           <span className="brand-mark"><Boxes size={31} strokeWidth={2.2} aria-hidden="true" /></span>
-          <span>meridian<span className="brand-light">.tools</span></span>
+          <span>Havit<span className="brand-light">Growth</span></span>
         </Link>
 
         {renderNavigation('desktop-nav')}
