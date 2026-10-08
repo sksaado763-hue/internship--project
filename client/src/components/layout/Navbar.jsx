@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Boxes, ChevronDown, Menu, Moon, Search, Sun, X } from 'lucide-react';
 import Button from '../common/Button.jsx';
 import SearchField from '../common/SearchField.jsx';
@@ -48,16 +48,16 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
             ? location.pathname.startsWith('/tools')
             : activeHash === item.href || (activeHash === '' && item.href === '/#home');
           return (
-            <a
+            <Link
               key={item.label}
               className={`nav-link ${isActive ? 'is-active' : ''}`}
-              href={item.href}
+              to={item.href}
               aria-current={isActive ? 'page' : undefined}
               onClick={onNavigate}
             >
               {item.label}
               {item.label === 'Categories' && <ChevronDown className="nav-chevron" size={13} aria-hidden="true" />}
-            </a>
+            </Link>
           );
         })}
       </nav>
@@ -67,10 +67,10 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
   return (
     <header className="site-header">
       <div className="nav-shell page-container">
-        <a className="brand" href="/#home" aria-label="Meridian Tools home">
+        <Link className="brand" to="/#home" aria-label="Meridian Tools home">
           <span className="brand-mark"><Boxes size={31} strokeWidth={2.2} aria-hidden="true" /></span>
           <span>meridian<span className="brand-light">.tools</span></span>
-        </a>
+        </Link>
 
         {renderNavigation('desktop-nav')}
 
