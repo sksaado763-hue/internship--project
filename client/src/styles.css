@@ -265,6 +265,30 @@ img, svg { display: block; }
 .principle-item h3 { margin: 0 0 4px; color: var(--ink); font-size: 11px; font-weight: 700; }
 .principle-item p { margin: 0; color: var(--muted); font-size: 9px; }
 .principle-item > svg { color: var(--brand); }
+.about-page { position: relative; overflow: hidden; padding-bottom: 96px; }
+.about-hero { position: relative; display: flex; min-height: 415px; flex-direction: column; align-items: center; justify-content: center; isolation: isolate; padding: 56px 24px 50px; text-align: center; }
+.about-hero > .badge { min-height: 38px; gap: 9px; border-radius: 999px; padding: 7px 16px; font-size: 13px; }
+.about-hero h1 { max-width: 1120px; margin: 25px auto 0; color: var(--ink); font-size: clamp(40px, 6vw, 78px); font-weight: 820; letter-spacing: -4px; line-height: 1.02; }
+.about-hero > p { max-width: 1050px; margin: 23px 0 0; color: var(--ink-soft); font-size: clamp(16px, 1.55vw, 21px); font-weight: 570; line-height: 1.65; }
+.about-network { position: absolute; z-index: -1; inset: 0; overflow: hidden; pointer-events: none; background-image: radial-gradient(circle at 18% 25%, #8c52d61f 1.5px, transparent 3px), radial-gradient(circle at 73% 30%, #44d5ed22 2px, transparent 4px), radial-gradient(circle at 88% 74%, #9568da1d 2px, transparent 4px), radial-gradient(circle at 25% 82%, #47d9ec1c 2px, transparent 4px); }
+.about-network i { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: #9b68d8a3; box-shadow: 0 0 10px #9b68d834; }
+.about-network i:nth-child(1) { top: 9%; left: 5%; width: 5px; height: 5px; }
+.about-network i:nth-child(2) { top: 29%; left: 17%; background: #4bd8eaa3; }
+.about-network i:nth-child(3) { top: 22%; right: 18%; width: 5px; height: 5px; }
+.about-network i:nth-child(4) { top: 54%; right: 9%; background: #4bd8eaa3; }
+.about-network i:nth-child(5) { bottom: 16%; right: 22%; }
+.about-network i:nth-child(6) { bottom: 19%; left: 11%; width: 5px; height: 5px; }
+.about-network i:nth-child(7) { top: 45%; left: 51%; width: 9px; height: 9px; background: #4bd8eaa3; }
+.about-story.page-container { width: min(1256px, calc(100% - 64px)); max-width: none; padding-top: 5px; }
+.about-story h2 { margin: 0 0 22px; color: var(--ink); font-size: clamp(30px, 3vw, 43px); font-weight: 780; letter-spacing: -1.8px; line-height: 1.15; }
+.about-story > p { margin: 0 0 22px; color: var(--ink); font-size: clamp(16px, 1.4vw, 20px); font-weight: 540; line-height: 1.75; }
+.about-story > p strong { font-weight: 760; }
+.about-points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 36px; }
+.about-points article { display: flex; align-items: flex-start; gap: 14px; border: 1px solid var(--line); border-radius: 16px; padding: 20px; background: color-mix(in srgb, var(--surface) 78%, transparent); }
+.about-points article > span { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; border-radius: 12px; color: var(--brand); background: var(--brand-soft); }
+.about-points h3 { margin: 1px 0 6px; color: var(--ink); font-size: 15px; }
+.about-points p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+.about-cta { margin-top: 30px; }
 .journal-section { padding-bottom: 101px; scroll-margin-top: 92px; }
 .journal-card { display: grid; grid-template-columns: 58px 1fr auto; align-items: center; gap: 18px; border: 1px solid var(--line); border-radius: 15px; padding: 21px 24px; background: var(--surface-soft); }
 .journal-mark { @apply grid place-items-center rounded-2xl bg-brand-primary text-white; width: 48px; height: 48px; font-size: 25px; font-weight: 750; }
@@ -403,6 +427,12 @@ img, svg { display: block; }
   .principles-section { grid-template-columns: 1fr; gap: 28px; padding-bottom: 71px; }
   .principles-copy > p { max-width: 490px; }
   .principle-item { min-height: 72px; }
+  .about-page { padding-bottom: 72px; }
+  .about-hero { min-height: 355px; padding-top: 46px; }
+  .about-hero h1 { max-width: 720px; font-size: clamp(39px, 8vw, 58px); letter-spacing: -2.7px; }
+  .about-story.page-container { width: min(100% - 36px, 650px); }
+  .about-story h2 { font-size: 32px; }
+  .about-story > p { font-size: 15px; }
   .journal-section { padding-bottom: 74px; }
   .journal-card { grid-template-columns: 46px 1fr auto; gap: 12px; padding: 17px 14px; }
   .journal-mark { width: 42px; height: 42px; border-radius: 12px; font-size: 21px; }
@@ -422,6 +452,12 @@ img, svg { display: block; }
   .site-header .brand, .site-header .brand > span:last-child { font-size: 14px; }
   .site-header .nav-actions > .icon-button { width: 33px; height: 34px; }
   .home-hero.page-container { width: calc(100% - 30px); }
+  .about-hero { min-height: 315px; padding-inline: 17px; }
+  .about-hero h1 { font-size: 38px; letter-spacing: -2.2px; }
+  .about-hero > p { font-size: 15px; }
+  .about-story.page-container { width: calc(100% - 30px); }
+  .about-story h2 { font-size: 28px; }
+  .about-points { grid-template-columns: 1fr; gap: 12px; margin-top: 27px; }
   .hero-copy h1 { font-size: 37px; letter-spacing: -2.2px; }
   .hero-description { font-size: 12px; }
   .hero-actions .button { min-height: 41px; padding-inline: 12px; font-size: 11px; }

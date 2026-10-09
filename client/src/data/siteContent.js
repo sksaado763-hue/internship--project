@@ -5,7 +5,7 @@ export const mainNavigation = [
   { label: 'All Tools', href: '/tools' },
   { label: 'Blog', href: '/#blog' },
   { label: 'Games', href: '/tools?search=meme' },
-  { label: 'About Us', href: '/#about' },
+  { label: 'About Us', href: '/about' },
   { label: 'Contact', href: 'mailto:hello@meridian.tools' },
 ];
 
@@ -41,7 +41,7 @@ export const footerSections = [
   {
     title: 'Company',
     links: [
-      { label: 'About', href: '/#about' },
+      { label: 'About', href: '/about' },
       { label: 'Contact', href: 'mailto:hello@meridian.tools' },
       { label: 'Blog', href: '/#blog' },
     ],

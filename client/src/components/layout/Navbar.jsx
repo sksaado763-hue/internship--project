@@ -44,7 +44,9 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
         {mainNavigation.map((item) => {
           const isActive = item.href === '/tools'
             ? location.pathname.startsWith('/tools')
-            : activeHash === item.href || (activeHash === '' && item.href === '/#home');
+            : item.href === '/about'
+              ? location.pathname === '/about'
+              : activeHash === item.href || (activeHash === '' && item.href === '/#home');
           const isExternal = item.href.startsWith('mailto:');
           const NavigationLink = isExternal ? 'a' : Link;
           return (
