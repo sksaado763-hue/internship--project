@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, BookOpen, Code2, FileText, Image, LockKeyhole, Search, Sparkles, Star, WandSparkles } from 'lucide-react';
+import { ArrowRight, BookOpen, Code2, Cpu, FileText, Image, LockKeyhole, Search, Sparkles, Star, WandSparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Badge from '../components/common/Badge.jsx';
 import { blogPosts, blogTopics } from '../data/blogPosts.js';
@@ -28,6 +28,10 @@ export default function BlogPage() {
   const relatedPosts = (matches.filter((post) => post !== featured).length >= 3
     ? matches.filter((post) => post !== featured)
     : blogPosts.filter((post) => post !== featured)).slice(0, 3);
+  const technologyPosts = matches.filter((post) => ['AI & Tools', 'Developer', 'Images & PDFs'].includes(post.category)).slice(0, 3);
+  const remainingArticles = topic === 'All Topics' && !query
+    ? articles.filter((post) => !technologyPosts.includes(post))
+    : articles;
 
   return (
     <div className="blog-page">
@@ -81,8 +85,26 @@ export default function BlogPage() {
           </div>
         )}
 
-        <div className="blog-list-heading"><div><h2>{topic === 'All Topics' ? 'Latest guides' : `${topic} guides`}</h2><p>{matches.length} {matches.length === 1 ? 'article' : 'articles'} to explore</p></div></div>
-        {articles.length ? <div className="blog-article-grid">{articles.map((post, index) => <Link className="blog-article-card" to={`/blog/${post.slug}`} key={post.slug}><span className={`blog-card-art blog-card-art--${index % 4}`} aria-hidden="true"><span>{post.category === 'Developer' ? <Code2 size={29} /> : post.category === 'Privacy' ? <LockKeyhole size={29} /> : post.category === 'Images & PDFs' ? <Image size={29} /> : post.category === 'Writing' ? <FileText size={29} /> : <Sparkles size={29} />}</span></span><div className="blog-article-copy"><span className="blog-post-category">{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><span className="blog-read-link">Read article <ArrowRight size={15} aria-hidden="true" /></span><small>{post.readTime}</small></div></Link>)}</div> : !featured && <div className="blog-empty" role="status"><Search size={25} aria-hidden="true" /><h2>No articles found</h2><p>Try another search or choose a different topic.</p><button type="button" className="blog-reset" onClick={() => { setSearch(''); setTopic('All Topics'); }}>Clear filters</button></div>}
+        {technologyPosts.length > 0 && topic === 'All Topics' && !query && (
+          <section className="blog-topic-section" aria-labelledby="blog-technology-title">
+            <div className="blog-topic-heading">
+              <h2 id="blog-technology-title"><span><Cpu size={20} aria-hidden="true" /></span>Technology</h2>
+              <a href="#all-guides" className="blog-view-all">View all <ArrowRight size={16} aria-hidden="true" /></a>
+            </div>
+            <div className="blog-technology-grid">
+              {technologyPosts.map((post, index) => <Link className="blog-article-card blog-technology-card" to={`/blog/${post.slug}`} key={post.slug}>
+                <span className={`blog-card-art blog-technology-art blog-technology-art--${index}`} aria-hidden="true">
+                  <span>{post.category === 'Developer' ? <Code2 size={34} /> : post.category === 'Images & PDFs' ? <Image size={34} /> : <Sparkles size={34} />}</span>
+                  <small>Technology</small>
+                </span>
+                <div className="blog-article-copy"><h3>{post.title}</h3><p>{post.excerpt}</p><span className="blog-card-footer"><small>{post.readTime}</small><span className="blog-read-link">Read article <ArrowRight size={15} aria-hidden="true" /></span></span></div>
+              </Link>)}
+            </div>
+          </section>
+        )}
+
+        <div className="blog-list-heading" id="all-guides"><div><h2>{topic === 'All Topics' ? 'Latest guides' : `${topic} guides`}</h2><p>{matches.length} {matches.length === 1 ? 'article' : 'articles'} to explore</p></div></div>
+        {remainingArticles.length ? <div className="blog-article-grid">{remainingArticles.map((post, index) => <Link className="blog-article-card" to={`/blog/${post.slug}`} key={post.slug}><span className={`blog-card-art blog-card-art--${index % 4}`} aria-hidden="true"><span>{post.category === 'Developer' ? <Code2 size={29} /> : post.category === 'Privacy' ? <LockKeyhole size={29} /> : post.category === 'Images & PDFs' ? <Image size={29} /> : post.category === 'Writing' ? <FileText size={29} /> : <Sparkles size={29} />}</span></span><div className="blog-article-copy"><span className="blog-post-category">{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><span className="blog-read-link">Read article <ArrowRight size={15} aria-hidden="true" /></span><small>{post.readTime}</small></div></Link>)}</div> : !featured && <div className="blog-empty" role="status"><Search size={25} aria-hidden="true" /><h2>No articles found</h2><p>Try another search or choose a different topic.</p><button type="button" className="blog-reset" onClick={() => { setSearch(''); setTopic('All Topics'); }}>Clear filters</button></div>}
       </section>
     </div>
   );
