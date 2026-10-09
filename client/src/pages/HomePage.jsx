@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, ArrowUpRight, Calculator, Code2, FileText, Image, LockKeyhole, Sparkles, TrendingUp, Zap } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Calculator, Code2, FileText, Image, LockKeyhole, Sparkles, TrendingUp, WandSparkles, Zap } from 'lucide-react';
 import Badge from '../components/common/Badge.jsx';
 import Button from '../components/common/Button.jsx';
 import SearchField from '../components/common/SearchField.jsx';
@@ -14,6 +14,7 @@ const categoryIcons = {
   Image,
   PDF: FileText,
   Calculators: Calculator,
+  'AI & Smart Generators': WandSparkles,
 };
 
 export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmit }) {
