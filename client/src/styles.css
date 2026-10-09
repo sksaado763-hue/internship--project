@@ -106,16 +106,16 @@ img, svg { display: block; }
 
 /* Global navigation */
 .site-header { position: sticky; z-index: 30; top: 0; padding-top: 12px; border: 0; background: color-mix(in srgb, var(--page) 88%, transparent); backdrop-filter: blur(12px); }
-.nav-shell { position: relative; display: flex; width: min(1400px, calc(100% - 72px)); max-width: none; height: 126px; align-items: center; justify-content: flex-end; gap: 12px; margin-inline: auto; }
+.nav-shell { position: relative; display: flex; width: min(1400px, calc(100% - 72px)); max-width: none; height: 126px; align-items: center; justify-content: flex-start; gap: 12px; margin-inline: auto; }
 .site-header .nav-shell::before { position: absolute; top: 16px; right: 0; bottom: 16px; left: 0; border: 1px solid #ffffff80; border-radius: 999px; background: linear-gradient(105deg, #8037df 0%, #6947e9 54%, #4f56e9 100%); box-shadow: 0 13px 30px #6142b526; content: ""; }
 .brand { display: inline-flex; min-width: max-content; align-items: center; gap: 10px; color: var(--ink); font-size: 16px; font-weight: 790; letter-spacing: -.75px; text-decoration: none; }
 .brand-mark { @apply grid place-items-center rounded-xl bg-brand-primary text-white; width: 34px; height: 34px; box-shadow: 0 5px 18px rgb(var(--tw-brand-primary) / .36); }
 .brand-light { color: var(--muted); font-weight: 500; }
-.site-header .brand { position: absolute; z-index: 2; top: 0; left: 0; display: none; width: 96px; height: 96px; align-content: center; justify-items: center; gap: 2px; border: 3px solid transparent; border-radius: 50%; padding: 7px 5px; background: linear-gradient(#fff, #fff) padding-box, linear-gradient(145deg, #e8baff, #ad70ef 52%, #d7bdff) border-box; box-shadow: 0 9px 25px #7749d738; }
-.site-header .brand-mark { width: 40px; height: 40px; border-radius: 13px; color: #fff; background: linear-gradient(140deg, #8b36df, #584be8); box-shadow: 0 7px 16px #7641d83d; }
-.site-header .brand > span:last-child { color: #1b2440; font-size: 11px; letter-spacing: -.4px; }
-.site-header .brand-light { color: #8151d5; }
-.desktop-nav { position: relative; z-index: 1; display: flex; height: 72px; flex: 1; align-items: center; justify-content: flex-end; gap: clamp(14px, 1.55vw, 25px); margin-left: 0; padding-right: 18px; }
+.site-header .brand { position: relative; z-index: 2; top: auto; left: auto; display: inline-flex; width: auto; height: auto; align-content: normal; justify-items: normal; flex: 0 0 auto; gap: 9px; border: 0; border-radius: 0; padding: 0 0 0 24px; background: transparent; box-shadow: none; }
+.site-header .brand-mark { width: 40px; height: 40px; border-radius: 13px; color: #fff; background: linear-gradient(140deg, #a34af0, #584be8); box-shadow: 0 7px 16px #351b7440; }
+.site-header .brand > span:last-child { color: #fff; font-size: 17px; letter-spacing: -.5px; }
+.site-header .brand-light { color: #e4d7ff; }
+.desktop-nav { position: relative; z-index: 1; display: flex; height: 72px; flex: 1; align-items: center; justify-content: flex-end; gap: clamp(14px, 1.55vw, 25px); margin-left: auto; padding-right: 18px; }
 .nav-link { display: inline-flex; position: relative; height: 100%; align-items: center; gap: 4px; color: #f4efff; font-size: clamp(14px, 1.2vw, 20px); font-weight: 650; text-decoration: none; transition: color .16s; }
 .nav-link:hover, .nav-link.is-active { color: #fff; }
 .nav-link.is-active::after { position: absolute; right: 0; bottom: 18px; left: 0; height: 3px; border-radius: 2px; background: #8cecff; content: ""; }
@@ -307,9 +307,10 @@ img, svg { display: block; }
   .page-container { width: min(var(--container), calc(100% - 44px)); }
   .nav-shell.page-container { width: min(1400px, calc(100% - 44px)); gap: 9px; }
   .site-header .nav-shell::before { left: 0; }
-  .site-header .brand { width: 92px; height: 92px; }
-  .site-header .brand-mark { width: 38px; height: 38px; border-radius: 12px; }
-  .desktop-nav { gap: 11px; margin-left: 70px; }
+  .site-header .brand { gap: 7px; padding-left: 14px; }
+  .site-header .brand-mark { width: 34px; height: 34px; border-radius: 11px; }
+  .site-header .brand > span:last-child { font-size: 14px; }
+  .desktop-nav { gap: 11px; margin-left: auto; padding-right: 8px; }
   .nav-link { font-size: 11px; }
   .nav-actions { gap: 7px; }
   .site-header .nav-actions > .icon-button { width: 38px; height: 38px; border-radius: 11px; }
