@@ -106,14 +106,15 @@ img, svg { display: block; }
 
 /* Global navigation */
 .site-header { position: sticky; z-index: 30; top: 0; padding-top: 12px; border: 0; background: color-mix(in srgb, var(--page) 88%, transparent); backdrop-filter: blur(12px); }
-.nav-shell { position: relative; display: flex; width: min(1400px, calc(100% - 72px)); max-width: none; height: 126px; align-items: center; justify-content: flex-start; gap: 12px; margin-inline: auto; }
-.site-header .nav-shell::before { position: absolute; top: 16px; right: 0; bottom: 16px; left: 0; border: 1px solid #ffffff80; border-radius: 999px; background: linear-gradient(105deg, #8037df 0%, #6947e9 54%, #4f56e9 100%); box-shadow: 0 13px 30px #6142b526; content: ""; }
+.nav-shell { position: relative; display: flex; width: min(1700px, calc(100% - 80px)); max-width: none; height: 220px; align-items: center; justify-content: flex-start; gap: 12px; margin-inline: auto; }
+.site-header .nav-shell::before { position: absolute; top: 63px; right: 0; bottom: 63px; left: 190px; border: 1px solid #ffffff80; border-radius: 999px; background: linear-gradient(105deg, #8037df 0%, #6947e9 54%, #4f56e9 100%); box-shadow: 0 13px 30px #6142b526; content: ""; }
 .brand { display: inline-flex; min-width: max-content; align-items: center; gap: 10px; color: var(--ink); font-size: 16px; font-weight: 790; letter-spacing: -.75px; text-decoration: none; }
 .brand-mark { @apply grid place-items-center rounded-xl bg-brand-primary text-white; width: 34px; height: 34px; box-shadow: 0 5px 18px rgb(var(--tw-brand-primary) / .36); }
 .brand-light { color: var(--muted); font-weight: 500; }
-.site-header .brand { position: relative; z-index: 2; top: auto; left: auto; display: inline-flex; width: auto; height: auto; align-content: normal; justify-items: normal; flex: 0 0 auto; gap: 9px; border: 0; border-radius: 0; padding: 0 0 0 24px; background: transparent; box-shadow: none; }
-.site-header .brand-mark { width: 40px; height: 40px; border-radius: 13px; color: #fff; background: linear-gradient(140deg, #a34af0, #584be8); box-shadow: 0 7px 16px #351b7440; }
-.site-header .brand > span:last-child { color: #fff; font-size: 17px; letter-spacing: -.5px; }
+.site-header .brand { position: absolute; z-index: 3; top: 50%; left: 0; display: grid; width: 216px; height: 216px; align-content: center; justify-items: center; border: 4px solid #e4c2ff; border-radius: 50%; padding: 34px; background: #fff; box-shadow: 0 15px 38px #6548bd42; transform: translateY(-50%); }
+.site-header .brand-mark { width: 100%; height: 100%; border-radius: 50%; color: #fff; background: transparent; box-shadow: none; }
+.brand-symbol { width: 100%; height: 100%; }
+.site-header .brand > span:last-child { display: none; }
 .site-header .brand-light { color: #e4d7ff; }
 .desktop-nav { position: relative; z-index: 1; display: flex; height: 72px; flex: 1; align-items: center; justify-content: flex-end; gap: clamp(14px, 1.55vw, 25px); margin-left: auto; padding-right: 18px; }
 .nav-link { display: inline-flex; position: relative; height: 100%; align-items: center; gap: 4px; color: #f4efff; font-size: clamp(14px, 1.2vw, 20px); font-weight: 650; text-decoration: none; transition: color .16s; }
@@ -301,7 +302,7 @@ img, svg { display: block; }
 .footer-main { display: grid; grid-template-columns: 1.65fr repeat(4, .78fr); gap: 35px; padding-top: 53px; padding-bottom: 44px; }
 .footer-brand-column { max-width: 250px; }
 .footer-brand-column .brand { font-size: 15px; }
-.footer-brand-column .brand-mark { width: 31px; height: 31px; border-radius: 10px; font-size: 18px; }
+.footer-brand-column .brand-mark { width: 34px; height: 34px; border: 1px solid #e4c2ff; border-radius: 50%; padding: 3px; background: #fff; box-shadow: 0 3px 10px #6548bd26; }
 .footer-brand-column > p { margin: 15px 0 18px; color: var(--muted); font-size: 10px; line-height: 1.8; }
 .social-links { display: flex; gap: 7px; }
 .social-link { width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 9px; }
@@ -329,11 +330,11 @@ img, svg { display: block; }
 
 @media (max-width: 980px) {
   .page-container { width: min(var(--container), calc(100% - 44px)); }
-  .nav-shell.page-container { width: min(1400px, calc(100% - 44px)); gap: 9px; }
-  .site-header .nav-shell::before { left: 0; }
-  .site-header .brand { gap: 7px; padding-left: 14px; }
-  .site-header .brand-mark { width: 34px; height: 34px; border-radius: 11px; }
-  .site-header .brand > span:last-child { font-size: 14px; }
+  .nav-shell.page-container { width: min(1700px, calc(100% - 44px)); height: 190px; gap: 9px; }
+  .site-header .nav-shell::before { top: 53px; bottom: 53px; left: 145px; }
+  .site-header .brand { width: 164px; height: 164px; padding: 20px; }
+  .site-header .brand-mark { width: 100%; height: 100%; }
+  .site-header .brand > span:last-child { display: none; }
   .desktop-nav { gap: 11px; margin-left: auto; padding-right: 8px; }
   .nav-link { font-size: 11px; }
   .nav-actions { gap: 7px; }
@@ -353,9 +354,10 @@ img, svg { display: block; }
   .site-header { padding-top: 7px; background: color-mix(in srgb, var(--page) 94%, transparent); }
   .nav-shell.page-container { width: min(100% - 36px, 560px); height: 67px; gap: 8px; }
   .site-header .nav-shell::before { display: none; }
-  .site-header .brand { position: relative; top: auto; left: auto; display: inline-flex; width: auto; height: auto; align-content: normal; justify-items: normal; gap: 8px; border: 0; border-radius: 0; padding: 0; background: transparent; box-shadow: none; font-size: 15px; }
-  .site-header .brand-mark { width: 32px; height: 32px; border-radius: 11px; }
-  .site-header .brand-mark svg { width: 19px; height: 19px; }
+  .site-header .brand { position: relative; top: auto; left: auto; display: inline-flex; width: auto; height: auto; align-content: normal; justify-items: normal; gap: 8px; border: 0; border-radius: 0; padding: 0; background: transparent; box-shadow: none; font-size: 15px; transform: none; }
+  .site-header .brand-mark { width: 32px; height: 32px; border: 1px solid #e4c2ff; border-radius: 50%; padding: 3px; background: #fff; }
+  .site-header .brand-symbol { width: 100%; height: 100%; }
+  .site-header .brand > span:last-child { display: inline; }
   .site-header .brand > span:last-child { color: var(--ink); font-size: 15px; }
   .site-header .brand-light { color: var(--brand); }
   .desktop-nav, .nav-actions > .login-link, .nav-actions > .nav-cta { display: none; }

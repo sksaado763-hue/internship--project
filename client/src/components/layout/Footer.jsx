@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail, MoveUpRight } from 'lucide-react';
 import { footerSections } from '../../data/siteContent.js';
+import BrandLogo from '../common/BrandLogo.jsx';
 
 const socialLinks = [
   { label: 'GitHub', icon: Github },
@@ -14,7 +15,7 @@ export default function Footer({ onComingSoon }) {
         <div className="footer-main">
           <div className="footer-brand-column" id="about">
             <a className="brand" href="/#home" aria-label="HavitGrowth home">
-              <span className="brand-mark"><span aria-hidden="true">H</span></span>
+              <span className="brand-mark"><BrandLogo className="brand-symbol" /></span>
               <span>Havit<span className="brand-light">Growth</span></span>
             </a>
             <p>Thoughtful online tools that make everyday work feel a little lighter.</p>
