@@ -22,7 +22,11 @@ export const tools = toolRegistry.map((tool) => ({
   category: categoriesBySlug[tool.categorySlug]?.name ?? tool.categorySlug,
   icon: icons[tool.icon] ?? FileText,
 })).sort((a, b) => {
-  if (a.category === 'AI & Smart Generators' && b.category === 'AI & Smart Generators') return aiToolOrder.indexOf(a.slug) - aiToolOrder.indexOf(b.slug);
+  const aIsAi = a.category === 'AI & Smart Generators';
+  const bIsAi = b.category === 'AI & Smart Generators';
+  if (aIsAi && bIsAi) return aiToolOrder.indexOf(a.slug) - aiToolOrder.indexOf(b.slug);
+  if (aIsAi) return -1;
+  if (bIsAi) return 1;
   return 0;
 });
 
