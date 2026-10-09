@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Heart, Menu, Search, X } from 'lucide-react';
+import { Boxes, Heart, Menu, Search, X } from 'lucide-react';
 import Button from '../common/Button.jsx';
-import BrandLogo from '../common/BrandLogo.jsx';
 import SearchField from '../common/SearchField.jsx';
 import { mainNavigation } from '../../data/siteContent.js';
 
@@ -70,7 +69,7 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
     <header className="site-header">
       <div className="nav-shell page-container">
         <Link className="brand" to="/#home" aria-label="HavitGrowth home">
-          <span className="brand-mark"><BrandLogo className="brand-symbol" /></span>
+          <span className="brand-mark"><Boxes size={49} strokeWidth={2.2} aria-hidden="true" /></span>
           <span>Havit<span className="brand-light">Growth</span></span>
         </Link>
 
