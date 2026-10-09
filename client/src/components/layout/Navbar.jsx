@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Boxes, ChevronDown, Menu, Moon, Search, Sun, X } from 'lucide-react';
+import { Boxes, Heart, Menu, Search, X } from 'lucide-react';
 import Button from '../common/Button.jsx';
 import SearchField from '../common/SearchField.jsx';
 import { mainNavigation } from '../../data/siteContent.js';
-import { useTheme } from '../../context/ThemeContext.jsx';
 
 export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit, onLogin }) {
-  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -47,17 +45,18 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
           const isActive = item.href === '/tools'
             ? location.pathname.startsWith('/tools')
             : activeHash === item.href || (activeHash === '' && item.href === '/#home');
+          const isExternal = item.href.startsWith('mailto:');
+          const NavigationLink = isExternal ? 'a' : Link;
           return (
-            <Link
+            <NavigationLink
               key={item.label}
               className={`nav-link ${isActive ? 'is-active' : ''}`}
-              to={item.href}
+              {...(isExternal ? { href: item.href } : { to: item.href })}
               aria-current={isActive ? 'page' : undefined}
               onClick={onNavigate}
             >
               {item.label}
-              {item.label === 'Categories' && <ChevronDown className="nav-chevron" size={13} aria-hidden="true" />}
-            </Link>
+            </NavigationLink>
           );
         })}
       </nav>
@@ -75,6 +74,9 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
         {renderNavigation('desktop-nav')}
 
         <div className="nav-actions">
+          <Link className="icon-button nav-favorites-toggle" to="/tools?category=Favorites" aria-label="View favorite tools" title="Favorite tools">
+            <Heart size={19} aria-hidden="true" />
+          </Link>
           <button
             className={`icon-button nav-search-toggle ${searchOpen ? 'is-selected' : ''}`}
             type="button"
@@ -85,17 +87,6 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
           >
             {searchOpen ? <X size={18} /> : <Search size={18} />}
           </button>
-          <button
-            className="icon-button theme-toggle"
-            type="button"
-            onClick={toggleTheme}
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
-            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
-          >
-            {theme === 'light' ? <Moon size={18} aria-hidden="true" /> : <Sun size={18} aria-hidden="true" />}
-          </button>
-          <button className="login-link" type="button" onClick={onLogin}>Log in</button>
-          <Button as="a" href="/tools" variant="primary" size="small" className="nav-cta">Get started</Button>
           <button
             className="icon-button menu-toggle"
             type="button"

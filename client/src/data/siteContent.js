@@ -3,8 +3,10 @@ import { categoryRegistry } from '../../../shared/toolCategories.js';
 export const mainNavigation = [
   { label: 'Home', href: '/#home' },
   { label: 'All Tools', href: '/tools' },
-  { label: 'Categories', href: '/#categories' },
   { label: 'Blog', href: '/#blog' },
+  { label: 'Games', href: '/tools?search=meme' },
+  { label: 'About Us', href: '/#about' },
+  { label: 'Contact', href: 'mailto:hello@meridian.tools' },
 ];
 
 export const platformStats = [
