@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Boxes, Heart, Menu, Search, X } from 'lucide-react';
+import { Boxes, Heart, Menu, Moon, Search, Sun, X } from 'lucide-react';
 import Button from '../common/Button.jsx';
 import SearchField from '../common/SearchField.jsx';
+import { useTheme } from '../../context/ThemeContext.jsx';
 import { mainNavigation } from '../../data/siteContent.js';
 
 export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit, onLogin }) {
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeHash, setActiveHash] = useState(`${window.location.pathname}${window.location.hash || '#home'}`);
@@ -81,6 +83,9 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
           <Link className="icon-button nav-favorites-toggle" to="/tools?category=Favorites" aria-label="View favorite tools" title="Favorite tools">
             <Heart size={19} aria-hidden="true" />
           </Link>
+          <button className="icon-button nav-theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}>
+            {theme === 'light' ? <Moon size={18} aria-hidden="true" /> : <Sun size={18} aria-hidden="true" />}
+          </button>
           <button
             className={`icon-button nav-search-toggle ${searchOpen ? 'is-selected' : ''}`}
             type="button"
@@ -118,6 +123,10 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
         <div className={`mobile-menu ${menuOpen ? 'is-open' : ''}`} id="mobile-menu" aria-hidden={!menuOpen} inert={!menuOpen}>
           {renderNavigation('mobile-nav', () => setMenuOpen(false))}
           <div className="mobile-menu-actions">
+            <button className="mobile-theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}>
+              {theme === 'light' ? <Moon size={16} aria-hidden="true" /> : <Sun size={16} aria-hidden="true" />}
+              {theme === 'light' ? 'Dark theme' : 'Light theme'}
+            </button>
             <button className="login-link" type="button" onClick={() => { setMenuOpen(false); onLogin(); }}>Log in</button>
             <Button as="a" href="/tools" variant="primary" onClick={() => setMenuOpen(false)}>Get started</Button>
           </div>
