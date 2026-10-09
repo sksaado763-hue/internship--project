@@ -9,6 +9,8 @@ const HomePage = lazy(() => import('./pages/HomePage.jsx'));
 const ToolsPage = lazy(() => import('./pages/ToolsPage.jsx'));
 const ToolPage = lazy(() => import('./pages/ToolPage.jsx'));
 const AboutPage = lazy(() => import('./pages/AboutPage.jsx'));
+const BlogPage = lazy(() => import('./pages/BlogPage.jsx'));
+const BlogArticlePage = lazy(() => import('./pages/BlogArticlePage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
 
 function RouteFallback() {
@@ -37,6 +39,8 @@ export default function App() {
               <Route path="/tools" element={<ToolsPage onSearchTermChange={setSearchTerm} />} />
               <Route path="/all-tools" element={<ToolsPage defaultCategory="AI & Smart Generators" onSearchTermChange={setSearchTerm} />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogArticlePage />} />
               <Route path="/tools/:slug" element={<ToolPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>

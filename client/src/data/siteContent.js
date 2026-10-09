@@ -3,7 +3,7 @@ import { categoryRegistry } from '../../../shared/toolCategories.js';
 export const mainNavigation = [
   { label: 'Home', href: '/#home' },
   { label: 'All Tools', href: '/tools' },
-  { label: 'Blog', href: '/#blog' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Games', href: '/tools?search=meme' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: 'mailto:hello@meridian.tools' },
@@ -43,7 +43,7 @@ export const footerSections = [
     links: [
       { label: 'About', href: '/about' },
       { label: 'Contact', href: 'mailto:hello@meridian.tools' },
-      { label: 'Blog', href: '/#blog' },
+      { label: 'Blog', href: '/blog' },
     ],
   },
   {

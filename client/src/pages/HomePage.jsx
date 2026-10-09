@@ -1,4 +1,5 @@
 import { ArrowDown, ArrowRight, ArrowUpRight, Calculator, Code2, FileText, Image, LockKeyhole, Sparkles, TrendingUp, WandSparkles, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Badge from '../components/common/Badge.jsx';
 import Button from '../components/common/Button.jsx';
 import SearchField from '../components/common/SearchField.jsx';
@@ -142,11 +143,11 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
       </section>
 
       <section className="journal-section page-container" id="blog" aria-labelledby="journal-title">
-        <div className="journal-card">
+        <Link className="journal-card" to="/blog">
           <div className="journal-mark" aria-hidden="true"><span>m</span></div>
-          <div><Badge tone="neutral">FIELD NOTES · COMING SOON</Badge><h2 id="journal-title">Ideas for getting good work done.</h2><p>Short reads on useful workflows, thoughtful tools, and making room for focus.</p></div>
+          <div><Badge tone="neutral">HAVITGROWTH GUIDES</Badge><h2 id="journal-title">Ideas for getting good work done.</h2><p>Short reads on useful workflows, thoughtful tools, and making room for focus.</p></div>
           <span className="journal-arrow" aria-hidden="true"><ArrowUpRight size={18} /></span>
-        </div>
+        </Link>
       </section>
     </>
   );
