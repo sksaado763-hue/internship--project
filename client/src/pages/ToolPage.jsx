@@ -27,6 +27,7 @@ import FakeChatGeneratorTool from '../components/tools/FakeChatGeneratorTool.jsx
 import YoutubeThumbnailTool from '../components/tools/YoutubeThumbnailTool.jsx';
 import ResumeBuilderTool from '../components/tools/ResumeBuilderTool.jsx';
 import PowerPointGeneratorTool from '../components/tools/PowerPointGeneratorTool.jsx';
+import AiGeneratorDemoTool from '../components/tools/AiGeneratorDemoTool.jsx';
 import { toolBySlug } from '../data/tools.js';
 
 const toolInterfaces = {
@@ -64,5 +65,6 @@ export default function ToolPage() {
   if (!tool) return <NotFoundPage />;
   const ToolInterface = toolInterfaces[slug];
 
-  return <ToolLayout tool={tool}><ToolInterface /></ToolLayout>;
+  const Interface = ToolInterface ?? AiGeneratorDemoTool;
+  return <ToolLayout tool={tool}><Interface tool={tool} /></ToolLayout>;
 }

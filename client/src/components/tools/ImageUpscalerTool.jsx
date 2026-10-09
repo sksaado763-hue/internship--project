@@ -61,6 +61,6 @@ export default function ImageUpscalerTool() {
     </section>
     {preview && <img className="image-tool-preview" src={preview} alt="Selected image preview" />}
     <div className="tool-action-row"><p className="tool-inline-status" aria-live="polite">{message}</p><div className="tool-actions"><button className="case-action" type="button" disabled={!file} onClick={upscale}>Enlarge image</button>{result && <a className="button button--primary button--small" href={result} download={`upscaled-${file.name.replace(/\.[^.]+$/, '')}.png`}><Download size={14} aria-hidden="true" /> Download PNG</a>}</div></div>
-    <p className="tool-inline-status">Runs locally using high-quality browser resizing. It does not use the Real-ESRGAN AI model.</p>
+    <aside className="ai-api-reference"><strong>AI upscaling API</strong><p>This clone only resizes pixels in your browser. Neural upscaling needs an external model API; no key is configured here.</p><a href="https://replicate.com/docs/reference/http" target="_blank" rel="noreferrer">Replicate API reference ↗</a></aside>
   </div>;
 }

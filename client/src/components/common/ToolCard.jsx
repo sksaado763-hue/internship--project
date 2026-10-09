@@ -24,7 +24,7 @@ export default function ToolCard({ tool, variant = 'default' }) {
       <Link className="tool-card-hit-area" to={`/tools/${tool.slug}`} aria-label={`Open ${tool.name}`} />
       <div className="tool-card-topline">
         <span className="tool-card-icon"><Icon size={20} strokeWidth={1.8} aria-hidden="true" /></span>
-        {isDirectoryCard ? <div className="tool-card-meta"><span className="tool-card-category-pill">{tool.category}</span>{favoriteButton}</div> : favoriteButton}
+        {isDirectoryCard ? <div className="tool-card-meta"><span className="tool-card-category-pill">{tool.category === 'AI & Smart Generators' ? 'AI powered' : tool.category}</span>{favoriteButton}</div> : favoriteButton}
       </div>
       <div className="tool-card-heading">
         <h3>{tool.name}</h3>

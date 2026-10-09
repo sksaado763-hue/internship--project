@@ -34,6 +34,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<HomePage searchTerm={searchTerm} onSearchTermChange={setSearchTerm} onSearchSubmit={submitSearch} />} />
               <Route path="/tools" element={<ToolsPage onSearchTermChange={setSearchTerm} />} />
+              <Route path="/all-tools" element={<ToolsPage defaultCategory="AI & Smart Generators" onSearchTermChange={setSearchTerm} />} />
               <Route path="/tools/:slug" element={<ToolPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
