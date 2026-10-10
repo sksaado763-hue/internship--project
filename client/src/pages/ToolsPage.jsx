@@ -5,6 +5,61 @@ import ToolCard from '../components/common/ToolCard.jsx';
 import { useFavorites } from '../context/FavoritesContext.jsx';
 import { tools } from '../data/tools.js';
 
+const POPULAR_FEATURED_SLUGS = [
+  'word-counter', 'character-counter', 'case-converter', 'json-formatter',
+  'url-encoder-decoder', 'base64-encoder-decoder', 'password-generator', 'ai-background-remover',
+];
+
+const TOOL_SECTIONS = [
+  {
+    id: 'popular-featured',
+    title: 'Popular Featured Tools',
+    description: 'Most frequently used utilities by our global creators & power users',
+    select: (tool) => POPULAR_FEATURED_SLUGS.includes(tool.slug),
+  },
+  {
+    id: 'ai-generators',
+    title: 'AI & Smart Generators',
+    description: 'Next-gen artificial intelligence, voice engines, call studio & generators',
+    select: (tool) => tool.category === 'AI & Smart Generators',
+  },
+  {
+    id: 'pdf-documents',
+    title: 'PDF & Document Utilities',
+    description: 'Convert, edit, merge, split, sign, protect and compress PDF documents',
+    select: (tool) => [
+      'word-counter', 'character-counter', 'case-converter', 'slug-generator', 'lorem-ipsum-generator',
+      'text-diff-checker', 'csv-to-json', 'json-to-csv', 'markdown-table-generator',
+      'resume-builder', 'ai-powerpoint-generator', 'html-entity-encoder',
+    ].includes(tool.slug),
+  },
+  {
+    id: 'image-converters',
+    title: 'Image Converters (Pic to Format)',
+    description: 'High-speed batch raster & vector image format transformations',
+    select: (tool) => [
+      'ai-background-remover', 'image-upscaler', 'ai-image-generator', 'favicon-generator',
+      'svg-shape-generator', 'color-converter', 'gradient-generator',
+    ].includes(tool.slug),
+  },
+  {
+    id: 'calculators',
+    title: 'Calculators & Financial Tools',
+    description: 'Loan EMI, mortgages, salary, taxes, pregnancy, GPA and scientific precision math engines',
+    select: (tool) => ['percentage-calculator', 'number-base-converter', 'timestamp-converter'].includes(tool.slug),
+  },
+  {
+    id: 'social-video',
+    title: 'Social Media & Video Tools',
+    description: 'YouTube, Instagram, TikTok downloaders, hashtag finders, comment pickers and analytics',
+    select: (tool) => [
+      'youtube-thumbnail-downloader', 'fake-chat-generator', 'ai-video-caption-generator',
+      'instagram-caption-generator', 'meme-generator', 'unicode-font-generator',
+      'youtube-name-generator', 'youtube-title-generator', 'youtube-hashtag-generator', 'youtube-hook-generator',
+    ].includes(tool.slug),
+  },
+];
+
 export default function ToolsPage({ onSearchTermChange, defaultCategory = 'All tools' }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { favorites } = useFavorites();
@@ -30,6 +85,21 @@ export default function ToolsPage({ onSearchTermChange, defaultCategory = 'All t
       return matchesSearch && matchesCategory && (!popularOnly || tool.isPopular) && (!newOnly || tool.isNew);
     });
   }, [category, favorites, newOnly, popularOnly, query]);
+
+  const groupedSections = useMemo(() => {
+    const claimed = new Set();
+    const sections = TOOL_SECTIONS.map((section) => {
+      const sectionTools = visibleTools.filter(section.select);
+      sectionTools.forEach((tool) => claimed.add(tool.slug));
+      return { ...section, tools: sectionTools };
+    }).filter((section) => section.tools.length > 0);
+    const additionalTools = visibleTools.filter((tool) => !claimed.has(tool.slug));
+    if (additionalTools.length) sections.push({
+      id: 'more-tools', title: 'More Tools',
+      description: 'Developer, SEO and everyday utilities', tools: additionalTools,
+    });
+    return sections;
+  }, [visibleTools]);
 
   function updateSearch(value) {
     onSearchTermChange?.(value);
@@ -63,7 +133,12 @@ export default function ToolsPage({ onSearchTermChange, defaultCategory = 'All t
       <div className="directory-filters" role="group" aria-label="Filter tools by category">
         {availableCategories.map((item) => <button type="button" key={item} className={`filter-chip ${category === item ? 'is-active' : ''}`} aria-pressed={category === item} onClick={() => selectCategory(item)}>{item}</button>)}
       </div>
-      {visibleTools.length ? <div className="tool-grid">{visibleTools.map((tool) => <ToolCard key={tool.id} tool={tool} variant="directory" />)}</div> : (
+      {visibleTools.length ? (category === 'All tools' ? <div className="directory-sections">
+        {groupedSections.map((section) => <section className="directory-section" key={section.id} aria-labelledby={`directory-section-${section.id}`}>
+          <header className="directory-section-heading"><div><h2 id={`directory-section-${section.id}`}>{section.title} <span>({section.tools.length})</span></h2><p>{section.description}</p></div></header>
+          <div className="tool-grid">{section.tools.map((tool) => <ToolCard key={tool.id} tool={tool} variant="directory" />)}</div>
+        </section>)}
+      </div> : <div className="tool-grid">{visibleTools.map((tool) => <ToolCard key={tool.id} tool={tool} variant="directory" />)}</div>) : (
         <div className="directory-empty" role="status"><Search size={22} aria-hidden="true" /><h2>No tools found</h2><p>Try another search, or switch the category filter.</p><button className="text-link" type="button" onClick={() => { setSearchParams({}, { replace: true }); }}>Clear filters</button></div>
       )}
     </section>
