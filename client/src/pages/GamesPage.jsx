@@ -9,6 +9,7 @@ import {
   TypingGame, WordleGame,
 } from '../components/games/ArcadeGames.jsx';
 import { Pong, RubiksCube } from '../components/games/PhysicsGames.jsx';
+import { gameGuides } from '../data/gameGuides.js';
 
 const GAMES = [
   { slug: 'rubiks-cube', title: "3D Rubik's Cube", tag: '3D CUBE', categories: ['3D Games', 'Puzzle & Brain'], description: 'Turn each face, scramble the stickers, and work your way back to a solved cube.', action: 'Play cube', icon: Boxes, tone: 'cyan', component: RubiksCube, controls: 'Drag to orbit · face buttons or U R F D L B to turn' },
@@ -36,6 +37,7 @@ function LetterIcon({ size = 24 }) { return <span className="games-letter-icon" 
 export default function GamesPage() {
   const { slug } = useParams(); const navigate = useNavigate(); const [category, setCategory] = useState('All 10 Games');
   const selected = GAMES.find((game) => game.slug === slug); const Playable = selected?.component;
+  const guide = selected ? gameGuides[selected.slug] : null;
   const visibleGames = category === 'All 10 Games' ? GAMES : GAMES.filter((game) => game.categories.includes(category));
   if (slug && !selected) return <section className="games-page page-container"><h1>Game not found</h1><Link className="arcade-button arcade-button--primary" to="/games">Back to games</Link></section>;
   return <section className={`games-page page-container ${selected ? 'games-page--detail' : ''}`} aria-labelledby="games-title">
@@ -43,6 +45,14 @@ export default function GamesPage() {
       <div className="game-detail-nav"><button className="games-back" onClick={() => navigate('/games')}><ArrowLeft size={17} /> All games</button><span>{selected.tag}<span className="game-nav-dot">•</span> {selected.controls}</span></div>
       <header className="game-detail-heading"><div className={`game-icon game-icon--${selected.tone}`}><selected.icon size={27} /></div><div className="game-detail-copy"><span className={`game-tag game-tag--${selected.tone}`}>{selected.categories[0]}</span><h1 id="games-title">{selected.title}</h1><p>{selected.description}</p></div></header>
       <div className="game-play-area"><Playable /></div>
+      {guide && <article className="game-guide" aria-labelledby="game-guide-title">
+        <h2 id="game-guide-title">{guide.title}</h2>
+        <p className="game-guide-intro">{guide.intro}</p>
+        {guide.sections.map((section) => <section className="game-guide-section" key={section.title}>
+          <h3>{section.title}</h3>
+          {section.paragraphs.map((paragraph, index) => <p key={`${section.title}-${index}`}>{paragraph}</p>)}
+        </section>)}
+      </article>}
       <div className="game-detail-next"><span><BrainCircuit size={16} /> Take a quick break. Your progress saves in this browser.</span><button onClick={() => navigate('/games')}>Browse all games <ArrowRight size={15} /></button></div>
     </> : <>
       <header className="games-heading"><span className="games-eyebrow"><Gamepad2 size={18} /> BROWSER ARCADE · FREE TO PLAY</span><h1 id="games-title">HavitGrowth Arcade <span>&amp; Mini Games</span></h1><p>Quick brain breaks, word challenges, retro arcade classics, and strategy games—all free to play, with no downloads or account required.</p><nav className="games-categories" aria-label="Filter games by category">{FILTERS.map(({ label, icon: Icon }) => <button type="button" key={label} className={`games-category ${category === label ? 'is-active' : ''}`} aria-pressed={category === label} onClick={() => setCategory(label)}>{Icon && <Icon size={17} aria-hidden="true" />}{label}</button>)}</nav></header>
