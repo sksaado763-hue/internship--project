@@ -57,9 +57,9 @@ const TOOL_SECTIONS = [
     title: 'Social Media & Video Tools',
     description: 'YouTube, Instagram, TikTok downloaders, hashtag finders, comment pickers and analytics',
     select: (tool) => [
-      'youtube-thumbnail-downloader', 'fake-chat-generator', 'ai-video-caption-generator',
-      'instagram-caption-generator', 'meme-generator', 'unicode-font-generator',
-      'youtube-name-generator', 'youtube-title-generator', 'youtube-hashtag-generator', 'youtube-hook-generator',
+      'video-editing-studio', 'instagram-carousel-maker', 'instagram-downloader', 'instagram-grid-splitter',
+      'tiktok-downloader', 'youtube-channel-audit', 'youtube-comment-picker', 'youtube-thumbnail-downloader',
+      'instagram-caption-generator', 'youtube-title-generator', 'youtube-hashtag-generator', 'youtube-hook-generator',
     ].includes(tool.slug),
   },
 ];

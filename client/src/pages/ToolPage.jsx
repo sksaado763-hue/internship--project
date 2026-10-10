@@ -28,6 +28,12 @@ import FakeChatGeneratorTool from '../components/tools/FakeChatGeneratorTool.jsx
 import YoutubeThumbnailTool from '../components/tools/YoutubeThumbnailTool.jsx';
 import ResumeBuilderTool from '../components/tools/ResumeBuilderTool.jsx';
 import PowerPointGeneratorTool from '../components/tools/PowerPointGeneratorTool.jsx';
+import VideoEditingStudioTool from '../components/tools/VideoEditingStudioTool.jsx';
+import InstagramCarouselMakerTool from '../components/tools/InstagramCarouselMakerTool.jsx';
+import InstagramGridSplitterTool from '../components/tools/InstagramGridSplitterTool.jsx';
+import SocialMediaDownloaderTool from '../components/tools/SocialMediaDownloaderTool.jsx';
+import YouTubeChannelAuditTool from '../components/tools/YouTubeChannelAuditTool.jsx';
+import YouTubeCommentPickerTool from '../components/tools/YouTubeCommentPickerTool.jsx';
 import AiGeneratorDemoTool from '../components/tools/AiGeneratorDemoTool.jsx';
 import { toolBySlug } from '../data/tools.js';
 
@@ -64,6 +70,13 @@ const toolInterfaces = {
   'image-upscaler': ImageUpscalerTool,
   'fake-chat-generator': FakeChatGeneratorTool,
   'youtube-thumbnail-downloader': YoutubeThumbnailTool,
+  'video-editing-studio': VideoEditingStudioTool,
+  'instagram-carousel-maker': InstagramCarouselMakerTool,
+  'instagram-downloader': SocialMediaDownloaderTool,
+  'instagram-grid-splitter': InstagramGridSplitterTool,
+  'tiktok-downloader': SocialMediaDownloaderTool,
+  'youtube-channel-audit': YouTubeChannelAuditTool,
+  'youtube-comment-picker': YouTubeCommentPickerTool,
   'resume-builder': ResumeBuilderTool,
   'ai-powerpoint-generator': PowerPointGeneratorTool,
 };

@@ -343,7 +343,7 @@ export const toolRegistry = [
     slug: 'youtube-thumbnail-downloader',
     name: 'YouTube Thumbnail Downloader',
     description: 'Preview and download an available thumbnail image from a YouTube video URL.',
-    categorySlug: 'seo',
+    categorySlug: 'social-video',
     icon: 'Youtube',
     tags: ['youtube', 'thumbnail', 'video', 'download'],
     isPopular: false,
@@ -430,7 +430,7 @@ export const toolRegistry = [
   {
     id: 'instagram-caption-generator', slug: 'instagram-caption-generator', name: 'Instagram Caption Generator',
     description: 'Draft a social caption and hashtags from your topic using a local template. Connect a language model for AI suggestions.',
-    categorySlug: 'ai-generators', icon: 'Instagram', tags: ['instagram', 'caption', 'social', 'hashtags'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Instagram', tags: ['instagram', 'caption', 'social', 'hashtags'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
   },
   {
     id: 'meme-generator', slug: 'meme-generator', name: 'Meme Generator',
@@ -480,16 +480,51 @@ export const toolRegistry = [
   {
     id: 'youtube-title-generator', slug: 'youtube-title-generator', name: 'YouTube Title Generator',
     description: 'Draft title patterns for a video topic. Local suggestions are not AI or ranking predictions.',
-    categorySlug: 'ai-generators', icon: 'Youtube', tags: ['youtube', 'title', 'video', 'seo'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'title', 'video', 'seo'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
   },
   {
     id: 'youtube-hashtag-generator', slug: 'youtube-hashtag-generator', name: 'YouTube Hashtag Generator',
     description: 'Turn a topic into normalized hashtag suggestions locally.',
-    categorySlug: 'ai-generators', icon: 'Hash', tags: ['youtube', 'hashtag', 'video', 'social'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Hash', tags: ['youtube', 'hashtag', 'video', 'social'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
   },
   {
     id: 'youtube-hook-generator', slug: 'youtube-hook-generator', name: 'YouTube Hook Generator',
     description: 'Draft a few opening-line patterns for a video. Connect a language model for original AI hooks.',
-    categorySlug: 'ai-generators', icon: 'Clapperboard', tags: ['youtube', 'hook', 'video', 'script'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'hook', 'video', 'script'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'video-editing-studio', slug: 'video-editing-studio', name: 'Video Editing Studio',
+    description: 'Trim, rotate, crop, and add a text overlay to your video, then export a WebM file locally.',
+    categorySlug: 'social-video', icon: 'Clapperboard', tags: ['video', 'editor', 'trim', 'crop', 'rotate', 'watermark'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'instagram-carousel-maker', slug: 'instagram-carousel-maker', name: 'Instagram Carousel Maker',
+    description: 'Arrange your images into a swipeable square carousel and export slides as PNGs.',
+    categorySlug: 'social-video', icon: 'Instagram', tags: ['instagram', 'carousel', 'slides', 'images', 'creator'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'instagram-downloader', slug: 'instagram-downloader', name: 'Instagram Downloader',
+    description: 'Save a direct media file you own or have permission to download. Public post pages are not scraped.',
+    categorySlug: 'social-video', icon: 'Instagram', tags: ['instagram', 'download', 'media', 'video', 'photo'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'instagram-grid-splitter', slug: 'instagram-grid-splitter', name: 'Instagram Grid Splitter',
+    description: 'Slice an image into 3×1, 3×2, 3×3, or 3×4 Instagram grid tiles and download them together.',
+    categorySlug: 'social-video', icon: 'Instagram', tags: ['instagram', 'grid', 'split', 'tiles', 'image'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'tiktok-downloader', slug: 'tiktok-downloader', name: 'TikTok Downloader',
+    description: 'Save a direct video file you own or have permission to download. TikTok post pages are not scraped.',
+    categorySlug: 'social-video', icon: 'Clapperboard', tags: ['tiktok', 'download', 'video', 'media'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'youtube-channel-audit', slug: 'youtube-channel-audit', name: 'YouTube Channel Audit',
+    description: 'Review channel positioning, publishing cadence, and video titles with a transparent local checklist.',
+    categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'channel', 'audit', 'analytics', 'seo'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'youtube-comment-picker', slug: 'youtube-comment-picker', name: 'YouTube Comment Picker',
+    description: 'Randomly pick giveaway comments from a pasted list with duplicate removal and optional keyword filters.',
+    categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'comments', 'picker', 'giveaway', 'random'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
   },
 ];
