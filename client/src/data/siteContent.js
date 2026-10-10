@@ -4,7 +4,7 @@ export const mainNavigation = [
   { label: 'Home', href: '/#home' },
   { label: 'All Tools', href: '/tools' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Games', href: '/tools?search=meme' },
+  { label: 'Games', href: '/games' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: 'mailto:hello@meridian.tools' },
 ];

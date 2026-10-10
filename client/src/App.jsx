@@ -11,6 +11,7 @@ const ToolPage = lazy(() => import('./pages/ToolPage.jsx'));
 const AboutPage = lazy(() => import('./pages/AboutPage.jsx'));
 const BlogPage = lazy(() => import('./pages/BlogPage.jsx'));
 const BlogArticlePage = lazy(() => import('./pages/BlogArticlePage.jsx'));
+const GamesPage = lazy(() => import('./pages/GamesPage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
 
 function RouteFallback() {
@@ -41,6 +42,8 @@ export default function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogArticlePage />} />
+              <Route path="/games" element={<GamesPage />} />
+              <Route path="/games/:slug" element={<GamesPage />} />
               <Route path="/tools/:slug" element={<ToolPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>

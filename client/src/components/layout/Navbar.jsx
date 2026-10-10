@@ -46,6 +46,8 @@ export default function Navbar({ searchTerm, onSearchTermChange, onSearchSubmit,
         {mainNavigation.map((item) => {
           const isActive = item.href === '/tools'
             ? location.pathname.startsWith('/tools')
+            : item.href === '/games'
+              ? location.pathname.startsWith('/games')
             : item.href === '/blog'
               ? location.pathname.startsWith('/blog')
               : item.href === '/about'
