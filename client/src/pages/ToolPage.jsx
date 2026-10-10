@@ -22,6 +22,7 @@ import CsvToJsonTool from '../components/tools/CsvToJsonTool.jsx';
 import JsonToCsvTool from '../components/tools/JsonToCsvTool.jsx';
 import MarkdownTableGeneratorTool from '../components/tools/MarkdownTableGeneratorTool.jsx';
 import PercentageCalculatorTool from '../components/tools/PercentageCalculatorTool.jsx';
+import FinancialCalculatorTool from '../components/tools/FinancialCalculatorTool.jsx';
 import ImageUpscalerTool from '../components/tools/ImageUpscalerTool.jsx';
 import FakeChatGeneratorTool from '../components/tools/FakeChatGeneratorTool.jsx';
 import YoutubeThumbnailTool from '../components/tools/YoutubeThumbnailTool.jsx';
@@ -52,6 +53,14 @@ const toolInterfaces = {
   'json-to-csv': JsonToCsvTool,
   'markdown-table-generator': MarkdownTableGeneratorTool,
   'percentage-calculator': PercentageCalculatorTool,
+  'age-calculator': FinancialCalculatorTool,
+  'amortization-calculator': FinancialCalculatorTool,
+  'auto-loan-calculator': FinancialCalculatorTool,
+  'unit-converter': FinancialCalculatorTool,
+  'bmi-calculator': FinancialCalculatorTool,
+  'bmr-calculator': FinancialCalculatorTool,
+  'body-fat-calculator': FinancialCalculatorTool,
+  'calorie-calculator': FinancialCalculatorTool,
   'image-upscaler': ImageUpscalerTool,
   'fake-chat-generator': FakeChatGeneratorTool,
   'youtube-thumbnail-downloader': YoutubeThumbnailTool,

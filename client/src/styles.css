@@ -965,6 +965,21 @@ kbd { border: 1px solid var(--line); border-radius: 5px; padding: 2px 5px; color
 .calculator-result { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0; border: 1px solid var(--line); border-radius: 11px; padding: 14px; background: var(--surface-soft); }
 .calculator-result span { color: var(--muted); font-size: 10px; }
 .calculator-result strong { color: var(--brand-strong); font-size: 17px; font-variant-numeric: tabular-nums; }
+.calculator-field { display: grid; min-width: 0; align-content: start; gap: 7px; color: var(--ink-soft); font-size: 11px; font-weight: 650; }
+.calculator-field-control { display: flex; min-width: 0; align-items: center; gap: 8px; }
+.calculator-field-control .tool-value-input { min-width: 0; flex: 1; }
+.calculator-field-control > span { color: var(--muted); font-size: 10px; white-space: nowrap; }
+.financial-calculator { gap: 18px; }
+.financial-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 9px; }
+.financial-result { display: grid; min-width: 0; min-height: 72px; align-content: space-between; gap: 9px; border: 1px solid var(--line); border-radius: 11px; padding: 12px; background: var(--surface-soft); }
+.financial-result span { color: var(--muted); font-size: 10px; }
+.financial-result strong { overflow-wrap: anywhere; color: var(--brand-strong); font-size: 15px; font-variant-numeric: tabular-nums; }
+.financial-table-wrap { max-width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 11px; }
+.financial-table { width: 100%; border-collapse: collapse; font-size: 11px; white-space: nowrap; }
+.financial-table caption { padding: 12px; color: var(--ink); font-weight: 700; text-align: left; }
+.financial-table th, .financial-table td { border-top: 1px solid var(--line); padding: 9px 12px; color: var(--ink-soft); text-align: right; font-variant-numeric: tabular-nums; }
+.financial-table th:first-child, .financial-table td:first-child { text-align: left; }
+.financial-table th { color: var(--muted); background: var(--surface-soft); font-weight: 700; }
 .ai-demo-notice, .ai-api-reference { border: 1px solid color-mix(in srgb, var(--brand) 24%, var(--line)); border-radius: 12px; padding: 13px 15px; background: var(--brand-soft); }
 .ai-demo-notice { display: flex; flex-wrap: wrap; gap: 5px 10px; color: var(--ink-soft); font-size: 11px; line-height: 1.6; }
 .ai-demo-notice strong, .ai-api-reference strong { color: var(--brand-strong); }

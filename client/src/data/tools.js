@@ -1,10 +1,10 @@
-import { AudioLines, AudioWaveform, AppWindow, Binary, Blend, Braces, Captions, CaseSensitive, Clapperboard, Clock3, Code2, Dices, FileText, FileUser, Fingerprint, Hash, ImageMinus, ImagePlus, Instagram, KeyRound, Laugh, Link2, Mail, MessagesSquare, Mic, Network, Palette, PanelsTopLeft, Presentation, QrCode, ScanText, SearchCode, Shapes, Type, WandSparkles, Youtube } from 'lucide-react';
+import { AudioLines, AudioWaveform, AppWindow, ArrowLeftRight, Binary, Blend, Braces, Calculator, Captions, CaseSensitive, Clapperboard, Clock3, Code2, Dices, FileText, FileUser, Fingerprint, Hash, ImageMinus, ImagePlus, Instagram, KeyRound, Laugh, Link2, Mail, MessagesSquare, Mic, Network, Palette, PanelsTopLeft, Presentation, QrCode, ScanText, SearchCode, Shapes, Type, WandSparkles, Youtube } from 'lucide-react';
 import { categoryRegistry } from '../../../shared/toolCategories.js';
 import { toolRegistry } from '../../../shared/toolRegistry.js';
 
 
 
-const icons = { AudioLines, AudioWaveform, AppWindow, Binary, Blend, Braces, Captions, CaseSensitive, Clapperboard, Clock3, Code2, Dices, FileText, FileUser, Fingerprint, Hash, ImageMinus, ImagePlus, Instagram, KeyRound, Laugh, Link2, Mail, MessagesSquare, Mic, Network, Palette, PanelsTopLeft, Presentation, QrCode, ScanText, SearchCode, Shapes, Type, WandSparkles, Youtube };
+const icons = { AudioLines, AudioWaveform, AppWindow, ArrowLeftRight, Binary, Blend, Braces, Calculator, Captions, CaseSensitive, Clapperboard, Clock3, Code2, Dices, FileText, FileUser, Fingerprint, Hash, ImageMinus, ImagePlus, Instagram, KeyRound, Laugh, Link2, Mail, MessagesSquare, Mic, Network, Palette, PanelsTopLeft, Presentation, QrCode, ScanText, SearchCode, Shapes, Type, WandSparkles, Youtube };
 const categoriesBySlug = Object.fromEntries(categoryRegistry.map((category) => [category.slug, category]));
 
 const aiToolOrder = [

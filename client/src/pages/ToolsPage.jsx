@@ -46,7 +46,11 @@ const TOOL_SECTIONS = [
     id: 'calculators',
     title: 'Calculators & Financial Tools',
     description: 'Loan EMI, mortgages, salary, taxes, pregnancy, GPA and scientific precision math engines',
-    select: (tool) => ['percentage-calculator', 'number-base-converter', 'timestamp-converter'].includes(tool.slug),
+    select: (tool) => [
+      'percentage-calculator', 'number-base-converter', 'timestamp-converter',
+      'age-calculator', 'amortization-calculator', 'auto-loan-calculator', 'unit-converter',
+      'bmi-calculator', 'bmr-calculator', 'body-fat-calculator', 'calorie-calculator',
+    ].includes(tool.slug),
   },
   {
     id: 'social-video',
