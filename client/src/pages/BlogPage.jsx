@@ -47,7 +47,7 @@ export default function BlogPage() {
         </label>
         <div className="blog-topics" role="group" aria-label="Filter articles by topic">
           {blogTopics.map((name) => {
-            const Icon = topicIcons[name];
+            const Icon = topicIcons[name] ?? BookOpen;
             const count = name === 'All Topics' ? blogPosts.length : blogPosts.filter((post) => post.category === name).length;
             return <button key={name} type="button" className={`blog-topic ${topic === name ? 'is-active' : ''}`} aria-pressed={topic === name} onClick={() => setTopic(name)}><Icon size={16} aria-hidden="true" /><span>{name}</span>{name === 'All Topics' && <small>{count}</small>}</button>;
           })}

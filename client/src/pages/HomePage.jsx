@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, ArrowUpRight, Calculator, Code2, FileText, Image, LockKeyhole, Sparkles, TrendingUp, WandSparkles, Zap } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Calculator, Clapperboard, Code2, FileText, Image, LockKeyhole, Sparkles, TrendingUp, WandSparkles, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Badge from '../components/common/Badge.jsx';
 import Button from '../components/common/Button.jsx';
@@ -14,7 +14,8 @@ const categoryIcons = {
   SEO: TrendingUp,
   Image,
   PDF: FileText,
-  Calculators: Calculator,
+  'Calculators & Financial Tools': Calculator,
+  'Social Media & Video Tools': Clapperboard,
   'AI & Smart Generators': WandSparkles,
 };
 
@@ -102,7 +103,7 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
 
         <div className="category-grid">
           {toolCategories.map((category, index) => {
-            const Icon = categoryIcons[category.name];
+            const Icon = categoryIcons[category.name] ?? FileText;
             return (
               <a className={`category-card category-card--${category.color}`} href={`/tools?category=${encodeURIComponent(category.name)}`} key={category.name}>
                 <span className="category-icon"><Icon size={19} strokeWidth={1.8} aria-hidden="true" /></span>
