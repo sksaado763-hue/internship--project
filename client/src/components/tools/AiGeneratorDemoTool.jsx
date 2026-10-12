@@ -35,6 +35,7 @@ function makeOutput(tool, source) {
     case 'youtube-hook-generator':
       return [`“Before you try ${topic}, there are a few things you should know.”`, `“Here’s the part about ${topic} that most people miss.”`, `“I spent time looking into ${topic}; this is what stood out.”`].join('\n\n');
     case 'youtube-script-generator':
+    case 'yt-video-script-generator':
       return `HOOK\nIntroduce a question or surprising fact about ${topic}.\n\nINTRO\nExplain who this video is for and what viewers will learn.\n\nMAIN POINTS\n1. Define the topic and give useful context.\n2. Share a clear example or demonstration.\n3. Summarize practical takeaways.\n\nCLOSE\nRecap the key idea and invite viewers to comment.`;
     case 'seo-meta-generator': {
       const description = `Learn about ${topic} with this practical overview and useful resources.`;

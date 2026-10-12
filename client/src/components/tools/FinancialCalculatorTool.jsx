@@ -30,6 +30,16 @@ const defaults = {
   'bmr-calculator': { sex: 'female', age: '30', height: '170', weight: '65', activity: '1.2' },
   'body-fat-calculator': { sex: 'male', units: 'metric', height: '178', waist: '86', neck: '38', hip: '96' },
   'calorie-calculator': { sex: 'female', age: '30', height: '165', weight: '65', activity: '1.55', goal: 'maintain' },
+  'mortgage-calculator': { price: '350000', down: '70000', apr: '6.5', years: '30', tax: '4200', insurance: '1800' },
+  'compound-interest-calculator': { principal: '10000', contribution: '200', apr: '7', years: '30', compounds: '12' },
+  'loan-calculator': { amount: '20000', apr: '8', years: '5' },
+  'interest-calculator': { principal: '5000', rate: '4.5', years: '10' },
+  'interest-rate-calculator': { present: '10000', future: '20000', years: '10', compounds: '12' },
+  'investment-calculator': { initial: '10000', contribution: '300', rate: '7', years: '25' },
+  'retirement-calculator': { age: '30', retireAge: '65', savings: '25000', contribution: '500', rate: '7' },
+  'inflation-calculator': { amount: '1000', years: '10', rate: '3' },
+  'sales-tax-calculator': { price: '100', rate: '7', total: '107' },
+  'salary-calculator': { salary: '60000', hours: '40', weeks: '52' },
 };
 
 const number = (value) => value === '' ? NaN : Number(value);
@@ -281,6 +291,239 @@ function BodyFatCalculator({ values, set }) {
   </>;
 }
 
+const compoundPeriodOptions = [
+  { value: '1', label: 'Yearly · 1' },
+  { value: '2', label: 'Semi-annually · 2' },
+  { value: '4', label: 'Quarterly · 4' },
+  { value: '12', label: 'Monthly · 12' },
+];
+
+function MortgageCalculator({ values, set }) {
+  const price = number(values.price); const down = number(values.down); const apr = number(values.apr); const years = number(values.years); const tax = number(values.tax); const insurance = number(values.insurance);
+  const result = useMemo(() => {
+    if (!validPositive(price, years) || ![down, apr, tax, insurance].every(Number.isFinite) || [down, apr, tax, insurance].some((value) => value < 0)) return null;
+    const loan = Math.max(0, price - down);
+    const pi = loan > 0 ? paymentFor(loan, apr, years * 12) : 0;
+    const monthlyTax = tax / 12;
+    const monthlyInsurance = insurance / 12;
+    return { loan, pi, monthlyTax, monthlyInsurance, monthlyPayment: pi + monthlyTax + monthlyInsurance, totalInterest: pi * years * 12 - loan };
+  }, [price, down, apr, years, tax, insurance]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="mort-price" label="Home price" value={values.price} onChange={set('price')} min="1" />
+      <Field id="mort-down" label="Down payment" value={values.down} onChange={set('down')} min="0" />
+      <Field id="mort-apr" label="Annual interest rate" value={values.apr} onChange={set('apr')} min="0" max="100" suffix="% APR" />
+      <Field id="mort-years" label="Loan term" value={values.years} onChange={set('years')} min="1" max="50" suffix="years" />
+      <Field id="mort-tax" label="Property tax / year" value={values.tax} onChange={set('tax')} min="0" />
+      <Field id="mort-insurance" label="Homeowner insurance / year" value={values.insurance} onChange={set('insurance')} min="0" />
+    </div>
+    {result ? <ResultCards items={[["Loan amount", pretty(result.loan)], ['Principal & interest / month', pretty(result.pi)], ['Property tax / month', pretty(result.monthlyTax)], ['Home insurance / month', pretty(result.monthlyInsurance)], ['Total monthly payment (PITI)', pretty(result.monthlyPayment)], ['Total interest over the loan', pretty(result.totalInterest)]]} /> : <p className="tool-inline-status status-warning">Enter a positive home price and term. Down payment, rate, tax, and insurance must be zero or more.</p>}
+    <p className="tool-inline-status">Estimates a fixed-rate loan with level monthly payments. Closing costs, mortgage insurance, HOA dues, and rate changes are not included.</p>
+  </>;
+}
+
+function CompoundInterestCalculator({ values, set }) {
+  const principal = number(values.principal); const contribution = number(values.contribution); const apr = number(values.apr); const years = number(values.years); const n = number(values.compounds);
+  const result = useMemo(() => {
+    if (!validPositive(years) || ![principal, contribution, apr].every(Number.isFinite) || [principal, contribution, apr].some((value) => value < 0) || !(n > 0)) return null;
+    const months = years * 12;
+    const periodRate = apr / 100 / n;
+    const monthlyRate = (1 + periodRate) ** (n / 12) - 1;
+    const balanceAt = (monthsElapsed) => principal * (1 + periodRate) ** (n * monthsElapsed / 12)
+      + (monthlyRate === 0 ? contribution * monthsElapsed : contribution * ((1 + monthlyRate) ** monthsElapsed - 1) / monthlyRate);
+    const futureValue = balanceAt(months);
+    const totalContributed = principal + contribution * months;
+    const tableYears = Math.min(Math.floor(years), 60);
+    const rows = [];
+    for (let year = 1; year <= tableYears; year += 1) {
+      const balance = balanceAt(year * 12);
+      const contributed = contribution * 12;
+      const prior = rows.length ? rows[rows.length - 1].balance : principal;
+      rows.push({ year, contributed, interest: balance - prior - contributed, balance });
+    }
+    return { futureValue, totalContributed, interest: futureValue - totalContributed, rows };
+  }, [principal, contribution, apr, years, n]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="ci-principal" label="Starting principal" value={values.principal} onChange={set('principal')} min="0" />
+      <Field id="ci-contribution" label="Monthly contribution" value={values.contribution} onChange={set('contribution')} min="0" suffix="amount / month" />
+      <Field id="ci-apr" label="Annual interest rate" value={values.apr} onChange={set('apr')} min="0" max="100" suffix="% APR" />
+      <Field id="ci-years" label="Years" value={values.years} onChange={set('years')} min="1" max="100" suffix="years" />
+      <Field id="ci-compounds" label="Compounds per year" value={values.compounds} onChange={set('compounds')} options={compoundPeriodOptions} />
+    </div>
+    {result ? <>
+      <ResultCards items={[["Future value", pretty(result.futureValue)], ['Total contributed', pretty(result.totalContributed)], ['Interest earned', pretty(result.interest)]]} />
+      <CompoundTable rows={result.rows} />
+    </> : <p className="tool-inline-status status-warning">Enter a positive number of years. Principal, contribution, and rate must be zero or more.</p>}
+    <p className="tool-inline-status">Assumes a constant rate and contributions at month end, with no taxes or fees. Actual returns vary and are not guaranteed.</p>
+  </>;
+}
+
+function CompoundTable({ rows }) {
+  if (!rows.length) return null;
+  return <div className="financial-table-wrap"><table className="financial-table"><caption>Year-by-year growth</caption><thead><tr><th>Year</th><th>Contributions</th><th>Interest</th><th>Balance</th></tr></thead><tbody>{rows.map((row) => <tr key={row.year}><td>{row.year}</td><td>{pretty(row.contributed)}</td><td>{pretty(row.interest)}</td><td>{pretty(row.balance)}</td></tr>)}</tbody></table></div>;
+}
+
+function LoanCalculator({ values, set }) {
+  const amount = number(values.amount); const apr = number(values.apr); const years = number(values.years);
+  const result = useMemo(() => {
+    if (!validPositive(amount, years) || !Number.isFinite(apr) || apr < 0) return null;
+    const payment = paymentFor(amount, apr, years * 12);
+    return { payment, totalPaid: payment * years * 12, totalInterest: payment * years * 12 - amount };
+  }, [amount, apr, years]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="loan-amount" label="Loan amount" value={values.amount} onChange={set('amount')} min="1" />
+      <Field id="loan-apr" label="Annual interest rate" value={values.apr} onChange={set('apr')} min="0" max="100" suffix="% APR" />
+      <Field id="loan-years" label="Loan term" value={values.years} onChange={set('years')} min="1" max="50" suffix="years" />
+    </div>
+    {result ? <ResultCards items={[["Monthly payment", pretty(result.payment)], ['Total paid', pretty(result.totalPaid)], ['Total interest', pretty(result.totalInterest)]]} /> : <p className="tool-inline-status status-warning">Enter a positive loan amount and term, and a non-negative interest rate.</p>}
+    <p className="tool-inline-status">Estimates a fixed-rate installment loan with equal monthly payments. Fees and rate changes are not included.</p>
+  </>;
+}
+
+function InterestCalculator({ values, set }) {
+  const principal = number(values.principal); const rate = number(values.rate); const years = number(values.years);
+  const result = useMemo(() => {
+    if (!validPositive(principal, years) || !Number.isFinite(rate) || rate < 0) return null;
+    const simpleInterest = principal * rate / 100 * years;
+    const compounded = principal * (1 + rate / 100) ** years;
+    return { simpleInterest, simpleTotal: principal + simpleInterest, compounded, compoundedInterest: compounded - principal };
+  }, [principal, rate, years]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="si-principal" label="Principal" value={values.principal} onChange={set('principal')} min="1" />
+      <Field id="si-rate" label="Annual interest rate" value={values.rate} onChange={set('rate')} min="0" max="100" suffix="% APR" />
+      <Field id="si-years" label="Time" value={values.years} onChange={set('years')} min="1" max="100" suffix="years" />
+    </div>
+    {result ? <>
+      <ResultCards items={[["Simple interest earned", pretty(result.simpleInterest)], ['Total value · simple interest', pretty(result.simpleTotal)]]} />
+      <ResultCards items={[["Interest · compounded annually", pretty(result.compoundedInterest)], ['Total value · compounded annually', pretty(result.compounded)]]} />
+    </> : <p className="tool-inline-status status-warning">Enter a positive principal and time, and a non-negative interest rate.</p>}
+    <p className="tool-inline-status">Simple interest does not compound; the second figure shows the same inputs with interest reinvested once a year.</p>
+  </>;
+}
+
+function InterestRateCalculator({ values, set }) {
+  const present = number(values.present); const future = number(values.future); const years = number(values.years); const n = number(values.compounds);
+  const result = useMemo(() => {
+    if (!validPositive(present, future, years) || !(n > 0)) return null;
+    const rate = n * ((future / present) ** (1 / (n * years)) - 1);
+    return { rate: rate * 100, growth: (future / present - 1) * 100 };
+  }, [present, future, years, n]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="ir-present" label="Present value" value={values.present} onChange={set('present')} min="1" />
+      <Field id="ir-future" label="Future value" value={values.future} onChange={set('future')} min="1" />
+      <Field id="ir-years" label="Years" value={values.years} onChange={set('years')} min="1" max="100" suffix="years" />
+      <Field id="ir-compounds" label="Compounds per year" value={values.compounds} onChange={set('compounds')} options={compoundPeriodOptions} />
+    </div>
+    {result ? <ResultCards items={[["Required nominal annual rate", `${pretty(result.rate)}%`], ['Total growth over the period', `${pretty(result.growth)}%`]]} /> : <p className="tool-inline-status status-warning">Enter positive present value, future value, and number of years.</p>}
+    <p className="tool-inline-status">Solves for one constant nominal rate. Real investments rarely grow at a steady rate, so treat this as a comparison figure.</p>
+  </>;
+}
+
+function InvestmentCalculator({ values, set }) {
+  const initial = number(values.initial); const contribution = number(values.contribution); const rate = number(values.rate); const years = number(values.years);
+  const result = useMemo(() => {
+    if (!validPositive(years) || ![initial, contribution, rate].every(Number.isFinite) || [initial, contribution, rate].some((value) => value < 0)) return null;
+    const months = years * 12;
+    const monthlyRate = rate / 1200;
+    const futureValue = initial * (1 + monthlyRate) ** months
+      + (monthlyRate === 0 ? contribution * months : contribution * ((1 + monthlyRate) ** months - 1) / monthlyRate);
+    const totalContributed = initial + contribution * months;
+    return { futureValue, totalContributed, growth: futureValue - totalContributed, realValue: futureValue / 1.03 ** years };
+  }, [initial, contribution, rate, years]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="inv-initial" label="Initial amount" value={values.initial} onChange={set('initial')} min="0" />
+      <Field id="inv-contribution" label="Monthly contribution" value={values.contribution} onChange={set('contribution')} min="0" suffix="amount / month" />
+      <Field id="inv-rate" label="Expected annual return" value={values.rate} onChange={set('rate')} min="0" max="100" suffix="% APR" />
+      <Field id="inv-years" label="Years" value={values.years} onChange={set('years')} min="1" max="100" suffix="years" />
+    </div>
+    {result ? <ResultCards items={[["Future value", pretty(result.futureValue)], ['Total contributed', pretty(result.totalContributed)], ['Growth earned', pretty(result.growth)], ['Real value · after 3% yearly inflation', pretty(result.realValue)]]} /> : <p className="tool-inline-status status-warning">Enter a positive number of years. Amount, contribution, and return must be zero or more.</p>}
+    <p className="tool-inline-status">Assumes monthly compounding, contributions at month end, and a steady return. The real value figure uses a fixed 3% inflation estimate; actual inflation and returns vary.</p>
+  </>;
+}
+
+function RetirementCalculator({ values, set }) {
+  const age = number(values.age); const retireAge = number(values.retireAge); const savings = number(values.savings); const contribution = number(values.contribution); const rate = number(values.rate);
+  const result = useMemo(() => {
+    if (![age, retireAge, savings, contribution, rate].every(Number.isFinite) || [age, retireAge].some((value) => value <= 0) || [savings, contribution, rate].some((value) => value < 0) || retireAge <= age) return null;
+    const months = (retireAge - age) * 12;
+    const monthlyRate = rate / 1200;
+    const projected = savings * (1 + monthlyRate) ** months
+      + (monthlyRate === 0 ? contribution * months : contribution * ((1 + monthlyRate) ** months - 1) / monthlyRate);
+    const totalContributions = savings + contribution * months;
+    return { projected, totalContributions, growth: projected - totalContributions, withdrawal: projected * 0.04, years: retireAge - age };
+  }, [age, retireAge, savings, contribution, rate]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="ret-age" label="Current age" value={values.age} onChange={set('age')} min="1" max="120" suffix="years" />
+      <Field id="ret-retire-age" label="Retirement age" value={values.retireAge} onChange={set('retireAge')} min="1" max="120" suffix="years" />
+      <Field id="ret-savings" label="Current savings" value={values.savings} onChange={set('savings')} min="0" />
+      <Field id="ret-contribution" label="Monthly contribution" value={values.contribution} onChange={set('contribution')} min="0" suffix="amount / month" />
+      <Field id="ret-rate" label="Annual return" value={values.rate} onChange={set('rate')} min="0" max="100" suffix="% APR" />
+    </div>
+    {result ? <ResultCards items={[["Projected savings at retirement", pretty(result.projected)], ['Total contributions', pretty(result.totalContributions)], ['Growth earned', pretty(result.growth)], ['Estimated yearly withdrawal · 4% rule', pretty(result.withdrawal)]]} /> : <p className="tool-inline-status status-warning">Retirement age must be greater than current age, with valid savings, contribution, and return values.</p>}
+    <p className="tool-inline-status">Projects a constant return with monthly contributions until retirement. The 4% withdrawal figure is a common rule of thumb, not a guarantee.</p>
+  </>;
+}
+
+function InflationCalculator({ values, set }) {
+  const amount = number(values.amount); const years = number(values.years); const rate = number(values.rate);
+  const result = useMemo(() => {
+    if (!validPositive(amount, years) || !Number.isFinite(rate) || rate < 0) return null;
+    const factor = (1 + rate / 100) ** years;
+    return { future: amount * factor, past: amount / factor };
+  }, [amount, years, rate]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="infl-amount" label="Amount" value={values.amount} onChange={set('amount')} min="1" />
+      <Field id="infl-years" label="Years" value={values.years} onChange={set('years')} min="1" max="100" suffix="years" />
+      <Field id="infl-rate" label="Yearly inflation rate" value={values.rate} onChange={set('rate')} min="0" max="100" suffix="%" />
+    </div>
+    {result ? <ResultCards items={[[`Cost in ${pretty(years, 0)} years`, pretty(result.future)], [`Buying power ${pretty(years, 0)} years ago`, pretty(result.past)]]} /> : <p className="tool-inline-status status-warning">Enter a positive amount and number of years, and a non-negative inflation rate.</p>}
+    <p className="tool-inline-status">Assumes a constant yearly inflation rate. Actual inflation varies from year to year.</p>
+  </>;
+}
+
+function SalesTaxCalculator({ values, set }) {
+  const price = number(values.price); const rate = number(values.rate); const total = number(values.total);
+  const forward = useMemo(() => validPositive(price) && Number.isFinite(rate) && rate >= 0
+    ? { tax: price * rate / 100, total: price * (1 + rate / 100) } : null, [price, rate]);
+  const backward = useMemo(() => validPositive(total) && Number.isFinite(rate) && rate >= 0
+    ? { preTax: total / (1 + rate / 100) } : null, [total, rate]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="stx-price" label="Pre-tax price" value={values.price} onChange={set('price')} min="1" />
+      <Field id="stx-rate" label="Tax rate" value={values.rate} onChange={set('rate')} min="0" max="100" suffix="%" />
+      <Field id="stx-total" label="Total price with tax" value={values.total} onChange={set('total')} min="1" />
+    </div>
+    {forward ? <ResultCards items={[["Tax amount", pretty(forward.tax)], ['Total price with tax', pretty(forward.total)]]} /> : <p className="tool-inline-status status-warning">Enter a positive pre-tax price and a non-negative tax rate.</p>}
+    {backward ? <ResultCards items={[["Pre-tax price inside the total", pretty(backward.preTax)], ['Tax amount inside the total', pretty(total - backward.preTax)]]} /> : <p className="tool-inline-status status-warning">Enter a positive total price to work the tax back out.</p>}
+    <p className="tool-inline-status">Uses one flat tax rate. Real receipts may combine state, local, and special district taxes differently.</p>
+  </>;
+}
+
+function SalaryCalculator({ values, set }) {
+  const salary = number(values.salary); const hours = number(values.hours); const weeks = number(values.weeks);
+  const result = useMemo(() => {
+    if (!validPositive(salary, hours, weeks)) return null;
+    const hourly = salary / (hours * weeks);
+    return { hourly, daily: hourly * hours, weekly: salary / weeks, biWeekly: salary / weeks * 2, monthly: salary / 12, annual: salary };
+  }, [salary, hours, weeks]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="sal-salary" label="Annual salary" value={values.salary} onChange={set('salary')} min="1" />
+      <Field id="sal-hours" label="Hours per week" value={values.hours} onChange={set('hours')} min="1" max="168" suffix="hours" />
+      <Field id="sal-weeks" label="Weeks per year" value={values.weeks} onChange={set('weeks')} min="1" max="52" suffix="weeks" />
+    </div>
+    {result ? <ResultCards items={[["Hourly", pretty(result.hourly)], ['Daily', pretty(result.daily)], ['Weekly', pretty(result.weekly)], ['Bi-weekly', pretty(result.biWeekly)], ['Monthly', pretty(result.monthly)], ['Annual gross', pretty(result.annual)]]} /> : <p className="tool-inline-status status-warning">Enter a positive salary, hours per week, and weeks per year.</p>}
+    <p className="tool-inline-status">Shows gross pay only; taxes, benefits, and deductions are not included. Monthly uses salary ÷ 12.</p>
+  </>;
+}
+
 export default function FinancialCalculatorTool({ tool }) {
   const [values, set] = useForm(tool);
   let content;
@@ -293,6 +536,16 @@ export default function FinancialCalculatorTool({ tool }) {
     case 'bmr-calculator': content = <MetabolicCalculator values={values} set={set} />; break;
     case 'body-fat-calculator': content = <BodyFatCalculator values={values} set={set} />; break;
     case 'calorie-calculator': content = <MetabolicCalculator values={values} set={set} calories />; break;
+    case 'mortgage-calculator': content = <MortgageCalculator values={values} set={set} />; break;
+    case 'compound-interest-calculator': content = <CompoundInterestCalculator values={values} set={set} />; break;
+    case 'loan-calculator': content = <LoanCalculator values={values} set={set} />; break;
+    case 'interest-calculator': content = <InterestCalculator values={values} set={set} />; break;
+    case 'interest-rate-calculator': content = <InterestRateCalculator values={values} set={set} />; break;
+    case 'investment-calculator': content = <InvestmentCalculator values={values} set={set} />; break;
+    case 'retirement-calculator': content = <RetirementCalculator values={values} set={set} />; break;
+    case 'inflation-calculator': content = <InflationCalculator values={values} set={set} />; break;
+    case 'sales-tax-calculator': content = <SalesTaxCalculator values={values} set={set} />; break;
+    case 'salary-calculator': content = <SalaryCalculator values={values} set={set} />; break;
     default: content = <p className="tool-inline-status">This calculator is not available.</p>;
   }
   return <div className="tool-editor tool-form-stack financial-calculator">{content}<p className="tool-inline-status">Calculations update instantly in your browser.</p></div>;

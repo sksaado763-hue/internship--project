@@ -527,4 +527,259 @@ export const toolRegistry = [
     description: 'Randomly pick giveaway comments from a pasted list with duplicate removal and optional keyword filters.',
     categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'comments', 'picker', 'giveaway', 'random'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
   },
+  {
+    id: 'mortgage-calculator', slug: 'mortgage-calculator', name: 'Mortgage Calculator',
+    description: 'Estimates monthly PITI payments, loan amount, and total interest for a fixed-rate home loan.',
+    categorySlug: 'calculators', icon: 'Home', tags: ['mortgage', 'home loan', 'pit', 'house payment', 'property tax', 'real estate'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'compound-interest-calculator', slug: 'compound-interest-calculator', name: 'Compound Interest Calculator',
+    description: 'Projects the future value of savings with monthly contributions and a year-by-year growth table.',
+    categorySlug: 'calculators', icon: 'TrendingUp', tags: ['compound interest', 'savings growth', 'investment', 'future value', 'annuity'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'loan-calculator', slug: 'loan-calculator', name: 'Loan Calculator',
+    description: 'Calculates the monthly payment, total paid, and total interest for a fixed-rate loan.',
+    categorySlug: 'calculators', icon: 'Landmark', tags: ['loan', 'monthly payment', 'personal loan', 'interest', 'borrowing'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'interest-calculator', slug: 'interest-calculator', name: 'Interest Calculator',
+    description: 'Computes simple interest earned on a principal and compares it with annual compounding.',
+    categorySlug: 'calculators', icon: 'Percent', tags: ['simple interest', 'interest earned', 'principal', 'savings', 'comparison'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'interest-rate-calculator', slug: 'interest-rate-calculator', name: 'Interest Rate Calculator',
+    description: 'Solves for the annual nominal rate needed to grow a present value into a future value over time.',
+    categorySlug: 'calculators', icon: 'Gauge', tags: ['interest rate', 'rate of return', 'growth rate', 'solve for rate', 'yield'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'investment-calculator', slug: 'investment-calculator', name: 'Investment Calculator',
+    description: 'Estimates investment growth with monthly contributions and an inflation-adjusted real value.',
+    categorySlug: 'calculators', icon: 'ChartLine', tags: ['investment', 'portfolio growth', 'monthly contribution', 'inflation', 'returns'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'retirement-calculator', slug: 'retirement-calculator', name: 'Retirement Calculator',
+    description: 'Projects retirement savings at a target age and an estimated yearly withdrawal using the 4% rule.',
+    categorySlug: 'calculators', icon: 'PiggyBank', tags: ['retirement', 'retirement savings', '4 percent rule', 'pension', 'withdrawal'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'inflation-calculator', slug: 'inflation-calculator', name: 'Inflation Calculator',
+    description: 'Shows what an amount will cost in the future and what it was worth in the past at a given inflation rate.',
+    categorySlug: 'calculators', icon: 'Coins', tags: ['inflation', 'cost of living', 'purchasing power', 'future cost', 'cpi'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'sales-tax-calculator', slug: 'sales-tax-calculator', name: 'Sales Tax Calculator',
+    description: 'Adds sales tax to a pre-tax price or backs out the pre-tax price and tax from a total.',
+    categorySlug: 'calculators', icon: 'Wallet', tags: ['sales tax', 'tax', 'checkout total', 'pre-tax price', 'vat'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'salary-calculator', slug: 'salary-calculator', name: 'Salary Calculator',
+    description: 'Converts an annual salary into hourly, daily, weekly, bi-weekly, and monthly gross pay.',
+    categorySlug: 'calculators', icon: 'Banknote', tags: ['salary', 'hourly rate', 'paycheck', 'gross pay', 'wage converter'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'scientific-calculator', slug: 'scientific-calculator', name: 'Scientific Calculator',
+    description: 'A click-or-type scientific calculator with trig, logarithms, powers, and degree/radian modes that evaluates safely in your browser.',
+    categorySlug: 'calculators', icon: 'SquareFunction', tags: ['scientific', 'calculator', 'math', 'trigonometry', 'exponents'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'fraction-calculator', slug: 'fraction-calculator', name: 'Fraction Calculator',
+    description: 'Add, subtract, multiply, and divide fractions and get the simplified result plus its decimal equivalent.',
+    categorySlug: 'calculators', icon: 'Divide', tags: ['fractions', 'math', 'simplify', 'arithmetic'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'gpa-calculator', slug: 'gpa-calculator', name: 'GPA Calculator',
+    description: 'Compute a credit-weighted cumulative GPA from letter grades on a standard 4.0 scale.',
+    categorySlug: 'calculators', icon: 'GraduationCap', tags: ['gpa', 'grades', 'college', 'school', 'weighted'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'grade-calculator', slug: 'grade-calculator', name: 'Grade Calculator',
+    description: 'Track a weighted class average and calculate the final exam score needed to hit a target grade.',
+    categorySlug: 'calculators', icon: 'School', tags: ['grades', 'final exam', 'weighted average', 'school'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'standard-deviation-calculator', slug: 'standard-deviation-calculator', name: 'Standard Deviation Calculator',
+    description: 'Paste a list of numbers to get mean, median, variance, and population or sample standard deviation.',
+    categorySlug: 'calculators', icon: 'Activity', tags: ['statistics', 'standard deviation', 'variance', 'mean', 'data'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'triangle-calculator', slug: 'triangle-calculator', name: 'Triangle Calculator',
+    description: 'Solve a triangle from three sides or two legs to find angles, area, and perimeter with triangle-inequality checks.',
+    categorySlug: 'calculators', icon: 'Triangle', tags: ['triangle', 'geometry', 'angles', 'heron', 'trigonometry'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'ideal-weight-calculator', slug: 'ideal-weight-calculator', name: 'Ideal Weight Calculator',
+    description: 'Estimate a healthy BMI weight range and Devine ideal body weight from your height.',
+    categorySlug: 'calculators', icon: 'HeartPulse', tags: ['ideal weight', 'healthy weight', 'bmi', 'devine formula', 'height'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pace-calculator', slug: 'pace-calculator', name: 'Pace Calculator',
+    description: 'Work out running pace per km or mile, average speed, and predicted race times from a recent performance.',
+    categorySlug: 'calculators', icon: 'Timer', tags: ['pace', 'running', 'race time', 'speed', 'riegel'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'concrete-calculator', slug: 'concrete-calculator', name: 'Concrete Calculator',
+    description: 'Estimate slab volume, premix bags, mixing water, and material cost for a concrete slab.',
+    categorySlug: 'calculators', icon: 'Ruler', tags: ['concrete', 'cement', 'slab', 'volume', 'bags'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'due-date-calculator', slug: 'due-date-calculator', name: 'Due Date Calculator',
+    description: 'Estimate your due date, current week of pregnancy, and trimester dates from your last period.',
+    categorySlug: 'calculators', icon: 'CalendarHeart', tags: ['due date', 'pregnancy', 'lmp', 'trimester', 'gestational age'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pregnancy-conception-calculator', slug: 'pregnancy-conception-calculator', name: 'Pregnancy Conception Calculator',
+    description: 'Estimate ovulation, conception, and fertile window dates from your last period or due date.',
+    categorySlug: 'calculators', icon: 'Baby', tags: ['conception', 'ovulation', 'fertile window', 'pregnancy', 'due date'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'image-compressor', slug: 'image-compressor', name: 'Image Compressor',
+    description: 'Re-encode images to JPEG or WebP with a quality slider and max-width resize, entirely in your browser.',
+    categorySlug: 'image', icon: 'ImageDown', tags: ['compress image', 'jpeg', 'webp', 'optimize', 'resize'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'image-cropper', slug: 'image-cropper', name: 'Image Cropper',
+    description: 'Drag a selection with optional aspect-ratio constraints and download the crop as a PNG locally.',
+    categorySlug: 'image', icon: 'Crop', tags: ['crop image', 'resize', 'aspect ratio', 'png'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pic-to-png', slug: 'pic-to-png', name: 'PIC to PNG Converter',
+    description: 'Convert any image to PNG in your browser with a before-and-after size comparison.',
+    categorySlug: 'image', icon: 'FileImage', tags: ['convert', 'png', 'image converter', 'format'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pic-to-jpg', slug: 'pic-to-jpg', name: 'PIC to JPG Converter',
+    description: 'Convert images to high-quality JPEG locally, flattening transparency onto white.',
+    categorySlug: 'image', icon: 'FileImage', tags: ['convert', 'jpg', 'jpeg', 'image converter'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pic-to-webp', slug: 'pic-to-webp', name: 'PIC to WebP Converter',
+    description: 'Convert images to WebP at 92% quality locally, with original and converted sizes shown.',
+    categorySlug: 'image', icon: 'FileImage', tags: ['convert', 'webp', 'image converter', 'optimize'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pic-to-gif', slug: 'pic-to-gif', name: 'PIC to GIF Converter',
+    description: 'Explains honestly that browsers cannot encode GIF locally and offers PNG and WebP downloads instead.',
+    categorySlug: 'image', icon: 'FileImage', tags: ['convert', 'gif', 'png', 'image converter'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pic-to-ico', slug: 'pic-to-ico', name: 'PIC to ICO Converter',
+    description: 'Builds a real ICO file by wrapping a PNG in an ICONDIR header, ready for favicons and Windows.',
+    categorySlug: 'image', icon: 'FileImage', tags: ['convert', 'ico', 'favicon', 'icon'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pic-to-bmp', slug: 'pic-to-bmp', name: 'PIC to BMP Converter',
+    description: 'Encodes a classic 24-bit BMP file from your image locally, with rows written bottom-up.',
+    categorySlug: 'image', icon: 'FileImage', tags: ['convert', 'bmp', 'bitmap', 'image converter'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pic-to-svg', slug: 'pic-to-svg', name: 'PIC to SVG Converter',
+    description: 'Wraps your image in an SVG file by embedding it as a PNG data URL, a container rather than a vector trace.',
+    categorySlug: 'image', icon: 'FileImage', tags: ['convert', 'svg', 'vector', 'image converter'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'code-to-image', slug: 'code-to-image', name: 'Code to Image',
+    description: 'Turns a code snippet into a themed PNG image with line numbers and comment highlighting.',
+    categorySlug: 'image', icon: 'FileCode', tags: ['code image', 'screenshot', 'snippet', 'share code'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'color-picker', slug: 'color-picker', name: 'Color Picker',
+    description: 'Pick a color from a palette, a HEX value, or your screen, then copy HEX, RGB, and HSL with tints and shades.',
+    categorySlug: 'image', icon: 'Pipette', tags: ['color', 'hex', 'rgb', 'hsl', 'eyedropper'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'colorblind-simulator', slug: 'colorblind-simulator', name: 'Colorblind Simulator',
+    description: 'Shows your image under protanopia, deuteranopia, and tritanopia simulations as a design-check approximation.',
+    categorySlug: 'image', icon: 'Eye', tags: ['colorblind', 'accessibility', 'simulation', 'vision'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'jwt-debugger', slug: 'jwt-debugger', name: 'JWT Debugger',
+    description: 'Paste a JWT to decode its header and payload, view issue and expiry times, and see whether it is expired.',
+    categorySlug: 'developer', icon: 'KeyRound', tags: ['jwt', 'decode', 'token', 'debug', 'developer'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'binary-converter', slug: 'binary-converter', name: 'Binary Converter',
+    description: 'Convert text to UTF-8 binary and binary back to text with validation and 8-bit grouped output.',
+    categorySlug: 'developer', icon: 'Binary', tags: ['binary', 'text', 'utf-8', 'converter', 'developer'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'ip-subnet-calculator', slug: 'ip-subnet-calculator', name: 'IP Subnet Calculator',
+    description: 'Calculate network, broadcast, subnet mask, host range, and usable hosts for any IPv4 address and CIDR prefix.',
+    categorySlug: 'developer', icon: 'Network', tags: ['ipv4', 'subnet', 'cidr', 'network', 'calculator'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'whats-my-ip', slug: 'whats-my-ip', name: "What's My IP",
+    description: 'Look up your public IP address with a single request to api.ipify.org, with an optional best-effort location hint.',
+    categorySlug: 'developer', icon: 'Globe', tags: ['ip address', 'public ip', 'network', 'lookup'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'world-clock', slug: 'world-clock', name: 'World Clock',
+    description: 'Show live digital clocks for major cities around the world using your device clock and fixed IANA timezones.',
+    categorySlug: 'developer', icon: 'Clock', tags: ['world clock', 'time zones', 'time', 'cities', 'clock'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'keyword-density', slug: 'keyword-density', name: 'Keyword Density Checker',
+    description: 'Paste an article to count word frequencies and density percentages with common English stopwords removed.',
+    categorySlug: 'seo', icon: 'Tags', tags: ['keywords', 'density', 'seo', 'word count', 'writing'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'meta-tag-checker', slug: 'meta-tag-checker', name: 'Meta Tag Checker',
+    description: 'Paste HTML to inspect its title, meta description, keywords, Open Graph, Twitter card, canonical, viewport, and robots tags.',
+    categorySlug: 'seo', icon: 'FileSearch', tags: ['meta tags', 'seo', 'open graph', 'twitter card', 'html'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'grammar-checker', slug: 'grammar-checker', name: 'Grammar Checker',
+    description: 'Run local rule-based checks for repeated words, spacing, capitalization, common confusables, and overly long sentences.',
+    categorySlug: 'text', icon: 'SpellCheck', tags: ['grammar', 'spelling', 'writing', 'proofreading', 'text'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'plagiarism-checker', slug: 'plagiarism-checker', name: 'Plagiarism Checker',
+    description: 'Compare two pasted texts locally using word 8-gram overlap to estimate how similar they are to each other.',
+    categorySlug: 'text', icon: 'CopyCheck', tags: ['plagiarism', 'similarity', 'comparison', 'text'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'html-to-pdf', slug: 'html-to-pdf', name: 'HTML to PDF',
+    description: 'Print pasted HTML through the browser print dialog to save it as a PDF, or download it as an HTML file.',
+    categorySlug: 'pdf', icon: 'FileOutput', tags: ['html', 'pdf', 'print', 'download', 'export'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'youtube-video-downloader', slug: 'youtube-video-downloader', name: 'YouTube Video Downloader',
+    description: 'Save a direct video file you own or have permission to download. YouTube watch pages are not scraped.',
+    categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'download', 'video', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'facebook-downloader', slug: 'facebook-downloader', name: 'Facebook Downloader',
+    description: 'Save a direct video file you own or have permission to download. Facebook post pages are not scraped.',
+    categorySlug: 'social-video', icon: 'Facebook', tags: ['facebook', 'download', 'video', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'twitter-downloader', slug: 'twitter-downloader', name: 'Twitter Video Downloader',
+    description: 'Save a direct video file you own or have permission to download. X post pages are not scraped.',
+    categorySlug: 'social-video', icon: 'Twitter', tags: ['twitter', 'x', 'download', 'video', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pinterest-downloader', slug: 'pinterest-downloader', name: 'Pinterest Downloader',
+    description: 'Save a direct image file you own or have permission to download. Pinterest pin pages are not scraped.',
+    categorySlug: 'social-video', icon: 'Download', tags: ['pinterest', 'download', 'image', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'yt-video-script-generator', slug: 'yt-video-script-generator', name: 'YT Video Script Generator',
+    description: 'Draft a structured script outline for a video topic. Connect a language model for original AI scripts.',
+    categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'script', 'video', 'outline'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'yt-tags-inspector', slug: 'yt-tags-inspector', name: 'YT Tags Inspector',
+    description: 'Inspect the keyword tags carried by a pasted YouTube video URL with a transparent local parser.',
+    categorySlug: 'social-video', icon: 'SearchCode', tags: ['youtube', 'tags', 'inspect', 'seo'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'yt-thumbnail-ab-tester', slug: 'yt-thumbnail-ab-tester', name: 'YT Thumbnail A/B Tester',
+    description: 'Score up to three thumbnail concepts against a local checklist before you publish or run a platform experiment.',
+    categorySlug: 'social-video', icon: 'ImagePlus', tags: ['youtube', 'thumbnail', 'ab test', 'ctr'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'yt-details-extractor', slug: 'yt-details-extractor', name: 'YT Details Extractor',
+    description: 'Extract basic metadata from a pasted YouTube video URL with a transparent local parser.',
+    categorySlug: 'social-video', icon: 'Braces', tags: ['youtube', 'details', 'metadata', 'extract'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
 ];

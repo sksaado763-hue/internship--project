@@ -5,8 +5,25 @@ import { downloadBlob } from '../../utils/browserFiles.js';
 
 const mediaExtensions = /\.(?:mp4|m4v|mov|webm|jpg|jpeg|png|webp|gif)$/i;
 
+const platformLabels = {
+  'instagram-downloader': 'Instagram',
+  'tiktok-downloader': 'TikTok',
+  'youtube-video-downloader': 'YouTube',
+  'facebook-downloader': 'Facebook',
+  'twitter-downloader': 'Twitter / X',
+  'pinterest-downloader': 'Pinterest',
+};
+const platformPostPatterns = {
+  Instagram: { host: /(^|\.)instagram\.com$/i, path: /\/(?:p|reel|reels|stories)\//i },
+  TikTok: { host: /(^|\.)tiktok\.com$/i, path: /\/video\//i },
+  YouTube: { host: /(^|\.)youtube\.com$/i, path: /\/(?:watch|shorts|live)\//i },
+  Facebook: { host: /(^|\.)facebook\.com$/i, path: /\/(?:reel|reels|watch|videos|story\.php)\b/i },
+  'Twitter / X': { host: /(^|\.)(?:twitter|x)\.com$/i, path: /\/[A-Za-z0-9_]+\/status\//i },
+  Pinterest: { host: /(^|\.)pinterest\.[a-z.]+$/i, path: /\/pin\//i },
+};
+
 export default function SocialMediaDownloaderTool({ tool }) {
-  const platform = tool.slug === 'tiktok-downloader' ? 'TikTok' : 'Instagram';
+  const platform = platformLabels[tool.slug] ?? 'Instagram';
   const [url, setUrl] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
   const [busy, setBusy] = useState(false);
@@ -19,10 +36,9 @@ export default function SocialMediaDownloaderTool({ tool }) {
       return candidate;
     } catch { return null; }
   }, [url]);
-  const isPlatformPost = parsed && (platform === 'Instagram'
-    ? /(^|\.)instagram\.com$/i.test(parsed.hostname) && /\/(?:p|reel|reels|stories)\//i.test(parsed.pathname)
-    : /(^|\.)tiktok\.com$/i.test(parsed.hostname) && /\/video\//i.test(parsed.pathname));
-  const isDirectMedia = parsed && (mediaExtensions.test(parsed.pathname) || /(?:cdninstagram\.com|fbcdn\.net|tiktokcdn\.com|tiktokv\.com|byteoversea\.net)$/i.test(parsed.hostname));
+  const postPattern = platformPostPatterns[platform];
+  const isPlatformPost = parsed && postPattern.host.test(parsed.hostname) && postPattern.path.test(parsed.pathname);
+  const isDirectMedia = parsed && (mediaExtensions.test(parsed.pathname) || /(?:cdninstagram\.com|fbcdn\.net|tiktokcdn\.com|tiktokv\.com|byteoversea\.net|googlevideo\.com|ytimg\.com|twimg\.com|pinimg\.com)$/i.test(parsed.hostname));
   const isVideo = parsed && /\.(?:mp4|m4v|mov|webm)$/i.test(parsed.pathname);
   const isImage = parsed && /\.(?:jpg|jpeg|png|webp|gif)$/i.test(parsed.pathname);
 
@@ -57,7 +73,7 @@ export default function SocialMediaDownloaderTool({ tool }) {
   }
 
   return <div className="tool-editor tool-form-stack social-media-editor">
-    <label className="calculator-field" htmlFor={`${platform.toLowerCase()}-media-url`}><span>Direct media URL</span><div className="calculator-field-control"><input id={`${platform.toLowerCase()}-media-url`} className="tool-value-input" type="url" value={url} onChange={(event) => { setUrl(event.target.value); setPreviewUrl(''); setSourceFallback(false); setStatus('Paste a direct link to an image or video file you own or have permission to save.'); }} placeholder="https://…/video.mp4" autoComplete="url" /></div></label>
+    <label className="calculator-field" htmlFor={`${tool.slug}-media-url`}><span>Direct media URL</span><div className="calculator-field-control"><input id={`${tool.slug}-media-url`} className="tool-value-input" type="url" value={url} onChange={(event) => { setUrl(event.target.value); setPreviewUrl(''); setSourceFallback(false); setStatus('Paste a direct link to an image or video file you own or have permission to save.'); }} placeholder="https://…/video.mp4" autoComplete="url" /></div></label>
     <div className="tool-actions"><Button variant="secondary" type="button" disabled={!isDirectMedia} onClick={preview}><ExternalLink size={15} aria-hidden="true" />Preview media</Button><Button variant="primary" type="button" disabled={!isDirectMedia || busy} onClick={download}><Download size={15} aria-hidden="true" />{busy ? 'Preparing…' : 'Download file'}</Button></div>
     {sourceFallback && isDirectMedia && <a className="button button--secondary button--small social-source-link" href={parsed.href} target="_blank" rel="noopener noreferrer"><ExternalLink size={14} aria-hidden="true" />Open source media</a>}
     {previewUrl && <div className="social-media-preview">{isVideo ? <video src={previewUrl} controls playsInline /> : isImage ? <img src={previewUrl} alt={`${platform} media preview`} /> : <div className="social-media-fallback"><Link2 size={20} /><span>Media preview depends on the file host.</span></div>}</div>}
