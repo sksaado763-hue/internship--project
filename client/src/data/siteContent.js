@@ -1,3 +1,4 @@
+import { HeartPulse, RefreshCw, Youtube } from 'lucide-react';
 import { categoryRegistry } from '../../../shared/toolCategories.js';
 
 export const mainNavigation = [
@@ -20,38 +21,41 @@ export const toolCategories = categoryRegistry;
 
 export const footerSections = [
   {
-    title: 'Product',
+    title: 'Converters & Media',
+    icon: RefreshCw,
     links: [
-      { label: 'All tools', href: '/tools' },
-      { label: 'Popular tools', href: '/tools?popular=true' },
-      { label: 'New tools', href: '/tools?new=true' },
+      { label: 'Image Upscaler', href: '/tools/image-upscaler' },
+      { label: 'AI Image Generator', href: '/tools/ai-image-generator' },
+      { label: 'AI Background Remover', href: '/tools/ai-background-remover' },
+      { label: 'Color Converter', href: '/tools/color-converter' },
+      { label: 'CSS Gradient Generator', href: '/tools/gradient-generator' },
+      { label: 'QR Code Generator', href: '/tools/qr-code-generator' },
+      { label: 'Meme Generator', href: '/tools/meme-generator' },
     ],
   },
   {
-    title: 'Categories',
+    title: 'YouTube & Creator AI',
+    icon: Youtube,
     links: [
-      { label: 'Developer', href: '/#categories' },
-      { label: 'Text', href: '/tools?category=Text' },
-      { label: 'SEO', href: '/#categories' },
-      { label: 'Image', href: '/#categories' },
-      { label: 'PDF', href: '/#categories' },
-      { label: 'Calculators', href: '/#categories' },
+      { label: 'YouTube Thumbnail Downloader', href: '/tools/youtube-thumbnail-downloader' },
+      { label: 'YouTube Channel Audit', href: '/tools/youtube-channel-audit' },
+      { label: 'YouTube Comment Picker', href: '/tools/youtube-comment-picker' },
+      { label: 'YouTube Title Generator', href: '/tools/youtube-title-generator' },
+      { label: 'AI Voiceover Studio', href: '/tools/ai-voiceover-studio' },
+      { label: 'Resume Builder', href: '/tools/resume-builder' },
+      { label: 'AI PowerPoint Generator', href: '/tools/ai-powerpoint-generator' },
     ],
   },
   {
-    title: 'Company',
+    title: 'Health & Suite',
+    icon: HeartPulse,
     links: [
-      { label: 'About', href: '/about' },
-      { label: 'Contact', href: 'mailto:hello@meridian.tools' },
-      { label: 'Blog', href: '/blog' },
-    ],
-  },
-  {
-    title: 'Legal',
-    links: [
-      { label: 'Privacy policy', href: '/#privacy' },
-      { label: 'Terms', href: '/#terms' },
-      { label: 'Cookie policy', href: '/#cookies' },
+      { label: 'BMI Calculator', href: '/tools/bmi-calculator' },
+      { label: 'Calorie Calculator', href: '/tools/calorie-calculator' },
+      { label: 'Body Fat Calculator', href: '/tools/body-fat-calculator' },
+      { label: 'Age Calculator', href: '/tools/age-calculator' },
+      { label: 'Loan & Finance Calc', href: '/tools/amortization-calculator' },
+      { label: 'All Arcade Games', href: '/games', highlight: true },
     ],
   },
 ];
