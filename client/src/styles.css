@@ -647,7 +647,8 @@ img, svg { display: block; }
   .mobile-menu { display: block; position: absolute; top: calc(100% + 1px); right: -18px; left: -18px; max-height: 0; overflow: hidden; border-bottom: 1px solid transparent; padding: 0 18px; background: var(--page); opacity: 0; visibility: hidden; transition: max-height .24s var(--ease), opacity .16s, visibility .16s, padding .2s, border-color .2s; }
   .mobile-menu.is-open { max-height: 370px; border-color: var(--line); padding-block: 9px 17px; opacity: 1; visibility: visible; box-shadow: var(--shadow-md); }
   .mobile-nav { display: grid; }
-  .mobile-nav .nav-link { min-height: 47px; height: auto; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .mobile-nav .nav-link { min-height: 47px; height: auto; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 13px; }
+  .mobile-nav .nav-link:hover { color: var(--ink); }
   .mobile-nav .nav-link::after { display: none; }
   .mobile-nav .nav-link.is-active { color: var(--brand-strong); }
   .mobile-menu-actions { display: flex; align-items: center; justify-content: flex-end; gap: 11px; padding-top: 13px; }
