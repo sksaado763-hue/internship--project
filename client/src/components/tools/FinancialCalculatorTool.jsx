@@ -40,6 +40,10 @@ const defaults = {
   'inflation-calculator': { amount: '1000', years: '10', rate: '3' },
   'sales-tax-calculator': { price: '100', rate: '7', total: '107' },
   'salary-calculator': { salary: '60000', hours: '40', weeks: '52' },
+  'conversion-calculator': { category: 'length', value: '1', from: 'km', to: 'mi' },
+  'finance-calculator': { income: '4000', needs: '50', wants: '30', savings: '20' },
+  'payment-calculator': { amount: '20000', apr: '8', term: '60', extra: '100' },
+  'income-tax-calculator': { income: '60000', deductions: '14600' },
 };
 
 const number = (value) => value === '' ? NaN : Number(value);
@@ -524,6 +528,140 @@ function SalaryCalculator({ values, set }) {
   </>;
 }
 
+const conversionGroups = {
+  length: { label: 'Length', units: { mm: ['Millimeters', 0.001], cm: ['Centimeters', 0.01], m: ['Meters', 1], km: ['Kilometers', 1000], in: ['Inches', 0.0254], ft: ['Feet', 0.3048], yd: ['Yards', 0.9144], mi: ['Miles', 1609.344] } },
+  mass: { label: 'Mass', units: { mg: ['Milligrams', 0.000001], g: ['Grams', 0.001], kg: ['Kilograms', 1], t: ['Metric tons', 1000], oz: ['Ounces', 0.028349523125], lb: ['Pounds', 0.45359237] } },
+  temperature: { label: 'Temperature', units: { c: ['Celsius (°C)'], f: ['Fahrenheit (°F)'], k: ['Kelvin (K)'] } },
+  data: { label: 'Data · decimal units', units: { b: ['Bytes', 1], kb: ['Kilobytes · 1000 B', 1000], mb: ['Megabytes', 1000000], gb: ['Gigabytes', 1000000000], tb: ['Terabytes', 1000000000000] } },
+};
+
+function ConversionCalculator({ values, set }) {
+  const group = conversionGroups[values.category] ?? conversionGroups.length;
+  const unitOptions = Object.entries(group.units).map(([value, [label]]) => ({ value, label }));
+  const from = group.units[values.from] ? values.from : Object.keys(group.units)[0];
+  const to = group.units[values.to] ? values.to : Object.keys(group.units)[1] ?? from;
+  const value = number(values.value);
+  let converted = NaN;
+  if (Number.isFinite(value)) converted = values.category === 'temperature'
+    ? convertTemperature(value, from, to)
+    : value * group.units[from][1] / group.units[to][1];
+  const changeCategory = (next) => {
+    const keys = Object.keys(conversionGroups[next].units);
+    set('category')(next);
+    set('from')(keys[0]);
+    set('to')(keys[1] ?? keys[0]);
+  };
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="conv-category" label="Category" value={values.category} onChange={changeCategory} options={Object.entries(conversionGroups).map(([value, item]) => ({ value, label: item.label }))} />
+      <Field id="conv-value" label="Value" value={values.value} onChange={set('value')} />
+      <Field id="conv-from" label="From" value={from} onChange={set('from')} options={unitOptions} />
+      <Field id="conv-to" label="To" value={to} onChange={set('to')} options={unitOptions} />
+    </div>
+    <ResultCards items={[[`${group.units[from][0]} in ${group.units[to][0]}`, Number.isFinite(converted) ? pretty(converted, 6) : '—']]} />
+    <p className="tool-inline-status">Conversions use standard factors, computed locally. Data units are decimal (1 KB = 1000 bytes), and temperature conversions include the offset between scales.</p>
+  </>;
+}
+
+function FinanceCalculator({ values, set }) {
+  const income = number(values.income); const needs = number(values.needs); const wants = number(values.wants); const savings = number(values.savings);
+  const parts = [needs, wants, savings];
+  const total = parts.reduce((sum, value) => sum + value, 0);
+  const balanced = Number.isFinite(income) && income > 0 && parts.every((value) => Number.isFinite(value) && value >= 0) && Math.abs(total - 100) < 0.01;
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="fin-income" label="Monthly income after tax" value={values.income} onChange={set('income')} min="0" />
+      <Field id="fin-needs" label="Needs · essentials" value={values.needs} onChange={set('needs')} min="0" max="100" suffix="%" />
+      <Field id="fin-wants" label="Wants · lifestyle" value={values.wants} onChange={set('wants')} min="0" max="100" suffix="%" />
+      <Field id="fin-savings" label="Savings & debt payoff" value={values.savings} onChange={set('savings')} min="0" max="100" suffix="%" />
+    </div>
+    {!balanced && <p className="tool-inline-status status-warning" aria-live="polite">The three percentages currently add to {Number.isFinite(total) ? pretty(total) : '—'}% — they must total exactly 100% for the split to be shown.</p>}
+    {balanced && <ResultCards items={[
+      ['Needs · essentials', pretty(income * needs / 100)],
+      ['Wants · lifestyle', pretty(income * wants / 100)],
+      ['Savings & debt payoff', pretty(income * savings / 100)],
+      ['Total allocated', pretty(income)],
+    ]} />}
+    <p className="tool-inline-status">Splits income by the 50/30/20 budgeting rule: about 50% for needs, 30% for wants, and 20% for savings or extra debt payments. The percentages are adjustable — the rule is a starting point, not a law.</p>
+  </>;
+}
+
+function PaymentCalculator({ values, set }) {
+  const amount = number(values.amount); const apr = number(values.apr); const term = number(values.term); const extra = number(values.extra);
+  const result = useMemo(() => {
+    if (!validPositive(amount, term) || !Number.isFinite(apr) || apr < 0 || !Number.isFinite(extra) || extra < 0) return null;
+    const standard = amortize(amount, apr, term);
+    const accelerated = extra > 0 ? amortize(amount, apr, term, extra) : standard;
+    if (!standard || !accelerated) return null;
+    return {
+      payment: standard.basePayment,
+      months: accelerated.months,
+      standardMonths: standard.months,
+      interestSaved: standard.totalInterest - accelerated.totalInterest,
+      totalInterest: accelerated.totalInterest,
+      extraApplied: extra > 0,
+    };
+  }, [amount, apr, term, extra]);
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="pay-amount" label="Loan amount" value={values.amount} onChange={set('amount')} min="1" />
+      <Field id="pay-apr" label="Annual interest rate" value={values.apr} onChange={set('apr')} min="0" max="100" suffix="% APR" />
+      <Field id="pay-term" label="Loan term" value={values.term} onChange={set('term')} min="1" max="1200" suffix="months" />
+      <Field id="pay-extra" label="Extra monthly payment" value={values.extra} onChange={set('extra')} min="0" suffix="amount / month" />
+    </div>
+    {result ? <>
+      <ResultCards items={[
+        ['Standard monthly payment', pretty(result.payment)],
+        ['Payoff time with extra', `${Math.floor(result.months / 12)}y ${result.months % 12}m · ${result.months} months`],
+        ['Original term', `${Math.floor(result.standardMonths / 12)}y ${result.standardMonths % 12}m · ${result.standardMonths} months`],
+        ['Interest saved', pretty(result.interestSaved)],
+        ['Total interest · with extra', pretty(result.totalInterest)],
+      ]} />
+      {result.extraApplied && <p className="tool-inline-status">Paying {pretty(extra)} extra per month clears this loan in about {Math.floor(result.months / 12)}y {result.months % 12}m instead of {Math.floor(result.standardMonths / 12)}y {result.standardMonths % 12}m, saving roughly {pretty(result.interestSaved)} in interest.</p>}
+    </> : <p className="tool-inline-status status-warning">Enter a positive loan amount and term in months, a non-negative interest rate, and an extra payment of zero or more. (A very low payment can also fail to cover monthly interest.)</p>}
+    <p className="tool-inline-status">Fixed-rate amortization with monthly payments, computed locally. Lender fees, prepayment penalties, and rate changes are not included; the payoff loop is capped at 1200 months.</p>
+  </>;
+}
+
+const US_SINGLE_BRACKETS = [
+  [0, 0.10], [11600, 0.12], [47150, 0.22], [100525, 0.24],
+  [191950, 0.32], [243725, 0.35], [609350, 0.37],
+];
+
+function bracketTax(taxable) {
+  let tax = 0;
+  for (let i = 0; i < US_SINGLE_BRACKETS.length; i += 1) {
+    const [floor, rate] = US_SINGLE_BRACKETS[i];
+    const ceiling = i + 1 < US_SINGLE_BRACKETS.length ? US_SINGLE_BRACKETS[i + 1][0] : Infinity;
+    if (taxable > floor) tax += (Math.min(taxable, ceiling) - floor) * rate;
+  }
+  return tax;
+}
+
+function IncomeTaxCalculator({ values, set }) {
+  const income = number(values.income); const deductions = number(values.deductions);
+  const valid = Number.isFinite(income) && income >= 0 && Number.isFinite(deductions) && deductions >= 0;
+  const taxable = valid ? Math.max(0, income - deductions) : 0;
+  const tax = valid ? bracketTax(taxable) : 0;
+  return <>
+    <div className="calculator-input-grid">
+      <Field id="tax-income" label="Annual gross income" value={values.income} onChange={set('income')} min="0" />
+      <Field id="tax-deductions" label="Deductions (standard or itemized)" value={values.deductions} onChange={set('deductions')} min="0" />
+    </div>
+    {valid && <>
+      <ResultCards items={[
+        ['Taxable income', pretty(taxable)],
+        ['Estimated federal tax', pretty(tax)],
+        ['Effective tax rate', income > 0 ? `${pretty(tax / income * 100, 2)}%` : '—'],
+        ['Take-home after tax', pretty(income - tax)],
+        ['Monthly take-home', pretty((income - tax) / 12)],
+      ]} />
+    </>}
+    {!valid && <p className="tool-inline-status status-warning">Enter a non-negative annual income and deductions to see the estimate.</p>}
+    <p className="tool-inline-status">Uses the 2024 US federal income tax brackets for a single filer, computed locally. State tax, payroll tax (FICA), credits, and filing status are not included — treat this as a rough estimate, not tax advice.</p>
+  </>;
+}
+
 export default function FinancialCalculatorTool({ tool }) {
   const [values, set] = useForm(tool);
   let content;
@@ -546,6 +684,10 @@ export default function FinancialCalculatorTool({ tool }) {
     case 'inflation-calculator': content = <InflationCalculator values={values} set={set} />; break;
     case 'sales-tax-calculator': content = <SalesTaxCalculator values={values} set={set} />; break;
     case 'salary-calculator': content = <SalaryCalculator values={values} set={set} />; break;
+    case 'conversion-calculator': content = <ConversionCalculator values={values} set={set} />; break;
+    case 'finance-calculator': content = <FinanceCalculator values={values} set={set} />; break;
+    case 'payment-calculator': content = <PaymentCalculator values={values} set={set} />; break;
+    case 'income-tax-calculator': content = <IncomeTaxCalculator values={values} set={set} />; break;
     default: content = <p className="tool-inline-status">This calculator is not available.</p>;
   }
   return <div className="tool-editor tool-form-stack financial-calculator">{content}<p className="tool-inline-status">Calculations update instantly in your browser.</p></div>;

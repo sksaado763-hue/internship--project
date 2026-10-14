@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Copy, Download, Pipette } from 'lucide-react';
+import { createWorker } from 'tesseract.js';
 import Button from '../common/Button.jsx';
 import { canvasToBlob, downloadBlob } from '../../utils/browserFiles.js';
 
@@ -1042,6 +1043,61 @@ function ColorblindSimulator({ tool }) {
   );
 }
 
+/* ---------------------------------- mode 13: ocr-image-to-text ---------------------------------- */
+
+function ImageToText({ tool }) {
+  const { file, setFile, image, loadNote } = useSourceImage();
+  const [text, setText] = useState('');
+  const [status, setStatus] = useState('Choose an image, then run OCR to extract its text.');
+  const [busy, setBusy] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  async function runOcr() {
+    if (!image || busy) return;
+    setBusy(true);
+    setStatus('Loading the OCR engine…');
+    setProgress(0);
+    let worker;
+    try {
+      const source = file;
+      worker = await createWorker('eng', 1, {
+        logger: (message) => {
+          if (message.status === 'recognizing text') setProgress(Math.round(message.progress * 100));
+        },
+      });
+      setStatus('Recognizing text…');
+      const { data } = await worker.recognize(source);
+      setText(data.text.trim());
+      setStatus(data.text.trim()
+        ? `Done — confidence ${Math.round(data.confidence)}%. Copy the text below.`
+        : 'No readable text was found in this image. Try a sharper, higher-contrast photo.');
+    } catch {
+      setStatus('OCR could not run — the engine files may be blocked or unreachable. Check your connection and try again.');
+    } finally {
+      if (worker) await worker.terminate();
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="tool-editor tool-form-stack">
+      <ImageField id="ocr-file" label="Choose an image with text" fileName={file?.name} onFile={setFile} />
+      {loadNote && <p className="tool-inline-status" aria-live="polite">{loadNote}</p>}
+      {image && <img src={image.src} alt="Preview of the selected image" style={{ maxWidth: '100%', borderRadius: 12, border: '1px solid var(--line)' }} />}
+      <Button onClick={runOcr} disabled={!image || busy}>{busy ? (progress > 0 ? `Recognizing… ${progress}%` : 'Loading engine…') : 'Extract text'}</Button>
+      <p className="tool-inline-status" aria-live="polite">{status}</p>
+      {text && <>
+        <section className="tool-form-section">
+          <div className="tool-editor-label"><label htmlFor="ocr-output">Extracted text</label><span>{text.length} characters</span></div>
+          <textarea id="ocr-output" className="tool-textarea" value={text} onChange={(event) => setText(event.target.value)} rows={10} spellCheck="false" />
+        </section>
+        <div className="tool-actions"><Button variant="secondary" size="small" type="button" onClick={() => copyText(text, setStatus, 'Text')}><Copy size={14} aria-hidden="true" /> Copy text</Button></div>
+      </>}
+      <LocalNote>{tool.name} runs entirely on your device with the Tesseract OCR engine (WebAssembly) — the image is never uploaded. The engine files load once from a public CDN.</LocalNote>
+    </div>
+  );
+}
+
 /* ---------------------------------- entry ---------------------------------- */
 
 export default function ImageStudioTool({ tool }) {
@@ -1065,6 +1121,8 @@ export default function ImageStudioTool({ tool }) {
       return <ColorPicker tool={tool} />;
     case 'colorblind-simulator':
       return <ColorblindSimulator tool={tool} />;
+    case 'ocr-image-to-text':
+      return <ImageToText tool={tool} />;
     default:
       return (
         <div className="tool-editor tool-form-stack">

@@ -782,4 +782,214 @@ export const toolRegistry = [
     description: 'Extract basic metadata from a pasted YouTube video URL with a transparent local parser.',
     categorySlug: 'social-video', icon: 'Braces', tags: ['youtube', 'details', 'metadata', 'extract'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
   },
+  {
+    id: 'merge-pdf', slug: 'merge-pdf', name: 'Merge PDF',
+    description: 'Combine multiple PDF files into a single document — files are merged locally in your browser and nothing is uploaded.',
+    categorySlug: 'pdf', icon: 'GitMerge', tags: ['pdf', 'merge', 'combine', 'join'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-merger', slug: 'pdf-merger', name: 'PDF Merger',
+    description: 'Merge several PDFs into one file in the order you picked them, processed entirely on your device.',
+    categorySlug: 'pdf', icon: 'GitMerge', tags: ['pdf', 'merger', 'combine', 'files'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'split-pdf', slug: 'split-pdf', name: 'Split PDF',
+    description: 'Split a PDF into individual pages or a chosen page range and download the pieces.',
+    categorySlug: 'pdf', icon: 'Scissors', tags: ['pdf', 'split', 'pages', 'extract'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-splitter', slug: 'pdf-splitter', name: 'PDF Splitter',
+    description: 'Extract pages from a PDF into separate files or one ZIP archive, all processed locally.',
+    categorySlug: 'pdf', icon: 'Scissors', tags: ['pdf', 'splitter', 'pages', 'extract'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'rotate-pdf', slug: 'rotate-pdf', name: 'Rotate PDF',
+    description: 'Rotate all pages of a PDF by 90, 180, or 270 degrees and download the corrected file.',
+    categorySlug: 'pdf', icon: 'RotateCw', tags: ['pdf', 'rotate', 'orientation', 'fix'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-rotator', slug: 'pdf-rotator', name: 'PDF Rotator',
+    description: 'Fix sideways or upside-down PDF pages by rotating them in the browser and saving a new copy.',
+    categorySlug: 'pdf', icon: 'RotateCw', tags: ['pdf', 'rotate', 'turn', 'orientation'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'compress-pdf', slug: 'compress-pdf', name: 'Compress PDF',
+    description: 'Shrink a PDF by re-rendering its pages at lower quality and resolution — works best on scanned, image-heavy files.',
+    categorySlug: 'pdf', icon: 'FileArchive', tags: ['pdf', 'compress', 'reduce size', 'optimize'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-compressor', slug: 'pdf-compressor', name: 'PDF Compressor',
+    description: 'Reduce PDF file size with an adjustable quality setting, processed locally with no upload.',
+    categorySlug: 'pdf', icon: 'FileArchive', tags: ['pdf', 'compressor', 'smaller', 'optimize'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'protect-pdf', slug: 'protect-pdf', name: 'Protect PDF',
+    description: 'Add a password to a PDF so it can only be opened with it — the encryption runs locally in your browser.',
+    categorySlug: 'pdf', icon: 'Lock', tags: ['pdf', 'password', 'protect', 'encrypt'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'watermark-pdf', slug: 'watermark-pdf', name: 'Watermark PDF',
+    description: 'Stamp custom text or an image watermark across every page of a PDF and download the stamped copy.',
+    categorySlug: 'pdf', icon: 'Droplets', tags: ['pdf', 'watermark', 'stamp', 'branding'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'sign-pdf', slug: 'sign-pdf', name: 'Sign PDF',
+    description: 'Draw or type your signature and place it onto a PDF page, then download the signed document.',
+    categorySlug: 'pdf', icon: 'PenLine', tags: ['pdf', 'sign', 'signature', 'esign'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-signature', slug: 'pdf-signature', name: 'PDF Signature',
+    description: 'Add a handwritten-style signature to a PDF without uploading your document anywhere.',
+    categorySlug: 'pdf', icon: 'PenLine', tags: ['pdf', 'signature', 'sign', 'document'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-editor', slug: 'pdf-editor', name: 'PDF Editor',
+    description: 'Annotate a PDF by adding text, shapes, and highlights on top of its pages, then download the annotated copy.',
+    categorySlug: 'pdf', icon: 'FilePen', tags: ['pdf', 'edit', 'annotate', 'text'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'image-to-pdf', slug: 'image-to-pdf', name: 'Image to PDF',
+    description: 'Turn images into a single PDF document with adjustable page size, margins, and orientation.',
+    categorySlug: 'pdf', icon: 'ImagePlus', tags: ['image', 'pdf', 'convert', 'photos'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'jpg-to-pdf', slug: 'jpg-to-pdf', name: 'JPG to PDF',
+    description: 'Convert JPG photos into a single shareable PDF file in seconds, entirely on your device.',
+    categorySlug: 'pdf', icon: 'FileImage', tags: ['jpg', 'jpeg', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pic-to-pdf', slug: 'pic-to-pdf', name: 'Pic to PDF',
+    description: 'Convert any picture — PNG, JPG, or WebP — into a PDF document in your browser.',
+    categorySlug: 'pdf', icon: 'FileImage', tags: ['picture', 'image', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-to-image', slug: 'pdf-to-image', name: 'PDF to Image',
+    description: 'Render each page of a PDF to a PNG or JPG image and download the pages individually or as a ZIP.',
+    categorySlug: 'pdf', icon: 'ImageDown', tags: ['pdf', 'image', 'png', 'export'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-to-jpg', slug: 'pdf-to-jpg', name: 'PDF to JPG',
+    description: 'Export PDF pages as JPG images with a quality setting you control.',
+    categorySlug: 'pdf', icon: 'FileImage', tags: ['pdf', 'jpg', 'convert', 'export'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'invoice-generator', slug: 'invoice-generator', name: 'Invoice Generator',
+    description: 'Fill in your business details and line items to generate a clean, downloadable PDF invoice instantly.',
+    categorySlug: 'pdf', icon: 'Receipt', tags: ['invoice', 'pdf', 'billing', 'freelance'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'docx-to-pdf', slug: 'docx-to-pdf', name: 'DOCX to PDF',
+    description: 'See why DOCX files cannot be faithfully converted in a browser-only tool, and follow the local print-based workflow to still get a PDF.',
+    categorySlug: 'pdf', icon: 'FileOutput', tags: ['docx', 'word', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'word-to-pdf', slug: 'word-to-pdf', name: 'Word to PDF',
+    description: 'Word documents need server-side conversion for a faithful result — this page explains the limit and shows a local alternative.',
+    categorySlug: 'pdf', icon: 'FileOutput', tags: ['word', 'doc', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-to-docx', slug: 'pdf-to-docx', name: 'PDF to DOCX',
+    description: 'A true PDF-to-Word conversion needs server-side engines — this page explains why and offers the closest local alternative.',
+    categorySlug: 'pdf', icon: 'FileText', tags: ['pdf', 'docx', 'word', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-to-word', slug: 'pdf-to-word', name: 'PDF to Word',
+    description: 'Faithful PDF-to-Word conversion requires server-side software — learn why and use the local text alternative provided here.',
+    categorySlug: 'pdf', icon: 'FileText', tags: ['pdf', 'word', 'doc', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-to-excel', slug: 'pdf-to-excel', name: 'PDF to Excel',
+    description: 'PDF tables cannot be reliably reconstructed without server-side tools — this page explains the limit and offers a local option for simple data.',
+    categorySlug: 'pdf', icon: 'FileSpreadsheet', tags: ['pdf', 'excel', 'csv', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-to-xlsx', slug: 'pdf-to-xlsx', name: 'PDF to XLSX',
+    description: 'Reliable PDF-to-spreadsheet conversion needs server-side engines — this page explains why and offers a local alternative for simple text data.',
+    categorySlug: 'pdf', icon: 'FileSpreadsheet', tags: ['pdf', 'xlsx', 'spreadsheet', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-to-powerpoint', slug: 'pdf-to-powerpoint', name: 'PDF to PowerPoint',
+    description: 'Faithful PDF-to-PowerPoint conversion requires server-side software — this page explains the limit and offers a local alternative.',
+    categorySlug: 'pdf', icon: 'Presentation', tags: ['pdf', 'powerpoint', 'ppt', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'pdf-to-pptx', slug: 'pdf-to-pptx', name: 'PDF to PPTX',
+    description: 'Turning PDF pages into editable slides needs server-side engines — learn why and see the local alternative offered here.',
+    categorySlug: 'pdf', icon: 'Presentation', tags: ['pdf', 'pptx', 'slides', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'audio-cutter', slug: 'audio-cutter', name: 'Audio Cutter',
+    description: 'Trim any audio file to a start and end point and download the cut segment as a WAV file, entirely locally.',
+    categorySlug: 'social-video', icon: 'AudioLines', tags: ['audio', 'cut', 'trim', 'wav'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'video-cutter', slug: 'video-cutter', name: 'Video Cutter',
+    description: 'Trim a video clip to the segment you need and export it as a WebM video without uploading it anywhere.',
+    categorySlug: 'social-video', icon: 'Clapperboard', tags: ['video', 'cut', 'trim', 'webm'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'screen-recorder', slug: 'screen-recorder', name: 'Screen Recorder',
+    description: 'Record your screen, an application window, or your webcam and download the capture as a WebM video.',
+    categorySlug: 'social-video', icon: 'Monitor', tags: ['screen', 'record', 'webcam', 'capture'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'heic-converter', slug: 'heic-converter', name: 'HEIC Converter',
+    description: 'Convert iPhone HEIC photos to JPG or PNG so they open in any app, on any device.',
+    categorySlug: 'image', icon: 'RefreshCw', tags: ['heic', 'jpg', 'png', 'iphone', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'currency-converter', slug: 'currency-converter', name: 'Currency Converter',
+    description: 'Convert between world currencies using live rates from a free public exchange-rate API.',
+    categorySlug: 'calculators', icon: 'Coins', tags: ['currency', 'exchange', 'money', 'rates'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'domain-age', slug: 'domain-age', name: 'Domain Age Checker',
+    description: 'Find out when a domain was registered and how many years, months, and days it has been around, via public RDAP records.',
+    categorySlug: 'seo', icon: 'Globe', tags: ['domain', 'age', 'whois', 'rdap'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'ssl-checker', slug: 'ssl-checker', name: 'SSL Checker',
+    description: 'Browsers block direct certificate inspection from a web page — this checker explains how to verify any site SSL certificate yourself in seconds.',
+    categorySlug: 'seo', icon: 'ShieldCheck', tags: ['ssl', 'certificate', 'https', 'security'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'backlink-checker', slug: 'backlink-checker', name: 'Backlink Checker',
+    description: 'Backlink indexes require server-side data this free tool never ships — learn how to check your backlinks for free in Google Search Console.',
+    categorySlug: 'seo', icon: 'Link2', tags: ['backlinks', 'seo', 'links', 'search console'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'speed-test', slug: 'speed-test', name: 'Speed Test',
+    description: 'Estimate your download speed and latency with a lightweight test against a public edge network.',
+    categorySlug: 'developer', icon: 'Gauge', tags: ['speed', 'bandwidth', 'latency', 'internet'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'code-compiler', slug: 'code-compiler', name: 'Code Compiler',
+    description: 'Write and run JavaScript instantly in a local playground, with honest pointers for compiling other languages.',
+    categorySlug: 'developer', icon: 'Code2', tags: ['code', 'compiler', 'javascript', 'playground'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'conversion-calculator', slug: 'conversion-calculator', name: 'Conversion Calculator',
+    description: 'Convert between length, mass, temperature, and data units with instant results as you type.',
+    categorySlug: 'calculators', icon: 'ArrowLeftRight', tags: ['convert', 'units', 'length', 'temperature'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'finance-calculator', slug: 'finance-calculator', name: 'Finance Calculator',
+    description: 'Split your monthly income into needs, wants, and savings with the adjustable 50/30/20 budgeting rule.',
+    categorySlug: 'calculators', icon: 'Wallet', tags: ['budget', '50/30/20', 'finance', 'savings'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'payment-calculator', slug: 'payment-calculator', name: 'Payment Calculator',
+    description: 'Work out a loan monthly payment and see how extra payments shorten the term and cut the total interest.',
+    categorySlug: 'calculators', icon: 'Banknote', tags: ['loan', 'payment', 'extra payment', 'interest'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'income-tax-calculator', slug: 'income-tax-calculator', name: 'Income Tax Calculator',
+    description: 'Estimate US federal income tax for a single filer using the 2024 brackets, with effective rate and monthly take-home pay.',
+    categorySlug: 'calculators', icon: 'Landmark', tags: ['tax', 'income', 'federal', 'estimate'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
+  {
+    id: 'ocr-image-to-text', slug: 'ocr-image-to-text', name: 'OCR Image to Text',
+    description: 'Extract text from images and photos with on-device OCR — the image is processed in your browser and never uploaded.',
+    categorySlug: 'image', icon: 'ScanText', tags: ['ocr', 'image', 'text', 'extract'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+  },
 ];
