@@ -7,7 +7,7 @@ export const mainNavigation = [
   { label: 'Blog', href: '/blog' },
   { label: 'Games', href: '/games' },
   { label: 'About Us', href: '/about' },
-  { label: 'Contact', href: 'mailto:hello@meridian.tools' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export const platformStats = [
