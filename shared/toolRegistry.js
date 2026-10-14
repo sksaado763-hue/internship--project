@@ -380,37 +380,37 @@ export const toolRegistry = [
   {
     id: 'ai-background-remover', slug: 'ai-background-remover', name: 'AI Background Remover',
     description: 'Remove image backgrounds and prepare transparent PNGs. Demo mode is local; connect a background-removal API for AI results.',
-    categorySlug: 'ai-generators', icon: 'ImageMinus', tags: ['ai', 'background', 'transparent', 'image', 'remove'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'ai-generators', icon: 'ImageMinus', tags: ['ai', 'background', 'transparent', 'image', 'remove'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'ai-content-detector', slug: 'ai-content-detector', name: 'AI Content Detector',
     description: 'Review text for patterns that detection models may flag. Results are an unverified local heuristic, not proof of AI authorship.',
-    categorySlug: 'ai-generators', icon: 'ScanText', tags: ['ai', 'detector', 'text', 'writing'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'ai-generators', icon: 'ScanText', tags: ['ai', 'detector', 'text', 'writing'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'ai-email-writer', slug: 'ai-email-writer', name: 'AI Email Writer',
     description: 'Draft a polished email from a topic, audience, and tone. Local demo uses a simple template; connect a language model for AI writing.',
-    categorySlug: 'ai-generators', icon: 'Mail', tags: ['ai', 'email', 'writer', 'business'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'ai-generators', icon: 'Mail', tags: ['ai', 'email', 'writer', 'business'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'ai-text-humanizer', slug: 'ai-text-humanizer', name: 'AI Text Humanizer',
     description: 'Edit stiff writing with a small local style pass. This demo does not guarantee human-like writing or bypass detection.',
-    categorySlug: 'ai-generators', icon: 'WandSparkles', tags: ['ai', 'humanizer', 'rewrite', 'text'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'ai-generators', icon: 'WandSparkles', tags: ['ai', 'humanizer', 'rewrite', 'text'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'ai-image-generator', slug: 'ai-image-generator', name: 'AI Image Generator',
     description: 'Prepare image prompts and review the API connection point. Real image generation requires a model provider and may incur usage costs.',
-    categorySlug: 'ai-generators', icon: 'ImagePlus', tags: ['ai', 'image', 'generator', 'art', 'prompt'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'ai-generators', icon: 'ImagePlus', tags: ['ai', 'image', 'generator', 'art', 'prompt'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'ai-voiceover-studio', slug: 'ai-voiceover-studio', name: 'AI Voiceover Studio',
     description: 'Listen to browser speech synthesis as a free preview. Natural voices and voice cloning require a speech API.',
-    categorySlug: 'ai-generators', icon: 'AudioLines', tags: ['ai', 'voice', 'audio', 'speech', 'narration'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'ai-generators', icon: 'AudioLines', tags: ['ai', 'voice', 'audio', 'speech', 'narration'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'ai-voice-typing', slug: 'ai-voice-typing', name: 'AI Voice Typing',
     description: 'Dictate with browser speech recognition when your browser supports it. Recognition availability depends on browser and language.',
-    categorySlug: 'ai-generators', icon: 'Mic', tags: ['voice', 'typing', 'speech', 'transcription', 'dictation'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'ai-generators', icon: 'Mic', tags: ['voice', 'typing', 'speech', 'transcription', 'dictation'], isPopular: true, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'favicon-generator', slug: 'favicon-generator', name: 'Favicon Generator',
@@ -425,12 +425,12 @@ export const toolRegistry = [
   {
     id: 'ai-video-caption-generator', slug: 'ai-video-caption-generator', name: 'AI Video Caption Generator',
     description: 'Turn a transcript into a downloadable SRT starter file. Audio transcription and timing need a speech-to-text service.',
-    categorySlug: 'ai-generators', icon: 'Captions', tags: ['video', 'caption', 'subtitle', 'srt', 'whisper'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'ai-generators', icon: 'Captions', tags: ['video', 'caption', 'subtitle', 'srt', 'whisper'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'instagram-caption-generator', slug: 'instagram-caption-generator', name: 'Instagram Caption Generator',
     description: 'Draft a social caption and hashtags from your topic using a local template. Connect a language model for AI suggestions.',
-    categorySlug: 'social-video', icon: 'Instagram', tags: ['instagram', 'caption', 'social', 'hashtags'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Instagram', tags: ['instagram', 'caption', 'social', 'hashtags'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'meme-generator', slug: 'meme-generator', name: 'Meme Generator',
@@ -470,12 +470,12 @@ export const toolRegistry = [
   {
     id: 'voice-changer', slug: 'voice-changer', name: 'Voice Changer',
     description: 'Preview simple pitch-shifted audio in this browser. Studio quality and transcription need a provider API.',
-    categorySlug: 'ai-generators', icon: 'AudioWaveform', tags: ['voice', 'audio', 'pitch', 'effects'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'ai-generators', icon: 'AudioWaveform', tags: ['voice', 'audio', 'pitch', 'effects'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'youtube-name-generator', slug: 'youtube-name-generator', name: 'YouTube Name Generator',
     description: 'Get channel name ideas from a niche and style using a local template.',
-    categorySlug: 'ai-generators', icon: 'Youtube', tags: ['youtube', 'channel', 'name', 'branding'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'ai-generators', icon: 'Youtube', tags: ['youtube', 'channel', 'name', 'branding'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'youtube-title-generator', slug: 'youtube-title-generator', name: 'YouTube Title Generator',
@@ -490,7 +490,7 @@ export const toolRegistry = [
   {
     id: 'youtube-hook-generator', slug: 'youtube-hook-generator', name: 'YouTube Hook Generator',
     description: 'Draft a few opening-line patterns for a video. Connect a language model for original AI hooks.',
-    categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'hook', 'video', 'script'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'hook', 'video', 'script'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'video-editing-studio', slug: 'video-editing-studio', name: 'Video Editing Studio',
@@ -505,7 +505,7 @@ export const toolRegistry = [
   {
     id: 'instagram-downloader', slug: 'instagram-downloader', name: 'Instagram Downloader',
     description: 'Save a direct media file you own or have permission to download. Public post pages are not scraped.',
-    categorySlug: 'social-video', icon: 'Instagram', tags: ['instagram', 'download', 'media', 'video', 'photo'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Instagram', tags: ['instagram', 'download', 'media', 'video', 'photo'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'instagram-grid-splitter', slug: 'instagram-grid-splitter', name: 'Instagram Grid Splitter',
@@ -515,7 +515,7 @@ export const toolRegistry = [
   {
     id: 'tiktok-downloader', slug: 'tiktok-downloader', name: 'TikTok Downloader',
     description: 'Save a direct video file you own or have permission to download. TikTok post pages are not scraped.',
-    categorySlug: 'social-video', icon: 'Clapperboard', tags: ['tiktok', 'download', 'video', 'media'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Clapperboard', tags: ['tiktok', 'download', 'video', 'media'], isPopular: false, isFeatured: true, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'youtube-channel-audit', slug: 'youtube-channel-audit', name: 'YouTube Channel Audit',
@@ -660,7 +660,7 @@ export const toolRegistry = [
   {
     id: 'pic-to-gif', slug: 'pic-to-gif', name: 'PIC to GIF Converter',
     description: 'Explains honestly that browsers cannot encode GIF locally and offers PNG and WebP downloads instead.',
-    categorySlug: 'image', icon: 'FileImage', tags: ['convert', 'gif', 'png', 'image converter'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'image', icon: 'FileImage', tags: ['convert', 'gif', 'png', 'image converter'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pic-to-ico', slug: 'pic-to-ico', name: 'PIC to ICO Converter',
@@ -710,7 +710,7 @@ export const toolRegistry = [
   {
     id: 'whats-my-ip', slug: 'whats-my-ip', name: "What's My IP",
     description: 'Look up your public IP address with a single request to api.ipify.org, with an optional best-effort location hint.',
-    categorySlug: 'developer', icon: 'Globe', tags: ['ip address', 'public ip', 'network', 'lookup'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'developer', icon: 'Globe', tags: ['ip address', 'public ip', 'network', 'lookup'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'world-clock', slug: 'world-clock', name: 'World Clock',
@@ -745,22 +745,22 @@ export const toolRegistry = [
   {
     id: 'youtube-video-downloader', slug: 'youtube-video-downloader', name: 'YouTube Video Downloader',
     description: 'Save a direct video file you own or have permission to download. YouTube watch pages are not scraped.',
-    categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'download', 'video', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Youtube', tags: ['youtube', 'download', 'video', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'facebook-downloader', slug: 'facebook-downloader', name: 'Facebook Downloader',
     description: 'Save a direct video file you own or have permission to download. Facebook post pages are not scraped.',
-    categorySlug: 'social-video', icon: 'Facebook', tags: ['facebook', 'download', 'video', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Facebook', tags: ['facebook', 'download', 'video', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'twitter-downloader', slug: 'twitter-downloader', name: 'Twitter Video Downloader',
     description: 'Save a direct video file you own or have permission to download. X post pages are not scraped.',
-    categorySlug: 'social-video', icon: 'Twitter', tags: ['twitter', 'x', 'download', 'video', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Twitter', tags: ['twitter', 'x', 'download', 'video', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pinterest-downloader', slug: 'pinterest-downloader', name: 'Pinterest Downloader',
     description: 'Save a direct image file you own or have permission to download. Pinterest pin pages are not scraped.',
-    categorySlug: 'social-video', icon: 'Download', tags: ['pinterest', 'download', 'image', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'social-video', icon: 'Download', tags: ['pinterest', 'download', 'image', 'media'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'yt-video-script-generator', slug: 'yt-video-script-generator', name: 'YT Video Script Generator',
@@ -880,42 +880,42 @@ export const toolRegistry = [
   {
     id: 'docx-to-pdf', slug: 'docx-to-pdf', name: 'DOCX to PDF',
     description: 'See why DOCX files cannot be faithfully converted in a browser-only tool, and follow the local print-based workflow to still get a PDF.',
-    categorySlug: 'pdf', icon: 'FileOutput', tags: ['docx', 'word', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'FileOutput', tags: ['docx', 'word', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'word-to-pdf', slug: 'word-to-pdf', name: 'Word to PDF',
     description: 'Word documents need server-side conversion for a faithful result — this page explains the limit and shows a local alternative.',
-    categorySlug: 'pdf', icon: 'FileOutput', tags: ['word', 'doc', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'FileOutput', tags: ['word', 'doc', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pdf-to-docx', slug: 'pdf-to-docx', name: 'PDF to DOCX',
     description: 'A true PDF-to-Word conversion needs server-side engines — this page explains why and offers the closest local alternative.',
-    categorySlug: 'pdf', icon: 'FileText', tags: ['pdf', 'docx', 'word', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'FileText', tags: ['pdf', 'docx', 'word', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pdf-to-word', slug: 'pdf-to-word', name: 'PDF to Word',
     description: 'Faithful PDF-to-Word conversion requires server-side software — learn why and use the local text alternative provided here.',
-    categorySlug: 'pdf', icon: 'FileText', tags: ['pdf', 'word', 'doc', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'FileText', tags: ['pdf', 'word', 'doc', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pdf-to-excel', slug: 'pdf-to-excel', name: 'PDF to Excel',
     description: 'PDF tables cannot be reliably reconstructed without server-side tools — this page explains the limit and offers a local option for simple data.',
-    categorySlug: 'pdf', icon: 'FileSpreadsheet', tags: ['pdf', 'excel', 'csv', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'FileSpreadsheet', tags: ['pdf', 'excel', 'csv', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pdf-to-xlsx', slug: 'pdf-to-xlsx', name: 'PDF to XLSX',
     description: 'Reliable PDF-to-spreadsheet conversion needs server-side engines — this page explains why and offers a local alternative for simple text data.',
-    categorySlug: 'pdf', icon: 'FileSpreadsheet', tags: ['pdf', 'xlsx', 'spreadsheet', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'FileSpreadsheet', tags: ['pdf', 'xlsx', 'spreadsheet', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pdf-to-powerpoint', slug: 'pdf-to-powerpoint', name: 'PDF to PowerPoint',
     description: 'Faithful PDF-to-PowerPoint conversion requires server-side software — this page explains the limit and offers a local alternative.',
-    categorySlug: 'pdf', icon: 'Presentation', tags: ['pdf', 'powerpoint', 'ppt', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'Presentation', tags: ['pdf', 'powerpoint', 'ppt', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pdf-to-pptx', slug: 'pdf-to-pptx', name: 'PDF to PPTX',
     description: 'Turning PDF pages into editable slides needs server-side engines — learn why and see the local alternative offered here.',
-    categorySlug: 'pdf', icon: 'Presentation', tags: ['pdf', 'pptx', 'slides', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'Presentation', tags: ['pdf', 'pptx', 'slides', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'audio-cutter', slug: 'audio-cutter', name: 'Audio Cutter',
@@ -940,22 +940,22 @@ export const toolRegistry = [
   {
     id: 'currency-converter', slug: 'currency-converter', name: 'Currency Converter',
     description: 'Convert between world currencies using live rates from a free public exchange-rate API.',
-    categorySlug: 'calculators', icon: 'Coins', tags: ['currency', 'exchange', 'money', 'rates'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'calculators', icon: 'Coins', tags: ['currency', 'exchange', 'money', 'rates'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'domain-age', slug: 'domain-age', name: 'Domain Age Checker',
     description: 'Find out when a domain was registered and how many years, months, and days it has been around, via public RDAP records.',
-    categorySlug: 'seo', icon: 'Globe', tags: ['domain', 'age', 'whois', 'rdap'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'seo', icon: 'Globe', tags: ['domain', 'age', 'whois', 'rdap'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'ssl-checker', slug: 'ssl-checker', name: 'SSL Checker',
     description: 'Browsers block direct certificate inspection from a web page — this checker explains how to verify any site SSL certificate yourself in seconds.',
-    categorySlug: 'seo', icon: 'ShieldCheck', tags: ['ssl', 'certificate', 'https', 'security'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'seo', icon: 'ShieldCheck', tags: ['ssl', 'certificate', 'https', 'security'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'backlink-checker', slug: 'backlink-checker', name: 'Backlink Checker',
     description: 'Backlink indexes require server-side data this free tool never ships — learn how to check your backlinks for free in Google Search Console.',
-    categorySlug: 'seo', icon: 'Link2', tags: ['backlinks', 'seo', 'links', 'search console'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'seo', icon: 'Link2', tags: ['backlinks', 'seo', 'links', 'search console'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'speed-test', slug: 'speed-test', name: 'Speed Test',

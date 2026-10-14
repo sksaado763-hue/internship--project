@@ -52,23 +52,6 @@ const TOOL_SECTIONS = [
     ].includes(tool.slug),
   },
   {
-    id: 'calculators',
-    title: 'Calculators & Financial Tools',
-    description: 'Loan EMI, mortgages, salary, taxes, pregnancy, GPA and scientific precision math engines',
-    select: (tool) => [
-      'percentage-calculator', 'number-base-converter', 'timestamp-converter',
-      'age-calculator', 'amortization-calculator', 'auto-loan-calculator', 'unit-converter',
-      'bmi-calculator', 'bmr-calculator', 'body-fat-calculator', 'calorie-calculator',
-      'mortgage-calculator', 'compound-interest-calculator', 'loan-calculator', 'interest-calculator',
-      'interest-rate-calculator', 'investment-calculator', 'retirement-calculator', 'inflation-calculator',
-      'sales-tax-calculator', 'salary-calculator', 'scientific-calculator', 'fraction-calculator',
-      'gpa-calculator', 'grade-calculator', 'standard-deviation-calculator', 'triangle-calculator',
-      'ideal-weight-calculator', 'pace-calculator', 'concrete-calculator', 'due-date-calculator',
-      'pregnancy-conception-calculator', 'conversion-calculator', 'finance-calculator',
-      'payment-calculator', 'income-tax-calculator', 'currency-converter',
-    ].includes(tool.slug),
-  },
-  {
     id: 'developer',
     title: 'Developer & Web Utilities',
     description: 'JSON, Base64, JWT, regex, subnet, password and network debugging tools for builders',
@@ -97,6 +80,23 @@ const TOOL_SECTIONS = [
     description: 'Domain age lookups, SSL certificate guidance, and backlink analysis helpers',
     select: (tool) => [
       'domain-age', 'ssl-checker', 'backlink-checker',
+    ].includes(tool.slug),
+  },
+  {
+    id: 'calculators',
+    title: 'Calculators & Financial Tools',
+    description: 'Loan EMI, mortgages, salary, taxes, pregnancy, GPA and scientific precision math engines',
+    select: (tool) => [
+      'percentage-calculator', 'number-base-converter', 'timestamp-converter',
+      'age-calculator', 'amortization-calculator', 'auto-loan-calculator', 'unit-converter',
+      'bmi-calculator', 'bmr-calculator', 'body-fat-calculator', 'calorie-calculator',
+      'mortgage-calculator', 'compound-interest-calculator', 'loan-calculator', 'interest-calculator',
+      'interest-rate-calculator', 'investment-calculator', 'retirement-calculator', 'inflation-calculator',
+      'sales-tax-calculator', 'salary-calculator', 'scientific-calculator', 'fraction-calculator',
+      'gpa-calculator', 'grade-calculator', 'standard-deviation-calculator', 'triangle-calculator',
+      'ideal-weight-calculator', 'pace-calculator', 'concrete-calculator', 'due-date-calculator',
+      'pregnancy-conception-calculator', 'conversion-calculator', 'finance-calculator',
+      'payment-calculator', 'income-tax-calculator', 'currency-converter',
     ].includes(tool.slug),
   },
 ];
