@@ -12,18 +12,6 @@ const POPULAR_FEATURED_SLUGS = [
 
 const TOOL_SECTIONS = [
   {
-    id: 'popular-featured',
-    title: 'Popular Featured Tools',
-    description: 'Most frequently used utilities by our global creators & power users',
-    select: (tool) => POPULAR_FEATURED_SLUGS.includes(tool.slug),
-  },
-  {
-    id: 'ai-generators',
-    title: 'AI & Smart Generators',
-    description: 'Next-gen artificial intelligence, voice engines, call studio & generators',
-    select: (tool) => tool.category === 'AI & Smart Generators',
-  },
-  {
     id: 'pdf-documents',
     title: 'PDF & Document Utilities',
     description: 'Convert, edit, merge, split, sign, protect and compress PDF documents',
@@ -38,6 +26,18 @@ const TOOL_SECTIONS = [
       'invoice-generator', 'docx-to-pdf', 'word-to-pdf', 'pdf-to-docx', 'pdf-to-word',
       'pdf-to-excel', 'pdf-to-xlsx', 'pdf-to-powerpoint', 'pdf-to-pptx',
     ].includes(tool.slug),
+  },
+  {
+    id: 'popular-featured',
+    title: 'Popular Featured Tools',
+    description: 'Most frequently used utilities by our global creators & power users',
+    select: (tool) => POPULAR_FEATURED_SLUGS.includes(tool.slug),
+  },
+  {
+    id: 'ai-generators',
+    title: 'AI & Smart Generators',
+    description: 'Next-gen artificial intelligence, voice engines, call studio & generators',
+    select: (tool) => tool.category === 'AI & Smart Generators',
   },
   {
     id: 'image-converters',
