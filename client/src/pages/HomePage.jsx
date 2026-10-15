@@ -6,6 +6,7 @@ import SearchField from '../components/common/SearchField.jsx';
 import FeatureMarquee from '../components/common/FeatureMarquee.jsx';
 import { platformStats, toolCategories } from '../data/siteContent.js';
 import ToolCard from '../components/common/ToolCard.jsx';
+import { groupToolsIntoSections } from '../data/toolSections.js';
 import { tools } from '../data/tools.js';
 
 const categoryIcons = {
@@ -20,6 +21,8 @@ const categoryIcons = {
 };
 
 export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmit }) {
+  const groupedToolSections = groupToolsIntoSections(tools);
+
   return (
     <>
       <section className="home-hero page-container" id="home" aria-labelledby="hero-title">
@@ -126,7 +129,26 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
             </div>
             <a className="text-link" href="/tools">Browse all tools <ArrowRight size={15} aria-hidden="true" /></a>
           </div>
-          <div className="tool-grid">{tools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}</div>
+          <div className="directory-sections">
+            {groupedToolSections.map((section, index) => {
+              const isLastSection = index === groupedToolSections.length - 1;
+              return (
+                <section
+                  className={`directory-section ${isLastSection ? 'directory-section--last' : ''}`}
+                  key={section.id}
+                  aria-labelledby={`home-tool-section-${section.id}`}
+                >
+                  <header className="directory-section-heading">
+                    <div>
+                      <h3 id={`home-tool-section-${section.id}`}>{section.title} <span>({section.tools.length})</span></h3>
+                      <p>{section.description}</p>
+                    </div>
+                  </header>
+                  <div className="tool-grid">{section.tools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}</div>
+                </section>
+              );
+            })}
+          </div>
         </div>
       </section>
 
