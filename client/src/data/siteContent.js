@@ -25,8 +25,6 @@ export const footerSections = [
     icon: RefreshCw,
     links: [
       { label: 'Image Upscaler', href: '/tools/image-upscaler' },
-      { label: 'AI Image Generator', href: '/tools/ai-image-generator' },
-      { label: 'AI Background Remover', href: '/tools/ai-background-remover' },
       { label: 'Color Converter', href: '/tools/color-converter' },
       { label: 'CSS Gradient Generator', href: '/tools/gradient-generator' },
       { label: 'QR Code Generator', href: '/tools/qr-code-generator' },
@@ -41,7 +39,6 @@ export const footerSections = [
       { label: 'YouTube Channel Audit', href: '/tools/youtube-channel-audit' },
       { label: 'YouTube Comment Picker', href: '/tools/youtube-comment-picker' },
       { label: 'YouTube Title Generator', href: '/tools/youtube-title-generator' },
-      { label: 'AI Voiceover Studio', href: '/tools/ai-voiceover-studio' },
       { label: 'Resume Builder', href: '/tools/resume-builder' },
       { label: 'AI PowerPoint Generator', href: '/tools/ai-powerpoint-generator' },
     ],

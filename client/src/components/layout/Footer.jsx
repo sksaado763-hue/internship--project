@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, ChevronRight, Cpu, Facebook, Instagram, MoveUpRight, Music2, Star, Twitter } from 'lucide-react';
 import { footerSections } from '../../data/siteContent.js';
+import { toolBySlug } from '../../data/tools.js';
 import robotMascot from '../../assets/robot-mascot.png';
 
 const socialLinks = [
@@ -43,23 +44,35 @@ export default function Footer({ onComingSoon }) {
             </div>
           </div>
 
-          {footerSections.map(({ title, icon: Icon, links }) => (
-            <div className="footer-column" key={title}>
-              <h2><Icon size={15} aria-hidden="true" /> {title}</h2>
-              <ul>
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <a className="footer-link" href={link.href}>
-                      {link.highlight
-                        ? <Star size={11} fill="currentColor" aria-hidden="true" />
-                        : <ChevronRight size={12} aria-hidden="true" />}
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {footerSections.map(({ title, icon: Icon, links }) => {
+            const visibleLinks = links.filter((link) => {
+              if (link.href?.startsWith('/tools/')) {
+                const slug = link.href.replace('/tools/', '').split(/[?#]/)[0];
+                return Boolean(toolBySlug[slug]);
+              }
+              return true;
+            });
+
+            if (visibleLinks.length === 0) return null;
+
+            return (
+              <div className="footer-column" key={title}>
+                <h2><Icon size={15} aria-hidden="true" /> {title}</h2>
+                <ul>
+                  {visibleLinks.map((link) => (
+                    <li key={link.label}>
+                      <a className="footer-link" href={link.href}>
+                        {link.highlight
+                          ? <Star size={11} fill="currentColor" aria-hidden="true" />
+                          : <ChevronRight size={12} aria-hidden="true" />}
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
 
         <section className="footer-newsletter" aria-label="Newsletter">
