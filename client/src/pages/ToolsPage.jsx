@@ -175,10 +175,26 @@ export default function ToolsPage({ onSearchTermChange, defaultCategory = 'All t
         {availableCategories.map((item) => <button type="button" key={item} className={`filter-chip ${category === item ? 'is-active' : ''}`} aria-pressed={category === item} onClick={() => selectCategory(item)}>{item}</button>)}
       </div>
       {visibleTools.length ? (category === 'All tools' ? <div className="directory-sections">
-        {groupedSections.map((section) => <section className="directory-section" key={section.id} aria-labelledby={`directory-section-${section.id}`}>
-          <header className="directory-section-heading"><div><h2 id={`directory-section-${section.id}`}>{section.title} <span>({section.tools.length})</span></h2><p>{section.description}</p></div></header>
-          <div className="tool-grid">{section.tools.map((tool) => <ToolCard key={tool.id} tool={tool} variant="directory" />)}</div>
-        </section>)}
+        {groupedSections.map((section, index) => {
+          const isLastSection = index === groupedSections.length - 1;
+          return (
+            <section
+              className={`directory-section ${isLastSection ? 'directory-section--last' : ''}`}
+              key={section.id}
+              aria-labelledby={`directory-section-${section.id}`}
+            >
+              <header className="directory-section-heading">
+                <div>
+                  <h2 id={`directory-section-${section.id}`}>{section.title} <span>({section.tools.length})</span></h2>
+                  <p>{section.description}</p>
+                </div>
+              </header>
+              <div className={`tool-grid ${isLastSection ? 'tool-grid--center' : ''}`}>
+                {section.tools.map((tool) => <ToolCard key={tool.id} tool={tool} variant="directory" />)}
+              </div>
+            </section>
+          );
+        })}
       </div> : <div className="tool-grid">{visibleTools.map((tool) => <ToolCard key={tool.id} tool={tool} variant="directory" />)}</div>) : (
         <div className="directory-empty" role="status"><Search size={22} aria-hidden="true" /><h2>No tools found</h2><p>Try another search, or switch the category filter.</p><button className="text-link" type="button" onClick={() => { setSearchParams({}, { replace: true }); }}>Clear filters</button></div>
       )}
