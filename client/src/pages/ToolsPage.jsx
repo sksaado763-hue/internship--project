@@ -5,6 +5,14 @@ import ToolCard from '../components/common/ToolCard.jsx';
 import { useFavorites } from '../context/FavoritesContext.jsx';
 import { groupToolsIntoSections } from '../data/toolSections.js';
 import { tools } from '../data/tools.js';
+import { categoryRegistry } from '../../../shared/toolCategories.js';
+
+const registryCategoryNames = categoryRegistry.map((category) => category.name);
+const presentCategories = [...new Set(tools.map((tool) => tool.category))];
+const orderedCategories = [
+  ...registryCategoryNames.filter((name) => presentCategories.includes(name)),
+  ...presentCategories.filter((name) => !registryCategoryNames.includes(name)),
+];
 
 export default function ToolsPage({ onSearchTermChange, defaultCategory = 'All tools' }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,7 +21,7 @@ export default function ToolsPage({ onSearchTermChange, defaultCategory = 'All t
   const category = searchParams.get('category') ?? defaultCategory;
   const popularOnly = searchParams.get('popular') === 'true';
   const newOnly = searchParams.get('new') === 'true';
-  const availableCategories = ['All tools', ...new Set(tools.map((tool) => tool.category)), 'Favorites'];
+  const availableCategories = ['All tools', ...orderedCategories, 'Favorites'];
   const isAiCategory = category === 'AI & Smart Generators';
 
   useEffect(() => {
