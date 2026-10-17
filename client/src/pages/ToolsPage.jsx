@@ -57,13 +57,20 @@ export default function ToolsPage({ onSearchTermChange, defaultCategory = 'All t
     setSearchParams(next, { replace: true });
   }
 
+  function togglePopular() {
+    const next = new URLSearchParams(searchParams);
+    if (popularOnly) next.delete('popular');
+    else next.set('popular', 'true');
+    setSearchParams(next, { replace: true });
+  }
+
   return (
     <section className="directory-page page-container" id="tool-directory" aria-labelledby="directory-title">
       <header className={`directory-header ${isAiCategory ? 'directory-header--ai' : ''}`}>
         {isAiCategory && <span className="directory-ai-icon"><WandSparkles size={25} aria-hidden="true" /></span>}
         <div className="directory-heading-copy">
-          <h1 id="directory-title">{isAiCategory ? <>AI &amp; Smart Generators <span>({visibleTools.length})</span></> : <>Explore All <span>{tools.length} Tools</span></>}</h1>
-          <p>{isAiCategory ? 'Next-gen artificial intelligence, voice engines, call studio & generators' : 'Filter tools by category or search by keyword below.'}</p>
+          <h1 id="directory-title">{isAiCategory ? <>AI &amp; Smart Generators <span>({visibleTools.length})</span></> : popularOnly ? <>Popular Tools <span>({visibleTools.length})</span></> : <>Explore All <span>{tools.length} Tools</span></>}</h1>
+          <p>{isAiCategory ? 'Next-gen artificial intelligence, voice engines, call studio & generators' : popularOnly ? 'The tools our users reach for most. Tap Popular again to see everything.' : 'Filter tools by category or search by keyword below.'}</p>
         </div>
         {isAiCategory && <span className="directory-ai-count">{visibleTools.length} Tools</span>}
       </header>
@@ -71,8 +78,9 @@ export default function ToolsPage({ onSearchTermChange, defaultCategory = 'All t
         <label className="directory-search" htmlFor="directory-search-input"><Search size={21} aria-hidden="true" /><span className="visually-hidden">Search tools</span><input id="directory-search-input" type="search" value={query} onChange={(event) => updateSearch(event.target.value)} placeholder={`Search ${tools.length} tools by name or keyword`} autoComplete="off" /></label>
         <span className="directory-result-count" aria-live="polite">{isAiCategory ? `${visibleTools.length} Tools` : `Showing ${visibleTools.length} of ${tools.length} tools`}</span>
       </div>
-      <div className="directory-filters" role="group" aria-label="Filter tools by category">
+      <div className="directory-filters" role="group" aria-label="Filter tools">
         {availableCategories.map((item) => <button type="button" key={item} className={`filter-chip ${category === item ? 'is-active' : ''}`} aria-pressed={category === item} onClick={() => selectCategory(item)}>{item}</button>)}
+        <button type="button" className={`filter-chip ${popularOnly ? 'is-active' : ''}`} aria-pressed={popularOnly} onClick={togglePopular}>Popular</button>
       </div>
       {visibleTools.length ? (category === 'All tools' ? <div className="directory-sections">
         {groupedSections.map((section, index) => {
