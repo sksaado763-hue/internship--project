@@ -1,24 +1,13 @@
-import { ArrowDown, ArrowRight, ArrowUpRight, Calculator, Clapperboard, Code2, FileText, Image, LockKeyhole, Sparkles, TrendingUp, WandSparkles, Zap } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Code2, FileText, LockKeyhole, Sparkles, TrendingUp, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Badge from '../components/common/Badge.jsx';
 import Button from '../components/common/Button.jsx';
 import SearchField from '../components/common/SearchField.jsx';
 import FeatureMarquee from '../components/common/FeatureMarquee.jsx';
-import { platformStats, toolCategories } from '../data/siteContent.js';
+import { categoryIcons, platformStats, toolCategories } from '../data/siteContent.js';
 import ToolCard from '../components/common/ToolCard.jsx';
 import { groupToolsIntoSections } from '../data/toolSections.js';
 import { tools } from '../data/tools.js';
-
-const categoryIcons = {
-  Text: FileText,
-  Developer: Code2,
-  SEO: TrendingUp,
-  Image,
-  PDF: FileText,
-  'Calculators & Financial Tools': Calculator,
-  'Social Media & Video Tools': Clapperboard,
-  'AI & Smart Generators': WandSparkles,
-};
 
 export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmit }) {
   const groupedToolSections = groupToolsIntoSections(tools);

@@ -1,5 +1,16 @@
-import { HeartPulse, RefreshCw, Youtube } from 'lucide-react';
+import { Calculator, Clapperboard, Code2, FileText, HeartPulse, Image, RefreshCw, TrendingUp, WandSparkles, Youtube } from 'lucide-react';
 import { categoryRegistry } from '../../../shared/toolCategories.js';
+
+export const categoryIcons = {
+  Text: FileText,
+  Developer: Code2,
+  SEO: TrendingUp,
+  Image,
+  PDF: FileText,
+  'Calculators & Financial Tools': Calculator,
+  'Social Media & Video Tools': Clapperboard,
+  'AI & Smart Generators': WandSparkles,
+};
 
 export const mainNavigation = [
   { label: 'Home', href: '/#home' },
