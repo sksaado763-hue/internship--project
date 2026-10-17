@@ -1300,13 +1300,14 @@ svg {
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
 }
 
 .category-card {
   position: relative;
   display: flex;
+  grid-column: span 2;
   min-height: 107px;
   align-items: center;
   gap: 14px;
@@ -1317,6 +1318,10 @@ svg {
   box-shadow: var(--shadow-sm);
   text-decoration: none;
   transition: transform .18s var(--ease), border-color .18s, box-shadow .18s;
+}
+
+.category-card--wide {
+  grid-column: span 3;
 }
 
 .category-card:hover {
@@ -4373,6 +4378,11 @@ svg {
   .category-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 9px;
+  }
+
+  .category-card,
+  .category-card--wide {
+    grid-column: auto;
   }
 
   .category-card {

@@ -96,8 +96,9 @@ export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmi
         <div className="category-grid">
           {toolCategories.map((category, index) => {
             const Icon = categoryIcons[category.name] ?? FileText;
+            const fillsRow = toolCategories.length % 3 === 2 && index >= toolCategories.length - 2;
             return (
-              <a className={`category-card category-card--${category.color}`} href={`/tools?category=${encodeURIComponent(category.name)}`} key={category.name}>
+              <a className={`category-card category-card--${category.color}${fillsRow ? ' category-card--wide' : ''}`} href={`/tools?category=${encodeURIComponent(category.name)}`} key={category.name}>
                 <span className="category-icon"><Icon size={19} strokeWidth={1.8} aria-hidden="true" /></span>
                 <span className="category-copy"><strong>{category.name}</strong><small>{category.detail}</small></span>
                 <span className="category-number">0{index + 1}</span>
