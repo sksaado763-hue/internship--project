@@ -2527,7 +2527,7 @@ svg {
   background: #07151e;
 }
 
-.blog-featured-chart {
+.blog-cover {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -2850,85 +2850,16 @@ svg {
 }
 
 .blog-card-art {
+  position: relative;
   display: grid;
   min-height: 165px;
+  overflow: hidden;
   place-items: center;
-  background: linear-gradient(135deg, #eef0ff, #e9e2ff);
-}
-
-.blog-card-art--1 {
-  background: linear-gradient(135deg, #e2f8f5, #e8edff);
-}
-
-.blog-card-art--2 {
-  background: linear-gradient(135deg, #fff0e8, #ffe4f0);
-}
-
-.blog-card-art--3 {
-  background: linear-gradient(135deg, #e2f2ff, #e5e2ff);
-}
-
-.blog-card-art>span {
-  display: grid;
-  width: 62px;
-  height: 62px;
-  place-items: center;
-  border: 1px solid #ffffffbb;
-  border-radius: 20px;
-  color: #813bea;
-  background: #ffffffbc;
-  box-shadow: 0 9px 24px #463c8e20;
 }
 
 .blog-technology-art {
-  position: relative;
   min-height: 225px;
-  overflow: hidden;
   border-bottom: 4px solid #873bf1;
-}
-
-.blog-technology-art::before,
-.blog-technology-art::after {
-  position: absolute;
-  border: 1px solid #ffffff55;
-  border-radius: 50%;
-  content: "";
-}
-
-.blog-technology-art::before {
-  width: 250px;
-  height: 250px;
-  transform: translate(-85px, 35px);
-}
-
-.blog-technology-art::after {
-  width: 180px;
-  height: 180px;
-  transform: translate(110px, -35px);
-}
-
-.blog-technology-art--0 {
-  background: radial-gradient(ellipse at 50% 110%, #982ce0 0, transparent 55%), linear-gradient(140deg, #0b192b, #25204b 65%, #101927);
-}
-
-.blog-technology-art--1 {
-  background: radial-gradient(ellipse at 15% 90%, #21b79c 0, transparent 52%), linear-gradient(140deg, #132744, #1c4673 58%, #342468);
-}
-
-.blog-technology-art--2 {
-  background: radial-gradient(ellipse at 80% 95%, #fcaa5d 0, transparent 50%), linear-gradient(140deg, #23385e, #315898 52%, #452c80);
-}
-
-.blog-technology-art>span {
-  position: relative;
-  z-index: 1;
-  width: 78px;
-  height: 78px;
-  border-radius: 24px;
-  color: #fff;
-  background: #ffffff20;
-  box-shadow: 0 12px 30px #080b1d55, inset 0 1px #ffffff60;
-  backdrop-filter: blur(4px);
 }
 
 .blog-technology-art>small {
@@ -3081,8 +3012,10 @@ svg {
 }
 
 .blog-reading-art {
+  position: relative;
   display: grid;
-  min-height: 260px;
+  min-height: 300px;
+  overflow: hidden;
   place-items: center;
   border: 1px solid #ffffff2c;
   border-radius: 23px;
