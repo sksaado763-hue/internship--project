@@ -1,4 +1,4 @@
-import { Calculator, Clapperboard, Code2, FileText, HeartPulse, Image, RefreshCw, TrendingUp, WandSparkles, Youtube } from 'lucide-react';
+import { Calculator, Clapperboard, Code2, FileText, Image, TrendingUp, WandSparkles } from 'lucide-react';
 import { categoryRegistry } from '../../../shared/toolCategories.js';
 
 export const categoryIcons = {
@@ -30,40 +30,28 @@ export const platformStats = [
 
 export const toolCategories = categoryRegistry;
 
+const categoryLink = (name) => ({ label: name, href: `/tools?category=${encodeURIComponent(name)}` });
+
 export const footerSections = [
   {
-    title: 'Converters & Media',
-    icon: RefreshCw,
+    title: 'Documents & AI',
+    icon: FileText,
     links: [
-      { label: 'Image Upscaler', href: '/tools/image-upscaler' },
-      { label: 'Color Converter', href: '/tools/color-converter' },
-      { label: 'CSS Gradient Generator', href: '/tools/gradient-generator' },
-      { label: 'QR Code Generator', href: '/tools/qr-code-generator' },
-      { label: 'Meme Generator', href: '/tools/meme-generator' },
+      { label: 'All tools', href: '/tools' },
+      ...['PDF', 'AI & Smart Generators', 'Image'].map(categoryLink),
     ],
   },
   {
-    title: 'YouTube & Creator AI',
-    icon: Youtube,
-    links: [
-      { label: 'YouTube Thumbnail Downloader', href: '/tools/youtube-thumbnail-downloader' },
-      { label: 'YouTube Channel Audit', href: '/tools/youtube-channel-audit' },
-      { label: 'YouTube Comment Picker', href: '/tools/youtube-comment-picker' },
-      { label: 'YouTube Title Generator', href: '/tools/youtube-title-generator' },
-      { label: 'Resume Builder', href: '/tools/resume-builder' },
-      { label: 'AI PowerPoint Generator', href: '/tools/ai-powerpoint-generator' },
-    ],
+    title: 'Web & Social',
+    icon: Code2,
+    links: ['Developer', 'Social Media & Video Tools', 'SEO'].map(categoryLink),
   },
   {
-    title: 'Health & Suite',
-    icon: HeartPulse,
+    title: 'Calculators & More',
+    icon: Calculator,
     links: [
-      { label: 'BMI Calculator', href: '/tools/bmi-calculator' },
-      { label: 'Calorie Calculator', href: '/tools/calorie-calculator' },
-      { label: 'Body Fat Calculator', href: '/tools/body-fat-calculator' },
-      { label: 'Age Calculator', href: '/tools/age-calculator' },
-      { label: 'Loan & Finance Calc', href: '/tools/amortization-calculator' },
-      { label: 'All Arcade Games', href: '/games', highlight: true },
+      ...['Calculators & Financial Tools', 'Text'].map(categoryLink),
+      { label: 'Favorites', href: '/tools?category=Favorites', highlight: true },
     ],
   },
 ];
