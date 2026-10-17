@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ArrowRight, BookOpen, Code2, Cpu, FileText, Image, LockKeyhole, Search, Sparkles, Star, WandSparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Badge from '../components/common/Badge.jsx';
-import { blogPosts, blogTopics } from '../data/blogPosts.js';
+import { blogPosts, blogTopics, formatBlogDate } from '../data/blogPosts.js';
 
 const topicIcons = {
   'All Topics': BookOpen,
@@ -72,7 +72,7 @@ export default function BlogPage() {
                   <span className="blog-featured-category">{featured.category}</span>
                   <span className="blog-art-tag">HavitGrowth guide</span>
                 </div>
-                <div className="blog-featured-copy"><h2>{featured.title}</h2><p>{featured.excerpt}</p><span className="blog-read-link">Read featured guide <ArrowRight size={16} aria-hidden="true" /></span><small>{featured.readTime}</small></div>
+                <div className="blog-featured-copy"><h2>{featured.title}</h2><span className="blog-byline">{featured.author} · {formatBlogDate(featured.date)} · {featured.readTime}</span><p>{featured.excerpt}</p><ul className="blog-tags">{featured.tags.map((tag) => <li className="blog-tag" key={tag}>{tag}</li>)}</ul><span className="blog-read-link">Read featured guide <ArrowRight size={16} aria-hidden="true" /></span></div>
               </Link>
               <aside className="blog-related" aria-label="Related stories">
                 <h2>Related stories</h2>
@@ -97,14 +97,14 @@ export default function BlogPage() {
                   <span>{post.category === 'Developer' ? <Code2 size={34} /> : post.category === 'Images & PDFs' ? <Image size={34} /> : <Sparkles size={34} />}</span>
                   <small>Technology</small>
                 </span>
-                <div className="blog-article-copy"><h3>{post.title}</h3><p>{post.excerpt}</p><span className="blog-card-footer"><small>{post.readTime}</small><span className="blog-read-link">Read article <ArrowRight size={15} aria-hidden="true" /></span></span></div>
+                <div className="blog-article-copy"><h3>{post.title}</h3><span className="blog-byline">{post.author} · {formatBlogDate(post.date)}</span><p>{post.excerpt}</p><span className="blog-card-footer"><small>{post.readTime}</small><span className="blog-read-link">Read article <ArrowRight size={15} aria-hidden="true" /></span></span></div>
               </Link>)}
             </div>
           </section>
         )}
 
         <div className="blog-list-heading" id="all-guides"><div><h2>{topic === 'All Topics' ? 'Latest guides' : `${topic} guides`}</h2><p>{matches.length} {matches.length === 1 ? 'article' : 'articles'} to explore</p></div></div>
-        {remainingArticles.length ? <div className="blog-article-grid">{remainingArticles.map((post, index) => <Link className="blog-article-card" to={`/blog/${post.slug}`} key={post.slug}><span className={`blog-card-art blog-card-art--${index % 4}`} aria-hidden="true"><span>{post.category === 'Developer' ? <Code2 size={29} /> : post.category === 'Privacy' ? <LockKeyhole size={29} /> : post.category === 'Images & PDFs' ? <Image size={29} /> : post.category === 'Writing' ? <FileText size={29} /> : <Sparkles size={29} />}</span></span><div className="blog-article-copy"><span className="blog-post-category">{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><span className="blog-read-link">Read article <ArrowRight size={15} aria-hidden="true" /></span><small>{post.readTime}</small></div></Link>)}</div> : !featured && <div className="blog-empty" role="status"><Search size={25} aria-hidden="true" /><h2>No articles found</h2><p>Try another search or choose a different topic.</p><button type="button" className="blog-reset" onClick={() => { setSearch(''); setTopic('All Topics'); }}>Clear filters</button></div>}
+        {remainingArticles.length ? <div className="blog-article-grid">{remainingArticles.map((post, index) => <Link className="blog-article-card" to={`/blog/${post.slug}`} key={post.slug}><span className={`blog-card-art blog-card-art--${index % 4}`} aria-hidden="true"><span>{post.category === 'Developer' ? <Code2 size={29} /> : post.category === 'Privacy' ? <LockKeyhole size={29} /> : post.category === 'Images & PDFs' ? <Image size={29} /> : post.category === 'Writing' ? <FileText size={29} /> : <Sparkles size={29} />}</span></span><div className="blog-article-copy"><span className="blog-post-category">{post.category}</span><h3>{post.title}</h3><span className="blog-byline">{post.author} · {formatBlogDate(post.date)}</span><p>{post.excerpt}</p><span className="blog-read-link">Read article <ArrowRight size={15} aria-hidden="true" /></span><small>{post.readTime}</small></div></Link>)}</div> : !featured && <div className="blog-empty" role="status"><Search size={25} aria-hidden="true" /><h2>No articles found</h2><p>Try another search or choose a different topic.</p><button type="button" className="blog-reset" onClick={() => { setSearch(''); setTopic('All Topics'); }}>Clear filters</button></div>}
       </section>
     </div>
   );

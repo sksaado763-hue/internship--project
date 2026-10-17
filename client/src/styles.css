@@ -2585,6 +2585,35 @@ svg {
   letter-spacing: .35px;
 }
 
+.blog-byline {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 620;
+}
+
+.blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.blog-tag {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 11px;
+  color: var(--ink-soft);
+  background: var(--surface);
+  font-size: 11px;
+  font-weight: 640;
+}
+
+.blog-reading-header .blog-tags {
+  justify-content: center;
+}
+
 .blog-featured-copy h2 {
   max-width: 780px;
   margin: 10px 0 8px;

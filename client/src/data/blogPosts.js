@@ -1,5 +1,9 @@
 export const blogTopics = ['All Topics', 'AI & Tools', 'Productivity', 'Writing', 'Privacy', 'Developer', 'Images & PDFs'];
 
+export function formatBlogDate(isoDate) {
+  return new Date(`${isoDate}T00:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
 export const blogPosts = [
   {
     slug: 'a-small-toolkit-for-everyday-work',
@@ -7,6 +11,9 @@ export const blogPosts = [
     category: 'Productivity',
     readTime: '4 min read',
     featured: true,
+    author: 'HavitGrowth Team',
+    date: '2026-09-28',
+    tags: ['Workflow', 'Everyday tools', 'No signup'],
     excerpt: 'A practical way to handle the little text, image, document, and calculation tasks that interrupt your day.',
     body: [
       'Most online work is made up of small tasks: clean up a paragraph, resize an image, check a calculation, or prepare a document. Each task is simple on its own, but switching between sites and apps can take longer than the work itself.',
@@ -19,6 +26,9 @@ export const blogPosts = [
     title: 'What to check before using an AI tool',
     category: 'AI & Tools',
     readTime: '5 min read',
+    author: 'HavitGrowth Team',
+    date: '2026-10-05',
+    tags: ['AI basics', 'Privacy', 'Output review'],
     excerpt: 'Understand what the tool can do, what it sends to a provider, and how to review the result.',
     body: [
       'Before using an AI feature, check whether it is a working provider connection or a local demonstration. A demo can show the interface and workflow without producing a real model result.',
@@ -31,6 +41,9 @@ export const blogPosts = [
     title: 'Make everyday writing feel lighter',
     category: 'Writing',
     readTime: '3 min read',
+    author: 'HavitGrowth Team',
+    date: '2026-10-08',
+    tags: ['Editing', 'Clarity', 'Drafting'],
     excerpt: 'A few small editing passes can make emails, notes, and web copy easier to read.',
     body: [
       'A useful writing pass starts with the reader. Decide what they need to know, put that first, and remove details that do not help them understand or act.',
@@ -43,6 +56,9 @@ export const blogPosts = [
     title: 'How to think about privacy in browser tools',
     category: 'Privacy',
     readTime: '4 min read',
+    author: 'HavitGrowth Team',
+    date: '2026-10-11',
+    tags: ['Local processing', 'Data safety', 'Transparency'],
     excerpt: 'Know the difference between local processing and a feature that sends data to an external service.',
     body: [
       'A browser-based interface does not automatically mean every operation stays on your device. Some tools process files locally; others send input to a server or provider to complete the task.',
@@ -55,6 +71,9 @@ export const blogPosts = [
     title: 'Small developer utilities that save context switching',
     category: 'Developer',
     readTime: '4 min read',
+    author: 'HavitGrowth Team',
+    date: '2026-10-13',
+    tags: ['Debugging', 'Formatting', 'Focus'],
     excerpt: 'Keep common formatting and conversion jobs close at hand while you build.',
     body: [
       'When coding, small interruptions can break concentration. Formatting a snippet, checking a color, or converting a value should take a few seconds and return you to the task at hand.',
@@ -67,6 +86,9 @@ export const blogPosts = [
     title: 'A cleaner way to prepare images and PDFs',
     category: 'Images & PDFs',
     readTime: '3 min read',
+    author: 'HavitGrowth Team',
+    date: '2026-10-15',
+    tags: ['File formats', 'Documents', 'Backups'],
     excerpt: 'Check formats, dimensions, and file handling before sharing or publishing a document.',
     body: [
       'Before sharing an image, check its dimensions, orientation, and file type. For a PDF, make sure the pages are in the right order and that the document opens as expected on another device.',
