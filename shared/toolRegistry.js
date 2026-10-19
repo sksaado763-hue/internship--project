@@ -790,7 +790,7 @@ export const toolRegistry = [
   {
     id: 'pdf-merger', slug: 'pdf-merger', name: 'PDF Merger',
     description: 'Merge several PDFs into one file in the order you picked them, processed entirely on your device.',
-    categorySlug: 'pdf', icon: 'GitMerge', tags: ['pdf', 'merger', 'combine', 'files'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'GitMerge', tags: ['pdf', 'merger', 'combine', 'files'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'split-pdf', slug: 'split-pdf', name: 'Split PDF',
@@ -800,7 +800,7 @@ export const toolRegistry = [
   {
     id: 'pdf-splitter', slug: 'pdf-splitter', name: 'PDF Splitter',
     description: 'Extract pages from a PDF into separate files or one ZIP archive, all processed locally.',
-    categorySlug: 'pdf', icon: 'Scissors', tags: ['pdf', 'splitter', 'pages', 'extract'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'Scissors', tags: ['pdf', 'splitter', 'pages', 'extract'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'rotate-pdf', slug: 'rotate-pdf', name: 'Rotate PDF',
@@ -810,7 +810,7 @@ export const toolRegistry = [
   {
     id: 'pdf-rotator', slug: 'pdf-rotator', name: 'PDF Rotator',
     description: 'Fix sideways or upside-down PDF pages by rotating them in the browser and saving a new copy.',
-    categorySlug: 'pdf', icon: 'RotateCw', tags: ['pdf', 'rotate', 'turn', 'orientation'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'RotateCw', tags: ['pdf', 'rotate', 'turn', 'orientation'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'compress-pdf', slug: 'compress-pdf', name: 'Compress PDF',
@@ -820,7 +820,7 @@ export const toolRegistry = [
   {
     id: 'pdf-compressor', slug: 'pdf-compressor', name: 'PDF Compressor',
     description: 'Reduce PDF file size with an adjustable quality setting, processed locally with no upload.',
-    categorySlug: 'pdf', icon: 'FileArchive', tags: ['pdf', 'compressor', 'smaller', 'optimize'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'FileArchive', tags: ['pdf', 'compressor', 'smaller', 'optimize'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'protect-pdf', slug: 'protect-pdf', name: 'Protect PDF',
@@ -840,7 +840,7 @@ export const toolRegistry = [
   {
     id: 'pdf-signature', slug: 'pdf-signature', name: 'PDF Signature',
     description: 'Add a handwritten-style signature to a PDF without uploading your document anywhere.',
-    categorySlug: 'pdf', icon: 'PenLine', tags: ['pdf', 'signature', 'sign', 'document'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'PenLine', tags: ['pdf', 'signature', 'sign', 'document'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pdf-editor', slug: 'pdf-editor', name: 'PDF Editor',
@@ -855,12 +855,12 @@ export const toolRegistry = [
   {
     id: 'jpg-to-pdf', slug: 'jpg-to-pdf', name: 'JPG to PDF',
     description: 'Convert JPG photos into a single shareable PDF file in seconds, entirely on your device.',
-    categorySlug: 'pdf', icon: 'FileImage', tags: ['jpg', 'jpeg', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'FileImage', tags: ['jpg', 'jpeg', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pic-to-pdf', slug: 'pic-to-pdf', name: 'Pic to PDF',
     description: 'Convert any picture — PNG, JPG, or WebP — into a PDF document in your browser.',
-    categorySlug: 'pdf', icon: 'FileImage', tags: ['picture', 'image', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'FileImage', tags: ['picture', 'image', 'pdf', 'convert'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'pdf-to-image', slug: 'pdf-to-image', name: 'PDF to Image',
@@ -870,7 +870,7 @@ export const toolRegistry = [
   {
     id: 'pdf-to-jpg', slug: 'pdf-to-jpg', name: 'PDF to JPG',
     description: 'Export PDF pages as JPG images with a quality setting you control.',
-    categorySlug: 'pdf', icon: 'FileImage', tags: ['pdf', 'jpg', 'convert', 'export'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client',
+    categorySlug: 'pdf', icon: 'FileImage', tags: ['pdf', 'jpg', 'convert', 'export'], isPopular: false, isFeatured: false, isNew: true, processingType: 'client', hidden: true,
   },
   {
     id: 'invoice-generator', slug: 'invoice-generator', name: 'Invoice Generator',
