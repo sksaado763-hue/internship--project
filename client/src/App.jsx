@@ -1,5 +1,5 @@
-import { lazy, Suspense, useCallback, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import SiteLayout from './components/layout/SiteLayout.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
 import { FavoritesProvider } from './context/FavoritesContext.jsx';
@@ -19,6 +19,14 @@ function RouteFallback() {
   return <div className="route-fallback" role="status">Loading HavitGrowth…</div>;
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+  return null;
+}
+
 export default function App() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,6 +44,7 @@ export default function App() {
       <FavoritesProvider>
         <SiteLayout searchTerm={searchTerm} onSearchTermChange={setSearchTerm} onSearchSubmit={submitSearch}>
           <Suspense fallback={<RouteFallback />}>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<HomePage searchTerm={searchTerm} onSearchTermChange={setSearchTerm} onSearchSubmit={submitSearch} />} />
               <Route path="/tools" element={<ToolsPage onSearchTermChange={setSearchTerm} />} />
