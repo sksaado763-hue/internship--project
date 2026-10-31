@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Download, Play, Film, CheckCircle, RefreshCw, Sparkles, Music, Cloud, ExternalLink, Zap } from 'lucide-react';
+import { Download, Play, Film, CheckCircle, AlertCircle, RefreshCw, Sparkles, Music, Cloud, ExternalLink, Zap } from 'lucide-react';
 import Button from '../common/Button.jsx';
 import Badge from '../common/Badge.jsx';
 import { downloadBlob } from '../../utils/browserFiles.js';
