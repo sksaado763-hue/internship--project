@@ -62,6 +62,8 @@ const formatOptions = [
   { id: 'bestaudio/best', label: 'Audio Only (MP3)', ext: 'mp3' },
 ];
 
+const DOWNLOADER_API = import.meta.env.VITE_DOWNLOADER_URL || '/api/video';
+
 export default function SocialMediaDownloaderTool({ tool }) {
   const config = platformConfig[tool.slug] ?? {
     name: 'Social Media',
@@ -84,11 +86,11 @@ export default function SocialMediaDownloaderTool({ tool }) {
   const isTikTok = /tiktok\.com/i.test(url);
   const isDirectFile = /\.(mp4|webm|mov|m4v|jpg|jpeg|png)$/i.test(url.split('?')[0]);
 
-  // Check local downloader API on port 8000
+  // Check downloader API health (supports both local :8000 and cloud VITE_DOWNLOADER_URL)
   useEffect(() => {
     let mounted = true;
     const checkApi = () => {
-      fetch('/api/video/', { method: 'GET' })
+      fetch(`${DOWNLOADER_API}/`, { method: 'GET' })
         .then((res) => res.json())
         .then((data) => {
           if (mounted) setApiOnline(data?.status === 'online');
@@ -172,9 +174,9 @@ export default function SocialMediaDownloaderTool({ tool }) {
         return;
       }
 
-      // 3. Try local backend if active (:8000)
+      // 3. Try backend if active (local :8000 or VITE_DOWNLOADER_URL)
       if (apiOnline) {
-        const response = await fetch(`/api/video/info?url=${encodeURIComponent(cleanUrl)}`);
+        const response = await fetch(`${DOWNLOADER_API}/info?url=${encodeURIComponent(cleanUrl)}`);
         if (response.ok) {
           const data = await response.json();
           setVideoInfo(data);
@@ -284,9 +286,9 @@ export default function SocialMediaDownloaderTool({ tool }) {
         return;
       }
 
-      // 3. Local backend download via yt-dlp + FFmpeg (when local dev backend is active)
+      // 3. Backend download via yt-dlp + FFmpeg (when local or cloud backend is active)
       if (apiOnline) {
-        const apiUrl = `/api/video/download?url=${encodeURIComponent(cleanUrl)}&format=${encodeURIComponent(selectedFormat)}`;
+        const apiUrl = `${DOWNLOADER_API}/download?url=${encodeURIComponent(cleanUrl)}&format=${encodeURIComponent(selectedFormat)}`;
         const response = await fetch(apiUrl);
 
         if (response.ok) {
