@@ -4,23 +4,30 @@ import { useSearchParams } from 'react-router-dom';
 import ToolCard from '../components/common/ToolCard.jsx';
 import { useFavorites } from '../context/FavoritesContext.jsx';
 import { groupToolsIntoSections } from '../data/toolSections.js';
-import { tools } from '../data/tools.js';
+import useTools from '../hooks/useTools.js';
 import { categoryRegistry } from '../../../shared/toolCategories.js';
 
 const registryCategoryNames = categoryRegistry.map((category) => category.name);
-const presentCategories = [...new Set(tools.map((tool) => tool.category))];
-const orderedCategories = [
-  ...registryCategoryNames.filter((name) => presentCategories.includes(name)),
-  ...presentCategories.filter((name) => !registryCategoryNames.includes(name)),
-];
 
 export default function ToolsPage({ onSearchTermChange, defaultCategory = 'All tools' }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { favorites } = useFavorites();
+  const { tools, loading } = useTools();
+
   const query = searchParams.get('search') ?? '';
   const category = searchParams.get('category') ?? defaultCategory;
   const popularOnly = searchParams.get('popular') === 'true';
   const newOnly = searchParams.get('new') === 'true';
+
+  const presentCategories = useMemo(
+    () => [...new Set(tools.map((tool) => tool.category))],
+    [tools],
+  );
+  const orderedCategories = useMemo(() => [
+    ...registryCategoryNames.filter((name) => presentCategories.includes(name)),
+    ...presentCategories.filter((name) => !registryCategoryNames.includes(name)),
+  ], [presentCategories]);
+
   const availableCategories = ['All tools', ...orderedCategories, 'Favorites'];
   const isAiCategory = category === 'AI & Smart Generators';
 
@@ -38,7 +45,7 @@ export default function ToolsPage({ onSearchTermChange, defaultCategory = 'All t
         : tool.category.toLocaleLowerCase() === category.toLocaleLowerCase());
       return matchesSearch && matchesCategory && (!popularOnly || tool.isPopular) && (!newOnly || tool.isNew);
     });
-  }, [category, favorites, newOnly, popularOnly, query]);
+  }, [category, favorites, newOnly, popularOnly, query, tools]);
 
   const groupedSections = useMemo(() => groupToolsIntoSections(visibleTools), [visibleTools]);
 

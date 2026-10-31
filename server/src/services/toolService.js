@@ -6,7 +6,13 @@ function escapeRegExp(value) {
 }
 
 export async function listTools(filters = {}) {
-  const query = { isActive: true, isHidden: false };
+  const query = { isActive: true };
+
+  if (filters.hidden !== undefined) {
+    query.isHidden = filters.hidden === 'true';
+  } else {
+    query.isHidden = { $ne: true };
+  }
 
   if (filters.category) {
     const category = await Category.findOne({ slug: filters.category, isActive: true }).select('_id').lean();

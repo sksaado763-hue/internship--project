@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, Code2, FileText, LockKeyhole, Sparkles, TrendingUp, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Badge from '../components/common/Badge.jsx';
@@ -7,10 +8,11 @@ import FeatureMarquee from '../components/common/FeatureMarquee.jsx';
 import { categoryIcons, platformStats, toolCategories } from '../data/siteContent.js';
 import ToolCard from '../components/common/ToolCard.jsx';
 import { groupToolsIntoSections } from '../data/toolSections.js';
-import { tools } from '../data/tools.js';
+import useTools from '../hooks/useTools.js';
 
 export default function HomePage({ searchTerm, onSearchTermChange, onSearchSubmit }) {
-  const groupedToolSections = groupToolsIntoSections(tools);
+  const { tools } = useTools();
+  const groupedToolSections = useMemo(() => groupToolsIntoSections(tools), [tools]);
 
   return (
     <>
