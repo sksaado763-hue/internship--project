@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Download, ExternalLink, Play, Film, CheckCircle, AlertCircle, RefreshCw, Sparkles, Music } from 'lucide-react';
+import { Download, Play, Film, CheckCircle, AlertCircle, RefreshCw, Sparkles, Music, Terminal } from 'lucide-react';
 import Button from '../common/Button.jsx';
 import Badge from '../common/Badge.jsx';
 import { downloadBlob } from '../../utils/browserFiles.js';
@@ -67,28 +67,41 @@ export default function SocialMediaDownloaderTool({ tool }) {
   const [status, setStatus] = useState('');
   const [statusType, setStatusType] = useState('info'); // 'info' | 'success' | 'warning' | 'error'
   const [apiOnline, setApiOnline] = useState(null);
+  const [isSampleMode, setIsSampleMode] = useState(false);
 
-  // Check if API backend is reachable on load
+  // Poll API backend health every 3 seconds
   useEffect(() => {
-    fetch('/api/video/', { method: 'GET' })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.status === 'online') setApiOnline(true);
-        else setApiOnline(false);
-      })
-      .catch(() => setApiOnline(false));
+    let mounted = true;
+    const checkApi = () => {
+      fetch('/api/video/', { method: 'GET' })
+        .then((res) => res.json())
+        .then((data) => {
+          if (mounted) setApiOnline(data?.status === 'online');
+        })
+        .catch(() => {
+          if (mounted) setApiOnline(false);
+        });
+    };
+
+    checkApi();
+    const interval = setInterval(checkApi, 3000);
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   function handleSetSample() {
     setUrl(config.sample);
+    setIsSampleMode(true);
     setVideoInfo({
-      title: `${config.name} Demo Video · High Definition`,
-      uploader: `@Creator_${config.name}`,
-      duration: 185,
+      title: `${config.name} Sample Video (Test Demo)`,
+      uploader: `@Sample_${config.name}`,
+      duration: 120,
       thumbnail: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
       samplePreview: true,
     });
-    setStatus(`Sample ${config.name} URL loaded. Ready to test UI!`);
+    setStatus(`Sample ${config.name} URL loaded. Click Download Video to test the UI flow.`);
     setStatusType('success');
   }
 
@@ -108,25 +121,24 @@ export default function SocialMediaDownloaderTool({ tool }) {
       if (response.ok) {
         const data = await response.json();
         setVideoInfo(data);
+        setIsSampleMode(false);
         setStatus(`Video detected: "${data.title || 'Video'}"`);
         setStatusType('success');
         setApiOnline(true);
       } else {
-        throw new Error('API server returned error or is offline');
+        const errJson = await response.json().catch(() => null);
+        throw new Error(errJson?.detail || `API error (${response.status})`);
       }
-    } catch {
-      // Graceful fallback for UI testing when Python server is not yet running
-      const detectedPlatform = config.name;
-      setVideoInfo({
-        title: `${detectedPlatform} Post · Ready for Download`,
-        uploader: `${detectedPlatform} Creator`,
-        duration: 120,
-        thumbnail: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=800&q=80',
-        samplePreview: true,
-      });
-      setStatus('Video metadata ready (Testing mode: API backend port 8000 is offline; demo simulation enabled).');
-      setStatusType('info');
-      setApiOnline(false);
+    } catch (err) {
+      if (apiOnline === false) {
+        setStatus('⚠️ Downloader service is offline (:8000). Run "npm run dev" or "npm run dev:downloader" in your terminal to enable real video downloads.');
+        setStatusType('warning');
+        setVideoInfo(null);
+      } else {
+        setStatus(`Could not inspect video: ${err.message}. Please check that the URL is public.`);
+        setStatusType('error');
+        setVideoInfo(null);
+      }
     } finally {
       setLoadingInfo(false);
     }
@@ -140,7 +152,7 @@ export default function SocialMediaDownloaderTool({ tool }) {
     }
 
     setDownloading(true);
-    setStatus('Preparing download stream… Please wait.');
+    setStatus('Extracting and preparing your video file… This may take a few moments for high quality streams.');
     setStatusType('info');
 
     try {
@@ -158,77 +170,80 @@ export default function SocialMediaDownloaderTool({ tool }) {
         }
 
         downloadBlob(blob, filename);
-        setStatus(`Download finished! Saved ${filename} (${(blob.size / (1024 * 1024)).toFixed(2)} MB).`);
+        setStatus(`✅ Download complete! Saved "${filename}" (${(blob.size / (1024 * 1024)).toFixed(2)} MB).`);
         setStatusType('success');
+        setApiOnline(true);
       } else {
-        throw new Error(`Server returned ${response.status}`);
+        const errData = await response.json().catch(() => null);
+        throw new Error(errData?.detail || `Downloader service returned ${response.status}`);
       }
     } catch (err) {
-      // Fallback: If backend is offline or network blocked, create a REAL valid playable media file
-      const isAudio = selectedFormat.includes('audio');
-      const ext = isAudio ? 'mp3' : 'webm';
-      const filename = `${config.name.toLowerCase()}-sample.${ext}`;
+      // If sample mode was explicitly requested by user
+      if (isSampleMode) {
+        generatePlayableSample();
+        return;
+      }
 
-      try {
-        // Generate real playable media using browser canvas & MediaRecorder
-        const canvas = document.createElement('canvas');
-        canvas.width = 640;
-        canvas.height = 360;
-        const ctx = canvas.getContext('2d');
-        const stream = canvas.captureStream(25);
-        const mimeType = isAudio ? 'audio/webm' : (MediaRecorder.isTypeSupported('video/mp4') ? 'video/mp4' : 'video/webm');
-        const recorder = new MediaRecorder(stream, { mimeType });
-        const chunks = [];
-        recorder.ondataavailable = (e) => { if (e.data?.size) chunks.push(e.data); };
-        
-        await new Promise((resolve) => {
-          recorder.onstop = () => {
-            const playableBlob = new Blob(chunks, { type: mimeType });
-            downloadBlob(playableBlob, filename);
-            resolve();
-          };
-          recorder.start();
-
-          let count = 0;
-          const interval = setInterval(() => {
-            ctx.fillStyle = '#0f172a';
-            ctx.fillRect(0, 0, 640, 360);
-            ctx.fillStyle = '#6366f1';
-            ctx.font = 'bold 28px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(`${config.name} Video Sample`, 320, 150);
-            ctx.fillStyle = '#38bdf8';
-            ctx.font = '18px sans-serif';
-            ctx.fillText(`Playable Test Stream · Quality: ${selectedFormat.split('[')[0]}`, 320, 195);
-            ctx.fillStyle = '#e2e8f0';
-            ctx.font = '14px sans-serif';
-            ctx.fillText(`Frame ${count}/25`, 320, 235);
-            count++;
-            if (count >= 25) {
-              clearInterval(interval);
-              recorder.stop();
-            }
-          }, 40);
-        });
-
-        setStatus(`Playable sample video "${filename}" downloaded! (Start the Python downloader with npm run dev for live social media downloads).`);
-        setStatusType('success');
-      } catch {
-        // Fallback if MediaRecorder is not supported
-        const fallbackUrl = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4';
-        try {
-          const res = await fetch(fallbackUrl);
-          const b = await res.blob();
-          downloadBlob(b, `${config.name.toLowerCase()}-video.mp4`);
-          setStatus('Sample video downloaded successfully.');
-          setStatusType('success');
-        } catch {
-          setStatus('Could not connect to downloader API (:8000). Run "npm run dev" to start all services.');
-          setStatusType('error');
-        }
+      // If user provided their own real URL, do NOT give fake media - inform them accurately!
+      setStatusType('error');
+      if (apiOnline === false) {
+        setStatus('⚠️ Downloader backend (:8000) is not running. To download this video, run "npm run dev" in your terminal to start all services.');
+      } else {
+        setStatus(`Download failed: ${err.message}. Check that the video is public and accessible.`);
       }
     } finally {
       setDownloading(false);
+    }
+  }
+
+  async function generatePlayableSample() {
+    const isAudio = selectedFormat.includes('audio');
+    const ext = isAudio ? 'mp3' : 'webm';
+    const filename = `${config.name.toLowerCase()}-sample.${ext}`;
+
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 640;
+      canvas.height = 360;
+      const ctx = canvas.getContext('2d');
+      const stream = canvas.captureStream(25);
+      const mimeType = isAudio ? 'audio/webm' : (MediaRecorder.isTypeSupported('video/mp4') ? 'video/mp4' : 'video/webm');
+      const recorder = new MediaRecorder(stream, { mimeType });
+      const chunks = [];
+      recorder.ondataavailable = (e) => { if (e.data?.size) chunks.push(e.data); };
+
+      await new Promise((resolve) => {
+        recorder.onstop = () => {
+          const playableBlob = new Blob(chunks, { type: mimeType });
+          downloadBlob(playableBlob, filename);
+          resolve();
+        };
+        recorder.start();
+
+        let count = 0;
+        const interval = setInterval(() => {
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(0, 0, 640, 360);
+          ctx.fillStyle = '#6366f1';
+          ctx.font = 'bold 28px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(`${config.name} Video Sample`, 320, 150);
+          ctx.fillStyle = '#38bdf8';
+          ctx.font = '18px sans-serif';
+          ctx.fillText(`Playable Test Stream · Quality: ${selectedFormat.split('[')[0]}`, 320, 195);
+          count++;
+          if (count >= 25) {
+            clearInterval(interval);
+            recorder.stop();
+          }
+        }, 40);
+      });
+
+      setStatus(`Playable test sample "${filename}" downloaded.`);
+      setStatusType('success');
+    } catch {
+      setStatus('Could not generate sample video.');
+      setStatusType('error');
     }
   }
 
@@ -240,21 +255,31 @@ export default function SocialMediaDownloaderTool({ tool }) {
           <Badge tone="brand">
             <Film size={13} style={{ marginRight: '4px' }} /> {config.name} Downloader
           </Badge>
-          <span style={{ fontSize: '12px', color: 'var(--muted)' }}>High-Speed Video Extraction</span>
+          <span style={{ fontSize: '12px', color: 'var(--muted)' }}>Direct Video &amp; Audio Stream</span>
         </div>
 
         <div>
           {apiOnline === true ? (
-            <span style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px', color: '#10b981', background: '#10b98118', padding: '3px 8px', borderRadius: '12px', border: '1px solid #10b98140' }}>
-              <CheckCircle size={12} /> Backend API Online (:8000)
+            <span style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '5px', color: '#10b981', background: '#10b98118', padding: '4px 10px', borderRadius: '12px', border: '1px solid #10b98140', fontWeight: 600 }}>
+              <CheckCircle size={13} /> Downloader API Active (:8000)
             </span>
           ) : (
-            <span style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px', color: '#f59e0b', background: '#f59e0b18', padding: '3px 8px', borderRadius: '12px', border: '1px solid #f59e0b40' }}>
-              <AlertCircle size={12} /> UI Test Mode (API offline)
+            <span style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '5px', color: '#f59e0b', background: '#f59e0b18', padding: '4px 10px', borderRadius: '12px', border: '1px solid #f59e0b40', fontWeight: 600 }}>
+              <AlertCircle size={13} /> Downloader Service Offline (:8000)
             </span>
           )}
         </div>
       </div>
+
+      {/* Offline Instructions Alert if API is down */}
+      {apiOnline === false && (
+        <div style={{ background: '#f59e0b12', border: '1px solid #f59e0b35', borderRadius: '10px', padding: '10px 14px', fontSize: '12px', color: '#d97706' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 600, marginBottom: '3px' }}>
+            <Terminal size={14} /> To download real videos, start the downloader backend:
+          </div>
+          <code>npm run dev</code> or in a new terminal: <code>npm run dev:downloader</code>
+        </div>
+      )}
 
       {/* URL Input Field */}
       <label className="calculator-field" htmlFor={`${tool.slug}-url`}>
@@ -286,6 +311,7 @@ export default function SocialMediaDownloaderTool({ tool }) {
             value={url}
             onChange={(e) => {
               setUrl(e.target.value);
+              setIsSampleMode(false);
               setStatus('');
             }}
             placeholder={config.placeholder}
@@ -297,7 +323,7 @@ export default function SocialMediaDownloaderTool({ tool }) {
 
       {/* Quality & Format Selection */}
       <div className="calculator-field">
-        <span>Select Video Resolution & Format</span>
+        <span>Select Video Resolution &amp; Format</span>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '8px', marginTop: '6px' }}>
           {formatOptions.map((opt) => (
             <button
@@ -332,7 +358,7 @@ export default function SocialMediaDownloaderTool({ tool }) {
           onClick={fetchVideoInfo}
         >
           {loadingInfo ? <RefreshCw size={14} className="spin" /> : <Play size={14} />}
-          {loadingInfo ? 'Inspecting...' : 'Inspect & Preview'}
+          {loadingInfo ? 'Inspecting...' : 'Inspect Video Info'}
         </Button>
 
         <Button
@@ -394,9 +420,9 @@ export default function SocialMediaDownloaderTool({ tool }) {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            background: statusType === 'success' ? '#10b98114' : statusType === 'warning' ? '#f59e0b14' : 'var(--surface-soft)',
-            border: `1px solid ${statusType === 'success' ? '#10b98140' : statusType === 'warning' ? '#f59e0b40' : 'var(--line)'}`,
-            color: statusType === 'success' ? '#10b981' : statusType === 'warning' ? '#f59e0b' : 'inherit',
+            background: statusType === 'success' ? '#10b98114' : statusType === 'warning' ? '#f59e0b14' : statusType === 'error' ? '#ef444414' : 'var(--surface-soft)',
+            border: `1px solid ${statusType === 'success' ? '#10b98140' : statusType === 'warning' ? '#f59e0b40' : statusType === 'error' ? '#ef444440' : 'var(--line)'}`,
+            color: statusType === 'success' ? '#10b981' : statusType === 'warning' ? '#f59e0b' : statusType === 'error' ? '#ef4444' : 'inherit',
           }}
         >
           {statusType === 'success' ? <CheckCircle size={15} /> : <AlertCircle size={15} />}
@@ -406,7 +432,7 @@ export default function SocialMediaDownloaderTool({ tool }) {
 
       {/* Info Notice */}
       <p style={{ fontSize: '11px', color: 'var(--muted)', margin: '4px 0 0 0', lineHeight: 1.5 }}>
-        💡 <strong>How it works:</strong> Paste any public video link from {config.name}, choose your preferred resolution or MP3 audio, and click Download. You can test the entire UI immediately using the "Try sample link" button.
+        💡 <strong>How it works:</strong> Paste any public video link from {config.name}, choose your preferred resolution or MP3 audio, and click Download.
       </p>
     </div>
   );
