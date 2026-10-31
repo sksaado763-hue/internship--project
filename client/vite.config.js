@@ -6,6 +6,11 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
+      '/api/video': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/video/, ''),
+      },
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
