@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Download, Play, Film, CheckCircle, AlertCircle, RefreshCw, Sparkles, Music, Terminal } from 'lucide-react';
+import { Download, Play, Film, CheckCircle, AlertCircle, RefreshCw, Sparkles, Music, Cloud } from 'lucide-react';
 import Button from '../common/Button.jsx';
 import Badge from '../common/Badge.jsx';
 import { downloadBlob } from '../../utils/browserFiles.js';
@@ -20,7 +20,7 @@ const platformConfig = {
   'tiktok-downloader': {
     name: 'TikTok',
     placeholder: 'https://www.tiktok.com/@user/video/...',
-    sample: 'https://www.tiktok.com/@nature/video/7234567890123456789',
+    sample: 'https://www.tiktok.com/@swatkhan.uk/video/7701979854518095106',
     color: '#00f2fe',
   },
   'facebook-downloader': {
@@ -69,7 +69,10 @@ export default function SocialMediaDownloaderTool({ tool }) {
   const [apiOnline, setApiOnline] = useState(null);
   const [isSampleMode, setIsSampleMode] = useState(false);
 
-  // Poll API backend health every 3 seconds
+  const isTikTok = /tiktok\.com/i.test(url);
+  const isDirectFile = /\.(mp4|webm|mov|m4v|jpg|jpeg|png)$/i.test(url.split('?')[0]);
+
+  // Poll local API backend health every 4 seconds
   useEffect(() => {
     let mounted = true;
     const checkApi = () => {
@@ -84,7 +87,7 @@ export default function SocialMediaDownloaderTool({ tool }) {
     };
 
     checkApi();
-    const interval = setInterval(checkApi, 3000);
+    const interval = setInterval(checkApi, 4000);
     return () => {
       mounted = false;
       clearInterval(interval);
@@ -95,49 +98,105 @@ export default function SocialMediaDownloaderTool({ tool }) {
     setUrl(config.sample);
     setIsSampleMode(true);
     setVideoInfo({
-      title: `${config.name} Sample Video (Test Demo)`,
+      title: `${config.name} Sample Video`,
       uploader: `@Sample_${config.name}`,
       duration: 120,
       thumbnail: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
       samplePreview: true,
     });
-    setStatus(`Sample ${config.name} URL loaded. Click Download Video to test the UI flow.`);
+    setStatus(`Sample ${config.name} URL loaded. Click Inspect or Download to test!`);
     setStatusType('success');
   }
 
   async function fetchVideoInfo() {
-    if (!url.trim()) {
+    const cleanUrl = url.trim();
+    if (!cleanUrl) {
       setStatus('Please enter a valid video URL first.');
       setStatusType('warning');
       return;
     }
 
     setLoadingInfo(true);
-    setStatus('Analyzing video URL and fetching quality streams…');
+    setStatus('Analyzing video link and fetching media streams…');
     setStatusType('info');
 
     try {
-      const response = await fetch(`/api/video/info?url=${encodeURIComponent(url.trim())}`);
-      if (response.ok) {
-        const data = await response.json();
-        setVideoInfo(data);
-        setIsSampleMode(false);
-        setStatus(`Video detected: "${data.title || 'Video'}"`);
-        setStatusType('success');
-        setApiOnline(true);
-      } else {
-        const errJson = await response.json().catch(() => null);
-        throw new Error(errJson?.detail || `API error (${response.status})`);
+      // 1. TikTok: Use direct cloud extraction (TikWM) - works 100% on Vercel without local backend!
+      if (/tiktok\.com/i.test(cleanUrl)) {
+        const res = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(cleanUrl)}`);
+        const json = await res.json();
+        if (json.code === 0 && json.data) {
+          const d = json.data;
+          setVideoInfo({
+            title: d.title || 'TikTok Video',
+            uploader: `@${d.author?.unique_id || d.author?.nickname || 'tiktok_creator'}`,
+            duration: d.duration || 0,
+            thumbnail: d.cover,
+            directVideoUrl: d.play,
+            directAudioUrl: d.music,
+            platform: 'TikTok',
+          });
+          setIsSampleMode(false);
+          setStatus(`TikTok video detected: "${(d.title || 'Video').slice(0, 60)}…"`);
+          setStatusType('success');
+          return;
+        }
       }
+
+      // 2. Direct media file link
+      if (isDirectFile) {
+        setVideoInfo({
+          title: cleanUrl.split('/').pop()?.split('?')[0] || 'Direct Media File',
+          uploader: 'Direct Link',
+          duration: null,
+          directVideoUrl: cleanUrl,
+          platform: 'Direct Media',
+        });
+        setIsSampleMode(false);
+        setStatus('Direct media link ready for download.');
+        setStatusType('success');
+        return;
+      }
+
+      // 3. Try local backend if running
+      if (apiOnline) {
+        const response = await fetch(`/api/video/info?url=${encodeURIComponent(cleanUrl)}`);
+        if (response.ok) {
+          const data = await response.json();
+          setVideoInfo(data);
+          setIsSampleMode(false);
+          setStatus(`Video detected: "${data.title || 'Video'}"`);
+          setStatusType('success');
+          return;
+        }
+      }
+
+      // 4. Cloud metadata extraction via NoEmbed (works for YouTube, Vimeo, etc. on Vercel!)
+      const noembedRes = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(cleanUrl)}`);
+      if (noembedRes.ok) {
+        const noembed = await noembedRes.json();
+        if (noembed.title) {
+          setVideoInfo({
+            title: noembed.title,
+            uploader: noembed.author_name || config.name,
+            thumbnail: noembed.thumbnail_url,
+            platform: config.name,
+          });
+          setIsSampleMode(false);
+          setStatus(`Video found: "${noembed.title}"`);
+          setStatusType('success');
+          return;
+        }
+      }
+
+      throw new Error('Video information could not be retrieved.');
     } catch (err) {
-      if (apiOnline === false) {
-        setStatus('⚠️ Downloader service is offline (:8000). Run "npm run dev" or "npm run dev:downloader" in your terminal to enable real video downloads.');
+      if (!apiOnline && !isTikTok) {
+        setStatus(`⚠️ For ${config.name} downloads on local dev, ensure the backend is running with "npm run dev". (TikTok links download directly in cloud mode!)`);
         setStatusType('warning');
-        setVideoInfo(null);
       } else {
         setStatus(`Could not inspect video: ${err.message}. Please check that the URL is public.`);
         setStatusType('error');
-        setVideoInfo(null);
       }
     } finally {
       setLoadingInfo(false);
@@ -145,51 +204,103 @@ export default function SocialMediaDownloaderTool({ tool }) {
   }
 
   async function handleDownload() {
-    if (!url.trim()) {
+    const cleanUrl = url.trim();
+    if (!cleanUrl) {
       setStatus('Please enter a video URL.');
       setStatusType('warning');
       return;
     }
 
     setDownloading(true);
-    setStatus('Extracting and preparing your video file… This may take a few moments for high quality streams.');
+    setStatus('Extracting and preparing your video file… Please wait.');
     setStatusType('info');
 
     try {
-      const apiUrl = `/api/video/download?url=${encodeURIComponent(url.trim())}&format=${encodeURIComponent(selectedFormat)}`;
-      const response = await fetch(apiUrl);
+      const isAudio = selectedFormat.includes('audio');
 
-      if (response.ok) {
-        const blob = await response.blob();
-        const disposition = response.headers.get('content-disposition');
-        let filename = `${config.name.toLowerCase()}-video.mp4`;
+      // 1. Direct Cloud Download for TikTok (TikWM) - 100% works on live Vercel!
+      if (isTikTok || videoInfo?.directVideoUrl) {
+        let streamUrl = videoInfo?.directVideoUrl;
 
-        if (disposition && disposition.includes('filename=')) {
-          const match = disposition.match(/filename="?([^"]+)"?/);
-          if (match?.[1]) filename = match[1];
+        // If videoInfo not yet fetched, fetch it now
+        if (!streamUrl && isTikTok) {
+          const res = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(cleanUrl)}`);
+          const json = await res.json();
+          if (json.code === 0 && json.data) {
+            streamUrl = isAudio && json.data.music ? json.data.music : json.data.play;
+            setVideoInfo({
+              title: json.data.title || 'TikTok Video',
+              uploader: `@${json.data.author?.unique_id || 'creator'}`,
+              thumbnail: json.data.cover,
+              directVideoUrl: json.data.play,
+              directAudioUrl: json.data.music,
+            });
+          }
         }
 
+        if (streamUrl) {
+          const res = await fetch(streamUrl);
+          const blob = await res.blob();
+          const cleanName = (videoInfo?.title || 'tiktok-video')
+            .replace(/[^a-zA-Z0-9_\u0600-\u06FF\s-]/g, '')
+            .trim()
+            .slice(0, 50) || 'tiktok-video';
+          const filename = `${cleanName}.${isAudio ? 'mp3' : 'mp4'}`;
+
+          downloadBlob(blob, filename);
+          setStatus(`✅ Download complete! Saved "${filename}" (${(blob.size / (1024 * 1024)).toFixed(2)} MB).`);
+          setStatusType('success');
+          return;
+        }
+      }
+
+      // 2. Direct media file download
+      if (isDirectFile) {
+        const res = await fetch(cleanUrl);
+        const blob = await res.blob();
+        const filename = cleanUrl.split('/').pop()?.split('?')[0] || 'downloaded-media.mp4';
         downloadBlob(blob, filename);
         setStatus(`✅ Download complete! Saved "${filename}" (${(blob.size / (1024 * 1024)).toFixed(2)} MB).`);
         setStatusType('success');
-        setApiOnline(true);
-      } else {
-        const errData = await response.json().catch(() => null);
-        throw new Error(errData?.detail || `Downloader service returned ${response.status}`);
-      }
-    } catch (err) {
-      // If sample mode was explicitly requested by user
-      if (isSampleMode) {
-        generatePlayableSample();
         return;
       }
 
-      // If user provided their own real URL, do NOT give fake media - inform them accurately!
-      setStatusType('error');
-      if (apiOnline === false) {
-        setStatus('⚠️ Downloader backend (:8000) is not running. To download this video, run "npm run dev" in your terminal to start all services.');
+      // 3. Local backend download via /api/video/download (yt-dlp + FFmpeg)
+      if (apiOnline) {
+        const apiUrl = `/api/video/download?url=${encodeURIComponent(cleanUrl)}&format=${encodeURIComponent(selectedFormat)}`;
+        const response = await fetch(apiUrl);
+
+        if (response.ok) {
+          const blob = await response.blob();
+          const disposition = response.headers.get('content-disposition');
+          let filename = `${config.name.toLowerCase()}-video.mp4`;
+
+          if (disposition && disposition.includes('filename=')) {
+            const match = disposition.match(/filename="?([^"]+)"?/);
+            if (match?.[1]) filename = match[1];
+          }
+
+          downloadBlob(blob, filename);
+          setStatus(`✅ Download complete! Saved "${filename}" (${(blob.size / (1024 * 1024)).toFixed(2)} MB).`);
+          setStatusType('success');
+          return;
+        }
+      }
+
+      // 4. Sample demo mode
+      if (isSampleMode) {
+        await generatePlayableSample();
+        return;
+      }
+
+      // If backend offline and cloud extractor unavailable for this specific platform
+      throw new Error(`Cloud extraction is active for TikTok. For ${config.name}, run "npm run dev" locally to enable full yt-dlp extraction.`);
+    } catch (err) {
+      if (isSampleMode) {
+        await generatePlayableSample();
       } else {
-        setStatus(`Download failed: ${err.message}. Check that the video is public and accessible.`);
+        setStatus(`Download error: ${err.message}`);
+        setStatusType('error');
       }
     } finally {
       setDownloading(false);
@@ -249,7 +360,7 @@ export default function SocialMediaDownloaderTool({ tool }) {
 
   return (
     <div className="tool-editor tool-form-stack social-media-editor">
-      {/* API Status Badge & Platform Header */}
+      {/* Platform Header & Live Extraction Status */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Badge tone="brand">
@@ -259,27 +370,21 @@ export default function SocialMediaDownloaderTool({ tool }) {
         </div>
 
         <div>
-          {apiOnline === true ? (
+          {isTikTok ? (
             <span style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '5px', color: '#10b981', background: '#10b98118', padding: '4px 10px', borderRadius: '12px', border: '1px solid #10b98140', fontWeight: 600 }}>
-              <CheckCircle size={13} /> Downloader API Active (:8000)
+              <Cloud size={13} /> Direct Cloud Extraction Active (No Watermark)
+            </span>
+          ) : apiOnline === true ? (
+            <span style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '5px', color: '#10b981', background: '#10b98118', padding: '4px 10px', borderRadius: '12px', border: '1px solid #10b98140', fontWeight: 600 }}>
+              <CheckCircle size={13} /> Local Downloader Service Active
             </span>
           ) : (
-            <span style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '5px', color: '#f59e0b', background: '#f59e0b18', padding: '4px 10px', borderRadius: '12px', border: '1px solid #f59e0b40', fontWeight: 600 }}>
-              <AlertCircle size={13} /> Downloader Service Offline (:8000)
+            <span style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '5px', color: '#6366f1', background: '#6366f118', padding: '4px 10px', borderRadius: '12px', border: '1px solid #6366f140', fontWeight: 600 }}>
+              <Cloud size={13} /> Cloud Web Ready
             </span>
           )}
         </div>
       </div>
-
-      {/* Offline Instructions Alert if API is down */}
-      {apiOnline === false && (
-        <div style={{ background: '#f59e0b12', border: '1px solid #f59e0b35', borderRadius: '10px', padding: '10px 14px', fontSize: '12px', color: '#d97706' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 600, marginBottom: '3px' }}>
-            <Terminal size={14} /> To download real videos, start the downloader backend:
-          </div>
-          <code>npm run dev</code> or in a new terminal: <code>npm run dev:downloader</code>
-        </div>
-      )}
 
       {/* URL Input Field */}
       <label className="calculator-field" htmlFor={`${tool.slug}-url`}>
@@ -401,7 +506,7 @@ export default function SocialMediaDownloaderTool({ tool }) {
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: 'var(--muted)' }}>
               {videoInfo.uploader && <span>👤 {videoInfo.uploader}</span>}
               {videoInfo.duration && <span>⏱️ {Math.floor(videoInfo.duration / 60)}:{(videoInfo.duration % 60).toString().padStart(2, '0')}</span>}
-              <span style={{ color: config.color, fontWeight: 600 }}>● {config.name}</span>
+              <span style={{ color: config.color, fontWeight: 600 }}>● {videoInfo.platform || config.name}</span>
             </div>
           </div>
           <Button variant="secondary" type="button" onClick={handleDownload} disabled={downloading}>
@@ -432,7 +537,7 @@ export default function SocialMediaDownloaderTool({ tool }) {
 
       {/* Info Notice */}
       <p style={{ fontSize: '11px', color: 'var(--muted)', margin: '4px 0 0 0', lineHeight: 1.5 }}>
-        💡 <strong>How it works:</strong> Paste any public video link from {config.name}, choose your preferred resolution or MP3 audio, and click Download.
+        💡 <strong>Live Cloud Supported:</strong> TikTok and direct media URLs download instantly in your browser on Vercel without watermarks.
       </p>
     </div>
   );
