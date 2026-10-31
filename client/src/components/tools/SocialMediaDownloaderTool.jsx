@@ -314,15 +314,13 @@ export default function SocialMediaDownloaderTool({ tool }) {
         return;
       }
 
-      // 5. Cloud Gateway Extraction for YouTube, Facebook, Twitter, Instagram on Vercel
+      // 5. If backend service is not running
+      setStatus(`Direct ${config.name} in-app download requires the downloader backend service. Run "npm run dev" locally (or connect a cloud backend) to download directly without leaving this page.`);
+      setStatusType('warning');
       if (config.gateway) {
-        const gatewayUrl = config.gateway(cleanUrl);
-        setGatewayLink(gatewayUrl);
-        window.open(gatewayUrl, '_blank', 'noopener,noreferrer');
-        setStatus(`⚡ Cloud download portal opened via ${config.gatewayName}! If a popup blocker stopped it, tap the button below.`);
-        setStatusType('success');
-        return;
+        setGatewayLink(config.gateway(cleanUrl));
       }
+      return;
 
       // Fallback
       await generatePlayableSample();
