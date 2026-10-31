@@ -6,7 +6,7 @@ function escapeRegExp(value) {
 }
 
 export async function listTools(filters = {}) {
-  const query = { isActive: true };
+  const query = { isActive: true, isHidden: false };
 
   if (filters.category) {
     const category = await Category.findOne({ slug: filters.category, isActive: true }).select('_id').lean();
@@ -28,4 +28,19 @@ export async function listTools(filters = {}) {
     .populate('category', 'name slug')
     .sort({ isFeatured: -1, isPopular: -1, createdAt: -1, name: 1 })
     .lean();
+}
+
+export async function getToolBySlug(slug) {
+  return Tool.findOne({ slug, isActive: true })
+    .populate('category', 'name slug')
+    .lean();
+}
+
+export async function setToolVisibility(slug, isHidden) {
+  const tool = await Tool.findOneAndUpdate(
+    { slug, isActive: true },
+    { $set: { isHidden } },
+    { new: true },
+  ).populate('category', 'name slug').lean();
+  return tool;
 }

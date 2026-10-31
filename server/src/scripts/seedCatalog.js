@@ -33,6 +33,7 @@ async function seedCatalog() {
           isFeatured: tool.isFeatured,
           isNew: tool.isNew,
           isActive: true,
+          isHidden: tool.hidden === true,
           processingType: tool.processingType,
         },
       },

@@ -11,6 +11,7 @@ const toolSchema = new mongoose.Schema({
   isFeatured: { type: Boolean, default: false },
   isNew: { type: Boolean, default: true },
   isActive: { type: Boolean, default: true },
+  isHidden: { type: Boolean, default: false },
   processingType: { type: String, enum: ['client', 'server'], default: 'client' },
 }, { timestamps: true });
 
