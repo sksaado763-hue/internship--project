@@ -5,7 +5,6 @@ import { ThemeProvider } from './context/ThemeContext.jsx';
 import { FavoritesProvider } from './context/FavoritesContext.jsx';
 
 
-const HomePage = lazy(() => import('./pages/HomePage.jsx'));
 const ToolsPage = lazy(() => import('./pages/ToolsPage.jsx'));
 const ToolPage = lazy(() => import('./pages/ToolPage.jsx'));
 const AboutPage = lazy(() => import('./pages/AboutPage.jsx'));
@@ -46,7 +45,7 @@ export default function App() {
           <Suspense fallback={<RouteFallback />}>
             <ScrollToTop />
             <Routes>
-              <Route path="/" element={<HomePage searchTerm={searchTerm} onSearchTermChange={setSearchTerm} onSearchSubmit={submitSearch} />} />
+              <Route path="/" element={<ToolsPage onSearchTermChange={setSearchTerm} />} />
               <Route path="/tools" element={<ToolsPage onSearchTermChange={setSearchTerm} />} />
               <Route path="/all-tools" element={<ToolsPage defaultCategory="AI & Smart Generators" onSearchTermChange={setSearchTerm} />} />
               <Route path="/about" element={<AboutPage />} />
